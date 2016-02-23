@@ -1,0 +1,29 @@
+* Undo-tree
+
+- Replace standard Emacs' undo system with the undo-tree system
+- Display diff by default
+- Exit undo-tree-visualiser when the RETURN key is pressed 
+
+#+BEGIN_SRC emacs-lisp
+(use-package undo-tree
+  :init (global-undo-tree-mode t)
+  :defer t
+  :config
+  (progn
+    (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
+
+    ;; When non-nil, display diff by default in undo-tree visualizer.
+    ;;
+    ;; Note: The diff display can be toggled on or off using 'd',
+    ;;       regardless of the setting of this variable.
+    (setq undo-tree-visualizer-diff t)
+
+    ;; Exit undo-tree when the RETURN key is pressed.
+    (define-key undo-tree-visualizer-mode-map (kbd "RET") 'undo-tree-visualizer-quit)
+  )
+)
+#+END_SRC
+
+
+
+
