@@ -22,6 +22,11 @@
 (load-org-config "init-undo-tree.org")
 #+end_src
 
+- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]] :: Configure backups and auto-save
+#+begin_src emacs-lisp :exports none
+(load-org-config "init-backup.org")
+#+end_src
+
 * Formatting
 
 - [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]] :: Configure whitespace management

@@ -1,0 +1,77 @@
+* Backup and auto-save
+
+Create backup~ and #auto-save# files? Non-nil means:
+- make a backup of a file the first time it is saved
+- by default do auto-saving of every file-visiting buffer
+#+BEGIN_SRC emacs-lisp
+(setq make-backup-files  t)
+(setq auto-save-default  t)
+#+END_SRC
+
+Define location for backups and auto saves.
+#+BEGIN_SRC emacs-lisp
+(defvar user-backup-directory (concat user-emacs-directory "backup"))
+(defvar user-auto-save-directory (concat user-emacs-directory "auto-save"))
+#+END_SRC
+
+** Backup
+
+Place all backup~ files in one directory.
+#+BEGIN_SRC emacs-lisp
+(make-directory user-backup-directory t)
+(setq backup-directory-alist `(("." . ,user-backup-directory)))
+#+END_SRC
+
+Always use copying to create backups.
+#+BEGIN_SRC emacs-lisp
+(setq backup-by-copying t)
+#+END_SRC
+
+Delete excess backup versions silently.
+#+BEGIN_SRC emacs-lisp
+(setq delete-old-versions t)
+#+END_SRC
+
+Control use of version numbers for backup files.
+#+BEGIN_SRC emacs-lisp
+(setq version-control t)
+#+END_SRC
+
+Number of oldest versions to keep when a new numbered backup is made
+(default 2).
+#+BEGIN_SRC emacs-lisp
+(setq kept-old-versions 10)
+#+END_SRC
+
+Number of newest versions to keep when a new numbered backup is made.
+Includes the new backup.  Must be > 0 (default 2).
+#+BEGIN_SRC emacs-lisp
+(setq kept-new-versions 10)
+#+END_SRC
+
+Do not backup files covered by version control.
+#+BEGIN_SRC emacs-lisp
+(setq vc-make-backup-files nil)
+#+END_SRC
+
+** Auto-save
+
+Place all #auto-save# files in one directory.
+#+BEGIN_SRC emacs-lisp
+(make-directory user-auto-save-directory t)
+(setq auto-save-file-name-transforms `((".*" ,user-auto-save-directory t)))
+#+END_SRC
+
+Number of seconds idle time before auto-save. Zero or nil means
+disable auto-saving due to idleness. After auto-saving due to this
+many seconds of idle time, Emacs also does a garbage collection if
+that seems to be warranted (default: 30).
+#+BEGIN_SRC emacs-lisp
+(setq auto-save-timeout 30)
+#+END_SRC
+
+Number of input events between auto-saves.  Zero means disable
+autosaving due to number of characters typed (default: 300).
+#+BEGIN_SRC emacs-lisp
+(setq auto-save-interval 300)
+#+END_SRC
