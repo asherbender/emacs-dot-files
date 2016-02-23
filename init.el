@@ -1,3 +1,7 @@
+;; Enable debugging during initialisation (disable at end).
+(setq debug-on-error t)
+(setq debug-on-quit t)
+
 ;; Keep track of loading time.
 (defconst emacs-start-time (current-time))
 
@@ -49,3 +53,6 @@
 					  emacs-start-time))))
   (message "Loading settings...done (%.3fs)" elapsed))
 
+;; Turn off debugging after initialisation.
+(setq debug-on-error nil)
+(setq debug-on-quit nil)
