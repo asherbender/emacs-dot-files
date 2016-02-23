@@ -1,0 +1,43 @@
+* Global map
+
+By default the command to exit Emacs temporarily is "C-z". Rebind
+"C-z" to the undo command. To exit Emacs temporarily ("suspend") use
+"C-x C-z" instead. Note that in the most common shells, the 'fg'
+command or '%emacs' will resume Emacs.
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\C-z" 'undo)
+#+END_SRC
+
+By default the 'goto' command is bound to "M-g g".
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\M-g" 'goto-line)
+#+END_SRC
+
+By default the 'set-fill-column' command is bound to "C-x f"
+#+BEGIN_SRC emacs-lisp
+(global-set-key (read-kbd-macro "C-x f") 'find-file-at-point)
+#+END_SRC
+
+By default the 'toggle-input-method' is bound to "M-\". Complement the
+'delete-horizontal-space' function with 'just-one-space'.
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-\\") 'just-one-space)
+#+END_SRC
+
+Allow faster access to register commands with less awkward key
+strokes. Redefine jump/point-to-register commands to work without
+specifying a register. This is designed to allow a user to jump around
+the current buffer. Consider [[http://www.emacswiki.org/emacs/quick-jump.el][quick-jump.el]]
+
+NOTE: the default register commands have not been tampered with:
+   <C-x r SPC> Save position of point in register (point-to-register).
+   <C-x r j>   Jump to position saved in register (jump-to-register).
+#+BEGIN_SRC emacs-lisp
+(defun set-jump-register-here ()
+  (interactive)
+  (message "Setting jump point")
+  (point-to-register ?h)
+)
+(global-set-key (kbd "C-x ,") 'set-jump-register-here)
+(global-set-key (kbd "C-x .") '(lambda() (interactive) (jump-to-register  ?h)))
+#+END_SRC

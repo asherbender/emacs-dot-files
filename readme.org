@@ -1,6 +1,7 @@
 #+TITLE: Emacs configuration
 
 
-- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-appearance.org][General]] :: Basic user interface settings
-- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]    :: Configure undo system
+- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-appearance.org][General]]    :: Basic user interface settings
+- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-global-map.org][Global map]] :: Modifications to global key map
+- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]       :: Configure undo system
 
