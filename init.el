@@ -8,6 +8,10 @@
 ;; Define location of configuration directory.
 (defconst config-directory (concat user-emacs-directory "config/"))
 
+;; Define column and tab widths.
+(defconst default-column-width   80)
+(defconst default-code-tab-width 4 )
+
 ;; Initalize all ELPA packages.
 (require 'package)
 

@@ -1,0 +1,77 @@
+* White space
+
+- Display whitespace primarily on overlength lines and TABS
+- Simplify whitespace visualisations to prevent distractions
+- Remove whitespace when a file is saved
+
+Toggle whitespace visualization globally (do not display in mode-line).
+#+BEGIN_SRC emacs-lisp
+(global-whitespace-mode 1)
+(diminish 'global-whitespace-mode "")
+#+END_SRC
+
+** Configuration
+
+Specify which kind of blank is visualized:
+- face :: enable visualization via faces.
+- empty :: highlight empty lines at beginning and/or end of buffer.
+- tabs :: highlight TAB space.
+- tab-mark :: mark beginning of TAB.
+- trailing :: highlight trailing blanks.
+- lines-tail :: highlight the part of line which goes beyond
+                `whitespace-line-column'.
+
+#+BEGIN_SRC emacs-lisp
+(setq whitespace-style '(face
+                         empty
+                         tabs
+                         tab-mark
+                         trailing
+                         lines-tail))
+#+END_SRC
+
+
+Exclude modes from whitespace visualisation.
+#+BEGIN_SRC emacs-lisp
+(setq whitespace-global-modes '(not eshell-mode
+                                    shell-mode
+                                    dired-mode
+                                    org-mode)
+)
+#+END_SRC
+
+Delete all trailing whitespace across the current buffer before
+saving.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
+
+** Appearance
+
+Specify column beyond which the line is highlighted.
+#+BEGIN_SRC emacs-lisp
+(setq whitespace-line-column default-column-width)
+#+END_SRC
+
+Highlight tab characters in yellow.
+#+BEGIN_SRC emacs-lisp
+(set-face-attribute 'whitespace-tab nil
+                    :background "yellow"
+                    :weight 'bold)
+#+END_SRC
+
+Highlight trailing whitespace in yellow.
+#+BEGIN_SRC emacs-lisp
+(set-face-attribute 'whitespace-line nil
+                    :background "yellow"
+                    :foreground "white"
+                    :weight 'bold)
+#+END_SRC
+
+Highlight the part of lines which goes beyond ‘whitespace-line-column’
+column in yellow.
+#+BEGIN_SRC emacs-lisp
+(set-face-attribute 'whitespace-trailing nil
+                    :background "yellow"
+                    :weight 'bold)
+#+END_SRC

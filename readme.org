@@ -15,3 +15,7 @@
 (load-org-config "init-undo-tree.org")
 #+end_src
 
+- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]] :: Configure whitespace management
+#+begin_src emacs-lisp :exports none
+(load-org-config "init-whitespace.org")
+#+end_src
