@@ -1,0 +1,9 @@
+#+TITLE: Emacs configuration
+#+OPTIONS: toc:4 h:4
+
+* [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-appearance.org][Appearance]]
+
+#+INCLUDE: "./config/init-appearance.org"
+#+begin_src emacs-lisp
+(load-org-config "init-appearance.org")
+#+end_src

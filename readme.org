@@ -1,0 +1,5 @@
+#+TITLE: Emacs configuration
+
+* Appearance
+- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-appearance.org][General]] :: Basic user interface settings
+
