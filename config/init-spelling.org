@@ -5,16 +5,6 @@
 
 ** Spelling program
 
-Ispell, Aspell and Hunspell use two dictionaries together for spell
-checking: the standard dictionary and your private dictionary. The
-standard dictionary is specified by ispell-local-dictionary or, if
-nil, by ispell-dictionary. If both are nil the default dictionary is
-selected. The command M-x ispell-change-dictionary sets the standard
-dictionary for the buffer and then restarts the subprocess, so that it
-will use a different standard dictionary.  Personal dictionary is
-specified by ispell-personal-dictionary. If nil, default value is
-used.
-
 Set spelling program.
 #+BEGIN_SRC emacs-lisp
 (setq ispell-program-name (executable-find "aspell"))

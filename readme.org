@@ -1,10 +1,23 @@
 #+TITLE: Emacs configuration
 
+This [[https://github.com/asherbender/emacs-dot-files][repository]] simultaneously contains and documents my [[https://www.gnu.org/software/emacs/][GNU Emacs]]
+configuration using the [[http://orgmode.org/worg/org-contrib/babel/intro.html#literate-emacs-init][literate initialisation]] style. The
+configuration is written using org-mode and executed using
+=org-babel-load-file=. The [[https://github.com/asherbender/emacs-dot-files/blob/master/init.el][init.el]] file is only used to boot-strap the
+process.
+
+The main aims and features of this configuration are:
+
+- Literate programming paradigm via by Org-mode [[http://orgmode.org/worg/org-contrib/babel/][Babel]]
+- Configuration simultaneously versioned and documented on GitHub
+- Manage package installation and updates with [[https://github.com/jwiegley/use-package][use-package]]
+- Modular configuration
+
 * Frames and Graphical Displays
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-appearance.org][General]]      | Basic user interface settings       |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-line-column.org][Line numbers]] | Configure line and column numbering |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-global-map.org][Global map]]   | Modifications to global key map     |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-appearance.org][General]]      | Basic user interface settings          |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-line-column.org][Line numbers]] | Line and column numbering              |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-global-map.org][Global map]]   | Define modifications to global key map |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-appearance.org")
@@ -20,7 +33,7 @@
 
 * Saving Files
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]] | Configure backups and auto-save |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]] | Configure backup~ and #auto-save# management |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-backup.org")
@@ -28,8 +41,8 @@
 
 * Correction
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]] | Configure spelling    |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]     | Configure undo system |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]] | Spelling program and on-the-fly spell checking |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]     | Configure undo system                          |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-spelling.org")
@@ -41,7 +54,7 @@
 
 * Formatting
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]] | Configure whitespace management |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]] | Whitespace management |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-whitespace.org")
@@ -49,8 +62,8 @@
 
 * Programming
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]] | Configure settings for python development |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-magit.org][Magit]]  | Configure magit interface                 |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]] | Configurations for python development |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-magit.org][Magit]]  | Configurations for (ma)git interface  |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-python.org")
