@@ -61,56 +61,56 @@ pip install yapf
 ** Configuration
 
 #+BEGIN_SRC emacs-lisp
-  (use-package elpy
-    :commands elpy-enable
-    :init (with-eval-after-load 'python (elpy-enable))
-    :config
-    (progn
+(use-package elpy
+  :init (with-eval-after-load 'python (elpy-enable))
+  :config
+  (progn
 
-      ;; Configure elpy.
-      (setq elpy-rpc-backend "jedi"
-            elpy-rpc-project-specific 't)
+    ;; Configure elpy.
+    (setq elpy-rpc-backend "jedi"
+          elpy-rpc-project-specific 't)
 
-      (when (fboundp 'flycheck-mode)
-        (setq elpy-modules (delete 'elpy-module-flymake elpy-modules))
-      )
+    ;; Prefer ipython.
+    (when (executable-find "ipython")
+          (elpy-use-ipython))
 
-      ;; Configurations loaded when pythom-mode is activated.
-      (add-hook 'python-mode-hook
-         (lambda ()
-
-           ;; Ensure 'paren' matching is enabled.
-           (show-paren-mode 1)
-
-           ;; Stop PEP8 complaints.
-           (set-fill-column 79)
-
-           ;; Set the distance between tab stops (for display of tab
-           ;; characters), in columns. NOTE: This controls the display
-           ;; width of a TAB character, and not the size of an
-           ;; indentation step.
-           (setq indent-tabs-mode nil)
-           (setq tab-width 4)
-
-           ;; Indicate the location of the fill column.
-           (turn-on-fci-mode)
-
-           ;; Turn on `flyspell-mode' for comments and strings. Use lazy mode to
-           ;; prevent autocomplete from slowing.
-           (flyspell-lazy-mode t)
-           (flyspell-prog-mode)
-
-           ;; Only auto-fill inside comments.
-           (set (make-local-variable 'comment-auto-fill-only-comments) t)
-
-           ;; Use C-n/C-p to select auto-complete candidates.
-           (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
-           (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
-         )
-      )
-
-      ;; Hide highlight indentation mode line symbol.
-      (eval-after-load "" '(diminish 'highlight-indentation-mode))
+    (when (fboundp 'flycheck-mode)
+      (setq elpy-modules (delete 'elpy-module-flymake elpy-modules))
     )
+
+    ;; Configurations loaded when pythom-mode is activated.
+    (add-hook 'python-mode-hook
+       (lambda ()
+
+         ;; Stop PEP8 complaints.
+         (set-fill-column 79)
+
+         ;; Set the distance between tab stops (for display of tab
+         ;; characters), in columns. NOTE: This controls the display
+         ;; width of a TAB character, and not the size of an
+         ;; indentation step.
+         (setq indent-tabs-mode nil)
+         (setq tab-width 4)
+
+         ;; Indicate the location of the fill column.
+         (turn-on-fci-mode)
+
+         ;; Turn on `flyspell-mode' for comments and strings. Use lazy mode to
+         ;; prevent autocomplete from slowing.
+         (flyspell-lazy-mode t)
+         (flyspell-prog-mode)
+
+         ;; Only auto-fill inside comments.
+         (set (make-local-variable 'comment-auto-fill-only-comments) t)
+
+         ;; Use C-n/C-p to select auto-complete candidates.
+         (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+         (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+       )
+    )
+
+    ;; Hide highlight indentation mode line symbol.
+    (eval-after-load "highlight-indentation" '(diminish 'highlight-indentation-mode))
   )
+)
 #+END_SRC
