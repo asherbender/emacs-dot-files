@@ -1,0 +1,38 @@
+* Line and column configurations
+
+- Enable line numbers
+- Display row and column on the mode line
+- Display location of the fill column
+
+** Line numbering
+
+More detail on managing line numbers can be found at [[http://www.emacswiki.org/emacs/LineNumbers][emacswiki]].
+
+#+BEGIN_SRC emacs-lisp
+(use-package linum
+  :config
+  ;; Turn on the linum mode. In linum mode each line's line number is displayed in
+  ;; the displayed in the window's left margin.
+  (global-linum-mode t)
+)
+#+END_SRC
+
+** Column configuration
+
+Toggle column number display in the mode line (Column Number mode).
+
+#+BEGIN_SRC emacs-lisp
+(column-number-mode t)
+#+END_SRC
+
+Graphically indicate the location of the fill column.
+
+#+BEGIN_SRC emacs-lisp
+(use-package fill-column-indicator
+  :defer t
+  :config
+
+  ;; Indicate the location of the fill column.
+  (fci-mode)
+)
+#+END_SRC
