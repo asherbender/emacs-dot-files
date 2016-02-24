@@ -11,8 +11,25 @@ Load AUCTeX and make it aware of style files and multi-file documents.
     :commands (latex-mode LaTeX-mode plain-tex-mode)
     :init
     (progn
-      (add-hook 'LaTeX-mode-hook #'LaTeX-preview-setup)
-      (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
+
+      ;; Hook function for embedding the preview package into
+      ;; AUCTeX. This is called by `LaTeX-mode-hook' and changes
+      ;; AUCTeX variables to add the preview functionality.
+      (add-hook 'LaTeX-mode-hook 'LaTeX-preview-setup)
+
+      ;; Turn on RefTeX mode when LaTeX is loaded.
+      (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+
+      ;; Enable minor mode for forward and inverse search.
+      (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
+
+      ;; If TeX-source-correlate-mode is active and a viewer is invoked,
+      ;; the default behavior is to ask if a server process should be
+      ;; started. Set this variable to t if the question should be
+      ;; inhibited and the server should always be started. Set it to
+      ;; nil if the server should never be started. Inverse search will
+      ;; not be available in the latter case.
+      (setq TeX-source-correlate-start-server t)
 
       ;; Automatically save style information when saving the buffer.
       (setq TeX-auto-save t)
@@ -60,6 +77,8 @@ Include additional intermediate files to remove during a call to the
      )
   )
 #+END_SRC
+
+** latexmk
 
 =latexmk= completely automates the process of generating a LaTeX
 document. Given the source files for a document, =latexmk= issues the
