@@ -10,6 +10,11 @@ Set spelling program.
 (setq ispell-program-name (executable-find "aspell"))
 #+END_SRC
 
+Ensure the ispell process starts in your home directory.
+#+BEGIN_SRC emacs-lisp
+(setq ispell-process-directory (expand-file-name "~/"))
+#+END_SRC
+
 ** Fly-spell
 
 - Turn on `flyspell-mode' for all text when a major mode for editing
@@ -27,6 +32,9 @@ Set spelling program.
           flyspell-issue-welcome-flag nil)
     (add-hook 'text-mode-hook 'flyspell-mode)
     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
+    ;; Correct errors with the right mouse button (rather than the middle).
+    '(define-key flyspell-mode-map [down-mouse-3] 'flyspell-correct-word))
   )
 )
 #+END_SRC
