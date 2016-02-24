@@ -13,7 +13,7 @@ The main aims and features of this configuration are:
 - Manage package installation and updates with [[https://github.com/jwiegley/use-package][use-package]]
 - Modular configuration
 
-* Frames and Graphical Displays
+** Frames and Graphical Displays
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-appearance.org][General]]      | Basic user interface settings          |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-line-column.org][Line numbers]] | Line and column numbering              |
@@ -31,7 +31,7 @@ The main aims and features of this configuration are:
 (load-org-config "init-global-map.org")
 #+end_src
 
-* Saving Files
+** Saving Files
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]] | Configure backup~ and #auto-save# management |
 
@@ -39,7 +39,7 @@ The main aims and features of this configuration are:
 (load-org-config "init-backup.org")
 #+end_src
 
-* Correction
+** Correction
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]] | Spelling program and on-the-fly spell checking |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]     | Configure undo system                          |
@@ -52,7 +52,7 @@ The main aims and features of this configuration are:
 (load-org-config "init-undo-tree.org")
 #+end_src
 
-* Formatting
+** Formatting
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]] | Whitespace management |
 
@@ -60,7 +60,15 @@ The main aims and features of this configuration are:
 (load-org-config "init-whitespace.org")
 #+end_src
 
-* Programming
+** Word processing
+
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-latex.org][LaTeX]] | Configurations for LaTeX development |
+
+#+begin_src emacs-lisp :exports none
+(load-org-config "init-latex.org")
+#+end_src
+
+** Programming
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]] | Configurations for python development |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-magit.org][Magit]]  | Configurations for (ma)git interface  |

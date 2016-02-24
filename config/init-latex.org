@@ -1,0 +1,131 @@
+* LaTeX
+
+** AUCTeX
+
+Load AUCTeX and make it aware of style files and multi-file documents.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package auctex
+    :ensure t
+    :mode ("\\.tex\\'" . latex-mode)
+    :commands (latex-mode LaTeX-mode plain-tex-mode)
+    :init
+    (progn
+      (add-hook 'LaTeX-mode-hook #'LaTeX-preview-setup)
+      (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
+
+      ;; Automatically save style information when saving the buffer.
+      (setq TeX-auto-save t)
+
+      ;; Parse file after loading it if no style hook is found for it.
+      (setq TeX-parse-self t)
+
+      ;; If non-nil, ask user for permission to save files before
+      ;; starting TeX.
+      (setq TeX-save-query nil)
+
+      ;; Non-nil if Tex-Pdf mode is enabled.
+      (setq TeX-PDF-mode t)
+
+      ;; Non-nil if Tex-Pdf mode is enabled. If this variable is nil,
+      ;; AUCTeX will query you for the name.
+      (setq-default TeX-master nil)
+
+      ;; If non-nil, ask before deleting files.
+      (setq TeX-clean-confirm nil)
+    )
+  )
+#+END_SRC
+
+Include additional intermediate files to remove during a call to the
+'Clean' command.
+
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load 'latex
+    '(setq LaTeX-clean-intermediate-suffixes
+       (append LaTeX-clean-intermediate-suffixes (list "\\.acn"
+                                                       "\\.acnh"
+                                                       "\\.acr"
+                                                       "\\.acrh"
+                                                       "\\.alg"
+                                                       "\\.algh"
+                                                       "\\.ist"
+                                                       "\\.glg"
+                                                       "\\.sbl"
+                                                       "\\.slg"
+                                                       "\\.sym"
+                                                       "\\.fdb_latexmk"
+                                                 )
+       )
+     )
+  )
+#+END_SRC
+
+=latexmk= completely automates the process of generating a LaTeX
+document. Given the source files for a document, =latexmk= issues the
+appropriate sequence of commands to generate a =.dvi=, =.ps=, =.pdf=
+or hard­copy version of the document. [[[http://ctan.org/pkg/latexmk][CTAN]]]
+
+Enable =latexmk= in AUCTeX
+
+#+BEGIN_SRC emacs-lisp
+  (use-package auctex-latexmk
+    :defer t
+    :init
+    (progn
+      ;; If non-nil add -pdf flag to latexmk when `TeX-PDF-mode' is
+      ;; active.
+      (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+
+      ;; Add LatexMk command to TeX-command-list.
+      (with-eval-after-load 'tex (auctex-latexmk-setup))
+    )
+  )
+#+END_SRC
+
+** RefTeX
+
+RefTeX contains code to interface with AUCTeX. When this interface is
+turned on, both packages will interact closely. Instead of using
+RefTeX's commands directly, you can then also use them indirectly as
+part of the AUCTeX environment. [[[https://www.gnu.org/software/emacs/manual/html_node/reftex/AUCTeX_002dRefTeX-Interface.html#AUCTeX_002dRefTeX-Interface][doc]]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package reftex
+    :commands turn-on-reftex
+    :init
+    (progn
+      ;; Plug into AUCTeX.
+      (setq reftex-plug-into-AUCTeX t)
+
+      ;; List of reference styles to be activated by default.
+      (setq reftex-ref-style-default-list '("Cleveref"
+                                            "Hyperref"
+                                            "Fancyref"
+                                            "Default"))
+
+      ;; Non-nil means, initially turn automatic viewing of crossref
+      ;; info on. Automatic viewing of crossref info normally uses the
+      ;; echo area. Whenever point is idle for more than
+      ;; `reftex-idle-time' seconds on the argument of a \ref or \cite
+      ;; macro, and no other message is being displayed, the echo area
+      ;; will display information about that cross reference. You can
+      ;; also set the variable to the symbol `window'. In this case a
+      ;; small temporary window is used for the display.
+      (setq reftex-auto-view-crossref t)
+
+      ;; Time (secs) Emacs has to be idle before automatic crossref
+      ;; display is done.
+      (setq reftex-idle-time 0.5)
+
+      ;; Non-nil means, `reftex-reference' will try to guess the label
+      ;; type.  To do that, RefTeX will look at the word before the
+      ;; cursor and compare it with the words given in
+      ;; `reftex-label-alist'.  When it finds a match, RefTeX will
+      ;; immediately offer the correct label menu - otherwise it will
+      ;; prompt you for a label type.  If you set this variable to nil,
+      ;; RefTeX will always prompt.
+      (setq reftex-guess-label-type nil)
+    )
+  )
+#+END_SRC

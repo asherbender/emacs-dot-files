@@ -34,7 +34,7 @@ Ensure the ispell process starts in your home directory.
     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
     ;; Correct errors with the right mouse button (rather than the middle).
-    '(define-key flyspell-mode-map [down-mouse-3] 'flyspell-correct-word))
+    '(define-key flyspell-mode-map [down-mouse-3] 'flyspell-correct-word)
   )
 )
 #+END_SRC

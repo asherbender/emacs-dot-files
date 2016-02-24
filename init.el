@@ -37,7 +37,8 @@
 ;; Boot-strap and load use-package if it does not exist.
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
-  (package-install 'use-package))
+  (package-install 'use-package)
+)
 (setq use-package-verbose t)
 (require 'use-package)
 
@@ -53,12 +54,15 @@
 
 ;; Load the configuration.
 (require 'org)
-(org-babel-load-file (concat user-emacs-directory "readme.org"))
+(org-babel-load-file (concat user-emacs-directory "readme.org")) 
 
 ;; Message how long it took to load everything (minus packages).
 (let ((elapsed (float-time (time-subtract (current-time)
-                                           emacs-start-time))))
-  (message "Loading settings...done (%.3fs)" elapsed))
+                                           emacs-start-time))
+               )
+      )
+  (message "Loading settings...done (%.3fs)" elapsed)
+)
 
 ;; Turn off debugging after initialisation.
 (setq debug-on-error nil)
