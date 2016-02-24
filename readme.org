@@ -1,6 +1,6 @@
 #+TITLE: Emacs configuration
 
-* Interface
+* Frames and Graphical Displays
 
 - [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-appearance.org][General]] :: Basic user interface settings
 #+begin_src emacs-lisp :exports none
@@ -17,19 +17,23 @@
 (load-org-config "init-line-column.org")
 #+end_src
 
-- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]] :: Configure undo system
-#+begin_src emacs-lisp :exports none
-(load-org-config "init-undo-tree.org")
-#+end_src
+* Saving Files
 
 - [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]] :: Configure backups and auto-save
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-backup.org")
 #+end_src
 
+* Correction
+
 - [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]] :: Configure spelling
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-spelling.org")
+#+end_src
+
+- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]] :: Configure undo system
+#+begin_src emacs-lisp :exports none
+(load-org-config "init-undo-tree.org")
 #+end_src
 
 * Formatting
