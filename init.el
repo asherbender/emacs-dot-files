@@ -57,7 +57,7 @@
 
 ;; Message how long it took to load everything (minus packages).
 (let ((elapsed (float-time (time-subtract (current-time)
-					  emacs-start-time))))
+                                           emacs-start-time))))
   (message "Loading settings...done (%.3fs)" elapsed))
 
 ;; Turn off debugging after initialisation.

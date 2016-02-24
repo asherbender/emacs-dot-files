@@ -1,0 +1,86 @@
+* Magit
+
+** Commit messages
+
+Good commit hygiene also includes how commit messages are created. A
+good commit message will effectively communicate your changes to
+collaborators. Concise yet descriptive messages are important when
+viewing the commit history. Good commit messages contain:
+
+    1. A short description (soft limit of 50 characters) of the commit
+       on the first line. The first line should ~not~ not be
+       terminated by a full stop. The first line is often prefixed
+       with the main location of development.
+
+    2. A blank line.
+
+    3. A more detailed description of the commit wrapped to 72
+       characters.
+
+An example of a good commit message is included from the [[http://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project][git
+documentation]]:
+
+#+BEGIN_EXAMPLE
+    Short (50 chars or less) summary of changes
+
+    More detailed explanatory text, if necessary.  Wrap it to
+    about 72 characters or so.  In some contexts, the first
+    line is treated as the subject of an email and the rest of
+    the text as the body.  The blank line separating the
+    summary from the body is critical (unless you omit the body
+    entirely); tools like rebase can get confused if you run
+    the two together.
+
+    Further paragraphs come after blank lines.
+
+      - Bullet points are okay, too
+
+      - Typically a hyphen or asterisk is used for the bullet,
+        preceded by a single space, with blank lines in
+        between, but conventions vary here
+#+END_EXAMPLE
+
+** Configuration
+
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :defer t
+  :config
+  (progn
+
+    ;; Unconditionally turn on Flyspell mode.  Also prevent comments
+    ;; from being checked and finally check current non-comment
+    ;; text.
+    (git-commit-turn-on-flyspell)
+
+    ;; Maximum length of summary line.
+    (setq git-commit-summary-max-length 50)
+
+    ;; Wrap text to 72 characters.
+    (setq git-commit-fill-column 72)
+
+    ;; Do not warn user of commit style violations. Syntax
+    ;; highlighting of violations will remain.
+    ;;
+    ;; Note: This is not a particularly elegant solution!
+    ;;
+    (setq git-commit-finish-query-functions
+          (delete 'git-commit-check-style-conventions
+                  git-commit-finish-query-functions)
+    )
+
+    ;; Create buffer local faces.
+    (add-hook 'git-commit-mode-hook
+      (lambda ()
+
+        ;; TAB face.
+        (copy-face 'whitespace-tab 'git-commit-whitespace-tab)
+    	  (set-face-attribute 'git-commit-whitespace-tab nil
+    			      :background "white")
+        (set (make-local-variable 'whitespace-tab)
+             'git-commit-whitespace-tab)
+    	)
+    )
+  )
+)
+#+END_SRC
