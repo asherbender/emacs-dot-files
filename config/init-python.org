@@ -1,0 +1,116 @@
+* Python
+
+Python editing has been configured to allow the following:
+
+- Completion ([[https://github.com/jorgenschaefer/elpy][elpy]])
+- Syntax checking ([[https://github.com/jorgenschaefer/elpy][elpy]])
+- Documentation ([[https://github.com/jorgenschaefer/elpy][elpy]])
+- Indicate the location of the fill column
+- Spell check comments
+- Auto-fill comments
+
+** Installation
+
+This configuration relies on the [[https://github.com/jorgenschaefer/elpy][elpy]] package. Before using the elpy
+package install the following:
+
+#+BEGIN_SRC sh
+pip install jedi
+pip install flake8
+pip install importmagic
+pip install autopep8
+pip install yapf
+#+END_SRC
+
+** Keybindings
+
+| key       | binding                               |
+| C-down    | elpy-nav-forward-block                |
+| C-left    | elpy-nav-backward-indent              |
+| C-return  | elpy-shell-send-current-statement     |
+| C-right   | elpy-nav-forward-indent               |
+| C-up      | elpy-nav-backward-block               |
+| M-down    | elpy-nav-move-line-or-region-down     |
+| M-left    | elpy-nav-indent-shift-left            |
+| M-right   | elpy-nav-indent-shift-right           |
+| M-up      | elpy-nav-move-line-or-region-up       |
+| S-return  | elpy-open-and-indent-line-below       |
+| C-x 4     | Prefix Command                        |
+| C-M-i     | elpy-company-backend                  |
+| M-.       | elpy-goto-definition                  |
+| C-c C-b   | elpy-nav-expand-to-indentation        |
+| C-c C-c   | elpy-shell-send-region-or-buffer      |
+| C-c C-d   | elpy-doc                              |
+| C-c C-e   | elpy-multiedit-python-symbol-at-point |
+| C-c C-f   | elpy-find-file                        |
+| C-c RET   | elpy-importmagic-add-import           |
+| C-c C-n   | elpy-flymake-next-error               |
+| C-c C-o   | elpy-occur-definitions                |
+| C-c C-p   | elpy-flymake-previous-error           |
+| C-c C-r   | Prefix Command                        |
+| C-c C-s   | elpy-rgrep-symbol                     |
+| C-c C-t   | elpy-test                             |
+| C-c C-v   | elpy-check                            |
+| C-c C-z   | elpy-shell-switch-to-shell            |
+| C-x 4 ESC | Prefix Command                        |
+| C-c C-r f | elpy-format-code                      |
+| C-c C-r i | elpy-importmagic-fixup                |
+| C-c C-r r | elpy-refactor                         |
+| C-x 4 M-. | elpy-goto-definition-other-window     |
+
+** Configuration
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elpy
+    :commands elpy-enable
+    :init (with-eval-after-load 'python (elpy-enable))
+    :config
+    (progn
+
+      ;; Configure elpy.
+      (setq elpy-rpc-backend "jedi"
+            elpy-rpc-project-specific 't)
+
+      (when (fboundp 'flycheck-mode)
+        (setq elpy-modules (delete 'elpy-module-flymake elpy-modules))
+      )
+
+      ;; Configurations loaded when pythom-mode is activated.
+      (add-hook 'python-mode-hook
+         (lambda ()
+
+           ;; Ensure 'paren' matching is enabled.
+           (show-paren-mode 1)
+
+           ;; Stop PEP8 complaints.
+           (set-fill-column 79)
+
+           ;; Set the distance between tab stops (for display of tab
+           ;; characters), in columns. NOTE: This controls the display
+           ;; width of a TAB character, and not the size of an
+           ;; indentation step.
+           (setq indent-tabs-mode nil)
+           (setq tab-width 4)
+
+           ;; Indicate the location of the fill column.
+           (turn-on-fci-mode)
+
+           ;; Turn on `flyspell-mode' for comments and strings. Use lazy mode to
+           ;; prevent autocomplete from slowing.
+           (flyspell-lazy-mode t)
+           (flyspell-prog-mode)
+
+           ;; Only auto-fill inside comments.
+           (set (make-local-variable 'comment-auto-fill-only-comments) t)
+
+           ;; Use C-n/C-p to select auto-complete candidates.
+           (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+           (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+         )
+      )
+
+      ;; Hide highlight indentation mode line symbol.
+      (eval-after-load "" '(diminish 'highlight-indentation-mode))
+    )
+  )
+#+END_SRC

@@ -33,3 +33,10 @@
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-whitespace.org")
 #+end_src
+
+* Programming
+
+- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]] :: Configure settings for python development
+#+begin_src emacs-lisp :exports none
+(load-org-config "init-python.org")
+#+end_src

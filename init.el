@@ -24,8 +24,11 @@
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
 )
 
+;; Load Emacs Lisp packages, and activate them. Ensure packages are
+;; installed automatically if not already present on your system.
 (package-initialize)
 (setq package-enable-at-startup nil)
+(setq use-package-always-ensure t)
 
 (let ((elapsed (float-time (time-subtract (current-time) emacs-start-time))))
      (message "Loaded packages in %.3fs" elapsed)
