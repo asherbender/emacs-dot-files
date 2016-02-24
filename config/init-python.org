@@ -23,7 +23,8 @@ pip install yapf
 
 ** Keybindings
 
-| key       | binding                               |
+| Key       | Binding                               |
+|-----------+---------------------------------------|
 | C-down    | elpy-nav-forward-block                |
 | C-left    | elpy-nav-backward-indent              |
 | C-return  | elpy-shell-send-current-statement     |

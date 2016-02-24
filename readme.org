@@ -2,55 +2,60 @@
 
 * Frames and Graphical Displays
 
-- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-appearance.org][General]] :: Basic user interface settings
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-appearance.org][General]]      | Basic user interface settings       |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-line-column.org][Line numbers]] | Configure line and column numbering |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-global-map.org][Global map]]   | Modifications to global key map     |
+
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-appearance.org")
 #+end_src
 
-- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-global-map.org][Global map]] :: Modifications to global key map
-#+begin_src emacs-lisp :exports none
-(load-org-config "init-global-map.org")
-#+end_src
-
-- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-line-column.org][Line numbers]] :: Configure line and column numbering
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-line-column.org")
 #+end_src
 
+#+begin_src emacs-lisp :exports none
+(load-org-config "init-global-map.org")
+#+end_src
+
 * Saving Files
 
-- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]] :: Configure backups and auto-save
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]] | Configure backups and auto-save |
+
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-backup.org")
 #+end_src
 
 * Correction
 
-- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]] :: Configure spelling
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]] | Configure spelling    |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]     | Configure undo system |
+
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-spelling.org")
 #+end_src
 
-- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]] :: Configure undo system
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-undo-tree.org")
 #+end_src
 
 * Formatting
 
-- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]] :: Configure whitespace management
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]] | Configure whitespace management |
+
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-whitespace.org")
 #+end_src
 
 * Programming
 
-- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]] :: Configure settings for python development
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]] | Configure settings for python development |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-magit.org][Magit]]  | Configure magit interface                 |
+
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-python.org")
 #+end_src
 
-- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-magit.org][Magit]] :: Configure magit interface
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-magit.org")
 #+end_src

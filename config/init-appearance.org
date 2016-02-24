@@ -1,5 +1,7 @@
 * Frames and Graphical Displays
 
+** User interface
+
 This variable, if non-nil, inhibits the startup screen. If non-nil, Emacs
 typically displays the ‘*scratch*’ buffer (see the variable
 initial-buffer-choice).
@@ -7,21 +9,19 @@ initial-buffer-choice).
 (setq inhibit-startup-screen t)
 #+END_SRC
 
-Never show tool-bar.
+Do not show tool-bar or scroll-bar on window systems.
 #+BEGIN_SRC emacs-lisp
-(tool-bar-mode -1)
+(when window-system
+  (tooltip-mode     1)
+  (tool-bar-mode   -1)
+  (menu-bar-mode    1)
+  (scroll-bar-mode -1)
+)
 #+END_SRC
 
 Alias yes-or-no questions to y-or-n
 #+BEGIN_SRC emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
-#+END_SRC
-
-Highlight the line which contains the cursor in every buffer.
-#+BEGIN_SRC emacs-lisp
-(global-hl-line-mode 1)
-(set-face-foreground 'hl-line "black")
-(set-face-background 'hl-line "yellow")
 #+END_SRC
 
 Use Global Font Lock mode to automagically turn on Font Lock mode
@@ -31,15 +31,19 @@ whose major mode is one of `font-lock-global-modes'.
 (global-font-lock-mode 1)
 #+END_SRC
 
-Highlight matching parenthesis.
-#+BEGIN_SRC emacs-lisp
-(show-paren-mode 1)
-#+END_SRC
-
 This makes the buffer scroll by only a single line when the up or down
 cursor keys push the cursor outside the buffer. The standard emacs
 behaviour is to reposition the cursor in the center of the screen, but
 this can make the scrolling confusing.
 #+BEGIN_SRC emacs-lisp
 (setq scroll-step 1)
+#+END_SRC
+
+** Cursor line
+
+Highlight the line containing the cursor in every buffer.
+#+BEGIN_SRC emacs-lisp
+(global-hl-line-mode 1)
+(set-face-foreground 'hl-line "black")
+(set-face-background 'hl-line "yellow")
 #+END_SRC
