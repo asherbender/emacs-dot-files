@@ -6,11 +6,11 @@
 
 #+BEGIN_SRC emacs-lisp
 (use-package undo-tree
+  :init (global-undo-tree-mode t)
   :defer t
   :diminish undo-tree-mode
   :config
   (progn
-    (global-undo-tree-mode t)
     (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
 
     ;; When non-nil, display diff by default in undo-tree visualizer.
