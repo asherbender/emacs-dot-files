@@ -1,4 +1,4 @@
-* General
+* Frames and Graphical Displays
 
 This variable, if non-nil, inhibits the startup screen. If non-nil, Emacs
 typically displays the ‘*scratch*’ buffer (see the variable

@@ -56,22 +56,22 @@ Specify column beyond which the line is highlighted.
 Highlight tab characters in yellow.
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'whitespace-tab nil
-                    :background "yellow"
-                    :weight 'bold)
+                    :background "yellow")
 #+END_SRC
 
 Highlight trailing whitespace in yellow.
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'whitespace-line nil
                     :background "yellow"
-                    :foreground "white"
-                    :weight 'bold)
+                    :foreground "white")
 #+END_SRC
 
 Highlight the part of lines which goes beyond ‘whitespace-line-column’
 column in yellow.
 #+BEGIN_SRC emacs-lisp
-(set-face-attribute 'whitespace-trailing nil
-                    :background "yellow"
-                    :weight 'bold)
+(set-face-attribute 'whitespace-line nil
+                    :weight 'bold
+                    :underline t
+                    :background "white"
+                    :foreground "red")
 #+END_SRC
