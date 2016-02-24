@@ -27,6 +27,11 @@
 (load-org-config "init-backup.org")
 #+end_src
 
+- [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]] :: Configure spelling
+#+begin_src emacs-lisp :exports none
+(load-org-config "init-spelling.org")
+#+end_src
+
 * Formatting
 
 - [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]] :: Configure whitespace management

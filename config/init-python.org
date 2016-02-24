@@ -6,7 +6,6 @@ Python editing has been configured to allow the following:
 - Syntax checking ([[https://github.com/jorgenschaefer/elpy][elpy]])
 - Documentation ([[https://github.com/jorgenschaefer/elpy][elpy]])
 - Indicate the location of the fill column
-- Spell check comments
 - Auto-fill comments
 
 ** Installation
@@ -85,20 +84,8 @@ pip install yapf
          ;; Stop PEP8 complaints.
          (set-fill-column 79)
 
-         ;; Set the distance between tab stops (for display of tab
-         ;; characters), in columns. NOTE: This controls the display
-         ;; width of a TAB character, and not the size of an
-         ;; indentation step.
-         (setq indent-tabs-mode nil)
-         (setq tab-width 4)
-
          ;; Indicate the location of the fill column.
          (turn-on-fci-mode)
-
-         ;; Turn on `flyspell-mode' for comments and strings. Use lazy mode to
-         ;; prevent autocomplete from slowing.
-         (flyspell-lazy-mode t)
-         (flyspell-prog-mode)
 
          ;; Only auto-fill inside comments.
          (set (make-local-variable 'comment-auto-fill-only-comments) t)

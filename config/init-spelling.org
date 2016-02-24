@@ -1,0 +1,42 @@
+* Spelling
+
+- Use [[http://aspell.net/][aspell]] for spell-checking
+- Enable on-the-fly spell checking
+
+** Spelling program
+
+Ispell, Aspell and Hunspell use two dictionaries together for spell
+checking: the standard dictionary and your private dictionary. The
+standard dictionary is specified by ispell-local-dictionary or, if
+nil, by ispell-dictionary. If both are nil the default dictionary is
+selected. The command M-x ispell-change-dictionary sets the standard
+dictionary for the buffer and then restarts the subprocess, so that it
+will use a different standard dictionary.  Personal dictionary is
+specified by ispell-personal-dictionary. If nil, default value is
+used.
+
+Set spelling program.
+#+BEGIN_SRC emacs-lisp
+(setq ispell-program-name (executable-find "aspell"))
+#+END_SRC
+
+** Fly-spell
+
+- Turn on `flyspell-mode' for all text when a major mode for editing
+  text, written for humans to read, is loaded.
+
+- Turn on `flyspell-mode' for comments and strings when a major mode
+  for editing programming language source code is loaded
+
+#+BEGIN_SRC emacs-lisp
+(use-package flyspell
+  :defer t
+  :init
+  (progn
+    (setq flyspell-issue-message-flag nil
+          flyspell-issue-welcome-flag nil)
+    (add-hook 'text-mode-hook 'flyspell-mode)
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  )
+)
+#+END_SRC
