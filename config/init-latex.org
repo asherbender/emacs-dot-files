@@ -145,6 +145,63 @@ part of the AUCTeX environment. [[[https://www.gnu.org/software/emacs/manual/htm
       ;; prompt you for a label type.  If you set this variable to nil,
       ;; RefTeX will always prompt.
       (setq reftex-guess-label-type nil)
+
+      ;; Non-nil means, use fonts in *toc* and selection buffers.
+      ;; Font-lock must be loaded as well to actually get fontified
+      ;; display. When changing this option, a rescan may be necessary
+      ;; to activate the change.
+      (setq reftex-use-fonts t)
     )
   )
+#+END_SRC
+
+** Section block
+
+Define a function for inserting a section title block.
+
+#+BEGIN_SRC emacs-lisp
+(defun insert-section-block (title)
+  "Insert a section title block."
+  (interactive "sTitle: ")
+  (let ((block-delimiter ""))
+    (dotimes (i (- fill-column 2))
+      (setq block-delimiter (concat block-delimiter "-"))
+    )
+    (insert (concat "%" block-delimiter "%\n"))
+    (insert title)
+    (center-line)
+    (beginning-of-line)
+    (delete-char 1)
+    (insert "%")
+    (end-of-line)
+    (insert (concat "\n%" block-delimiter "%\n"))
+  )
+)
+#+END_SRC
+
+Modified list of AUCTeX sectioning hooks to insert a section title
+block when a new section is inserted. Section title blocks will look
+like:
+
+#+BEGIN_EXAMPLE
+%--------------------------------------------------------------------%
+%                              <title>
+%--------------------------------------------------------------------%
+\section{<title>}
+\label{sec:title}
+#+END_EXAMPLE
+
+#+BEGIN_SRC emacs-lisp
+(setq LaTeX-section-hook
+      '(LaTeX-section-heading
+        LaTeX-section-title
+        (lambda() (insert-section-block title))
+        LaTeX-section-section
+        LaTeX-section-label
+        (lambda() (previous-line 3)
+                  (delete-char 1)
+                  (next-line 2)
+        )
+       )
+)
 #+END_SRC
