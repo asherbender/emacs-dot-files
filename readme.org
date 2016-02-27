@@ -21,13 +21,7 @@ The main aims and features of this configuration are:
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-appearance.org")
-#+end_src
-
-#+begin_src emacs-lisp :exports none
 (load-org-config "init-line-column.org")
-#+end_src
-
-#+begin_src emacs-lisp :exports none
 (load-org-config "init-global-map.org")
 #+end_src
 
@@ -35,16 +29,18 @@ The main aims and features of this configuration are:
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]] | Configure backup~ and #auto-save# management |
 
+#+begin_src emacs-lisp :exports none
+(load-org-config "init-backup.org")
+#+end_src
+
 ** Navigation
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-navigation.org][Navigation]] | Modifications to default cursor movements |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-navigation.org][Cursor]]     | Modifications to default cursor movements |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-window.org][Window]]     | Window movement and management            |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-navigation.org")
-#+end_src
-
-#+begin_src emacs-lisp :exports none
-(load-org-config "init-backup.org")
+(load-org-config "init-window.org")
 #+end_src
 
 ** Correction
@@ -52,11 +48,9 @@ The main aims and features of this configuration are:
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]] | Spelling program and on-the-fly spell checking |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]     | Configure undo system                          |
 
-#+begin_src emacs-lisp :exports none
-(load-org-config "init-spelling.org")
-#+end_src
 
 #+begin_src emacs-lisp :exports none
+(load-org-config "init-spelling.org")
 (load-org-config "init-undo-tree.org")
 #+end_src
 
@@ -83,8 +77,5 @@ The main aims and features of this configuration are:
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-python.org")
-#+end_src
-
-#+begin_src emacs-lisp :exports none
 (load-org-config "init-magit.org")
 #+end_src

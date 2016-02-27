@@ -54,7 +54,7 @@
 
 ;; Load the configuration.
 (require 'org)
-(org-babel-load-file (concat user-emacs-directory "readme.org")) 
+(org-babel-load-file (concat user-emacs-directory "readme.org"))
 
 ;; Message how long it took to load everything (minus packages).
 (let ((elapsed (float-time (time-subtract (current-time)
