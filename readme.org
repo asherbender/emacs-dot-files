@@ -35,6 +35,14 @@ The main aims and features of this configuration are:
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]] | Configure backup~ and #auto-save# management |
 
+** Navigation
+
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-navigation.org][Navigation]] | Modifications to default cursor movements |
+
+#+begin_src emacs-lisp :exports none
+(load-org-config "init-navigation.org")
+#+end_src
+
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-backup.org")
 #+end_src
