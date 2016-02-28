@@ -8,9 +8,9 @@ process.
 
 The main aims and features of this configuration are:
 
-- Literate programming paradigm via by Org-mode [[http://orgmode.org/worg/org-contrib/babel/][Babel]]
+- Literate programming paradigm via Org-mode [[http://orgmode.org/worg/org-contrib/babel/][Babel]]
 - Configuration simultaneously versioned and documented on GitHub
-- Manage package installation and updates with [[https://github.com/jwiegley/use-package][use-package]]
+- Package installation and updates managed by [[https://github.com/jwiegley/use-package][use-package]]
 - Modular configuration
 
 ** Frames and Graphical Displays
@@ -37,10 +37,12 @@ The main aims and features of this configuration are:
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-navigation.org][Cursor]]     | Modifications to default cursor movements |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-window.org][Window]]     | Window movement and management            |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-buffer.org][Buffer]]     | Buffer management                         |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-navigation.org")
 (load-org-config "init-window.org")
+(load-org-config "init-buffer.org")
 #+end_src
 
 ** Correction

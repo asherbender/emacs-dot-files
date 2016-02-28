@@ -1,0 +1,71 @@
+* Buffer management
+
+** Jump
+
+Jump to another buffer using a char-based decision tree.
+
+#+BEGIN_SRC emacs-lisp
+(use-package ace-jump-buffer)
+#+END_SRC
+
+** Swap
+
+Provide interactive functions which allow users to swap buffers in the
+current frame.
+
+#+BEGIN_SRC emacs-lisp
+(use-package buffer-move)
+#+END_SRC
+
+This allows the following:
+
+#+BEGIN_EXAMPLE
+    +--------------+-------------+      +--------------+-------------+
+    |              |             |      |              |             |
+    |    #emacs    |    #gnus    |      |    #gnus     |   .emacs    |
+    |              |             |      |              |             |
+    +--------------+-------------+ <==> +--------------+-------------+
+    |                            |      |                            |
+    |           .emacs           |      |           #emacs           |
+    |                            |      |                            |
+    +----------------------------+      +----------------------------+
+#+END_EXAMPLE
+
+** Hydra menu
+
+Group window related commands into a [[https://github.com/abo-abo/hydra][hydra]] menu:
+
+#+BEGIN_SRC emacs-lisp
+(defhydra hydra-buffer (:color pink)
+  "
+  ^Selection^       ^Swap^
+  ^^^^^^^^------------------------------------------------------------
+  _n_: next         _h_: left
+  _p_: previous     _j_: down
+  _b_: select       _k_: up
+  _a_: jump         _l_: right
+  _d_: kill
+
+  "
+  ("n" next-buffer      nil)
+  ("p" previous-window  nil)
+  ("b" switch-to-buffer nil :color blue)
+  ("a" ace-jump-buffer  nil :color blue)
+  ("d" kill-buffer      nil :color blue)
+
+  ("h" buf-move-left   nil :color red)
+  ("j" buf-move-down   nil :color red)
+  ("k" buf-move-up     nil :color red)
+  ("l" buf-move-right  nil :color red)
+
+  ("<left>"  buf-move-left  nil)
+  ("<down>"  buf-move-down  nil)
+  ("<up>"    buf-move-up    nil)
+  ("<right>" buf-move-right nil)
+
+  ("ESC" nil "quit")
+  ("SPC" nil "quit")
+  ("q" nil "quit")
+)
+(global-set-key (kbd "C-x b") 'hydra-buffer/body)
+#+END_SRC
