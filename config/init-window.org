@@ -1,11 +1,13 @@
-
 * Window management
 
-Provides interactive functions which allows users to transpose windows
-arrangement in the currently frame.
+Provide interactive functions which allow users to manipulate the
+window arrangements in the current frame.
 
 #+BEGIN_SRC emacs-lisp
-(use-package transpose-frame)
+(use-package transpose-frame
+  :config
+  (require 'windmove)
+)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -18,8 +20,6 @@ arrangement in the currently frame.
 Define splitter resize commands for hydra menu.
 
 #+BEGIN_SRC emacs-lisp
-(require 'windmove)
-
 (defun hydra-move-splitter-left (arg)
   "Move window splitter left."
   (interactive "p")
