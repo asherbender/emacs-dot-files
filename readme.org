@@ -13,6 +13,13 @@ The main aims and features of this configuration are:
 - Package installation and updates managed by [[https://github.com/jwiegley/use-package][use-package]]
 - Modular configuration
 
+#+begin_src emacs-lisp :exports none
+(use-package hydra
+  :config
+  (hydra-add-font-lock)
+)
+#+END_SRC
+
 ** Frames and Graphical Displays
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-appearance.org][General]]      | Basic user interface settings          |

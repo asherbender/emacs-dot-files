@@ -1,4 +1,3 @@
-
 ** mwim
 
 - Replace =move-beginning-of-line= with
@@ -9,8 +8,7 @@
   moves the point between the end of code (not counting a trailing
   comment) and the end of the line.
 
-#+CAPTION: mwim demo [[[https://github.com/alezost/mwim.el][source]]]
-https://github.com/alezost/mwim.el/blob/master/demo.gif
+[[https://github.com/alezost/mwim.el/blob/master/demo.gif][mwim demo]] [[[https://github.com/alezost/mwim.el][source]]]
 
 #+BEGIN_SRC emacs-lisp
 (use-package mwim

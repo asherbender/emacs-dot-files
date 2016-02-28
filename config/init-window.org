@@ -1,5 +1,25 @@
 * Window management
 
+** Window numbering
+
+#+BEGIN_SRC emacs-lisp
+(use-package window-numbering
+  :config
+  (window-numbering-mode)
+)
+#+END_SRC
+
+Set appearance of window number
+
+#+BEGIN_SRC emacs-lisp
+(set-face-attribute 'window-numbering-face nil
+                    :weight 'bold
+                    :background "gray"
+                    :foreground "black")
+#+END_SRC
+
+** Movement
+
 Provide interactive functions which allow users to manipulate the
 window arrangements in the current frame.
 
@@ -10,12 +30,20 @@ window arrangements in the current frame.
 )
 #+END_SRC
 
+** Jump
+
+Jump to another window using a char-based decision tree.
+
+[[http://oremacs.com/download/ace-window.gif][ace-window demonstration]]
+
 #+BEGIN_SRC emacs-lisp
-(use-package hydra
+(use-package ace-window
   :config
-  (hydra-add-font-lock)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 )
 #+END_SRC
+
+** Hydra menu
 
 Define splitter resize commands for hydra menu.
 
@@ -66,6 +94,7 @@ Group window related commands into a [[https://github.com/abo-abo/hydra][hydra]]
   _l_: right	   _L_: increase width        _ra_: rotate frame anti-clockwise
   _n_: next  	   _sv_: split vertically      _=_: make all same width/height
   _p_: previous    _sh_: split horizontally
+  _a_: jump
 
   _d_: delete selected                       _e_: delete all except selected
 
@@ -76,6 +105,7 @@ Group window related commands into a [[https://github.com/abo-abo/hydra][hydra]]
   ("l" windmove-right  nil :color red)
   ("n" next-window     nil)
   ("p" previous-window nil)
+  ("a" ace-window      nil :color blue)
 
   ("H" hydra-move-splitter-left   nil)
   ("J" hydra-move-splitter-down   nil)
@@ -112,23 +142,4 @@ Group window related commands into a [[https://github.com/abo-abo/hydra][hydra]]
   ("q" nil "quit")
 )
 (global-set-key (kbd "C-x w") 'hydra-window/body)
-#+END_SRC
-
-* Window numbering
-
-#+BEGIN_SRC emacs-lisp
-(use-package window-numbering
-  :config
-  (window-numbering-mode)
-)
-#+END_SRC
-
-Set appearance of window number
-
-#+BEGIN_SRC emacs-lisp
-(set-face-attribute 'window-numbering-face nil
-                    :weight 'bold
-                    :underline t
-                    :background "gray"
-                    :foreground "red")
 #+END_SRC
