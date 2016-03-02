@@ -67,5 +67,4 @@ Group window related commands into a [[https://github.com/abo-abo/hydra][hydra]]
   ("SPC" nil "quit")
   ("q" nil "quit")
 )
-(global-set-key (kbd "C-x b") 'hydra-buffer/body)
 #+END_SRC
