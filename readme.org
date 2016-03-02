@@ -13,13 +13,6 @@ The main aims and features of this configuration are:
 - Package installation and updates managed by [[https://github.com/jwiegley/use-package][use-package]]
 - Modular configuration
 
-#+begin_src emacs-lisp :exports none
-(use-package hydra
-  :config
-  (hydra-add-font-lock)
-)
-#+END_SRC
-
 ** Frames and Graphical Displays
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-general.org][General]]      | Basic user interface settings          |
@@ -45,18 +38,19 @@ The main aims and features of this configuration are:
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-navigation.org][Cursor]]     | Modifications to default cursor movements |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-window.org][Window]]     | Window movement and management            |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-buffer.org][Buffer]]     | Buffer management                         |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-hydra.org][Hydra]]      | Hydra menu definitions                    |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-navigation.org")
 (load-org-config "init-window.org")
 (load-org-config "init-buffer.org")
+(load-org-config "init-hydra.org")
 #+end_src
 
 ** Correction
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]] | Spelling program and on-the-fly spell checking |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]     | Configure undo system                          |
-
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-spelling.org")

@@ -44,76 +44,14 @@ NOTE: the default register commands have not been tampered with:
 
 ** Key chord
 
-Enable key-chords and assign a [[https://github.com/abo-abo/hydra][hydra]] menu to an infrequently used
-repeat bigram (for efficiency). Bigram text analysis by [[http://norvig.com/mayzner.html][Norvig]] shows
-that =jj= is an infrequent pair and on the home row, as shown below:
-
-| Bigram | Percentage |     Counts     |
-|--------+------------+----------------|
-|   aa   |   0.003%   |     79,794,787 |
-|   bb   |   0.011%   |    308,276,690 |
-|   cc   |   0.083%   |  2,344,219,345 |
-|   dd   |   0.043%   |  1,205,446,875 |
-|   ee   |   0.378%   | 10,647,199,443 |
-|   ff   |   0.146%   |  4,125,634,219 |
-|   gg   |   0.025%   |    697,999,944 |
-|   hh   |   0.001%   |     14,730,425 |
-|   ii   |   0.023%   |    642,384,029 |
-|   jj   |   0.000%   |      2,979,950 |
-|   kk   |   0.000%   |     12,782,664 |
-|   ll   |   0.577%   | 16,257,360,474 |
-|   mm   |   0.096%   |  2,708,822,249 |
-|   nn   |   0.073%   |  2,051,719,074 |
-|   oo   |   0.210%   |  5,928,601,045 |
-|   pp   |   0.137%   |  3,850,125,519 |
-|   qq   |   0.000%   |      1,712,219 |
-|   rr   |   0.121%   |  3,404,547,067 |
-|   ss   |   0.405%   | 11,421,755,201 |
-|   tt   |   0.171%   |  4,812,693,687 |
-|   uu   |   0.001%   |     22,006,895 |
-|   vv   |   0.000%   |      2,622,571 |
-|   ww   |   0.000%   |      7,377,619 |
-|   xx   |   0.003%   |     79,068,246 |
-|   yy   |   0.000%   |      1,993,017 |
-|   zz   |   0.003%   |     75,012,595 |
-
-(scraped from [[[http://norvig.com/mayzner.html][source]]])
+Allow commands to be bound to a combination of key-strokes.
 
 #+BEGIN_SRC emacs-lisp
 (use-package key-chord
   :init
   (progn
     (key-chord-mode 1)
-    (setq key-chord-one-key-delay 0.20)
-    (key-chord-define-global "jj" 'hydra-main/body)
+    (setq key-chord-one-key-delay 0.30)
   )
-)
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-(defhydra hydra-main (:color pink)
-  "
-  ^Navigation^   ^Hydra menus^
-  ^^^^^^^^----------------------
-  _h_: left      _w_: Window management
-  _j_: down      _b_: Buffer management
-  _k_: up
-  _a_: home
-  _e_: end
-
-  "
-  ("h" backward-char     nil :color red)
-  ("j" next-line         nil :color red)
-  ("k" previous-line     nil :color red)
-  ("l" forward-char      nil :color red)
-  ("a" beginning-of-line nil)
-  ("e" move-end-of-line  nil)
-
-  ("w" hydra-window/body nil :exit t)
-  ("b" hydra-buffer/body nil :exit t)
-
-  ("ESC" nil "quit")
-  ("SPC" nil "quit")
-  ("q" nil "quit")
 )
 #+END_SRC
