@@ -67,10 +67,12 @@ The main aims and features of this configuration are:
 
 ** Word processing
 
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-text-mode.org][Text]]  | Global configuration for text-modes  |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-latex.org][LaTeX]] | Configurations for LaTeX development |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-latex.org")
+(load-org-config "init-text-mode.org")
 #+end_src
 
 ** Programming
