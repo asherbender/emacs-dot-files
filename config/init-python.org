@@ -85,12 +85,6 @@ pip install yapf
          ;; Stop PEP8 complaints.
          (set-fill-column 79)
 
-         ;; Indicate the location of the fill column.
-         (turn-on-fci-mode)
-
-         ;; Only auto-fill inside comments.
-         (set (make-local-variable 'comment-auto-fill-only-comments) t)
-
          ;; Use C-n/C-p to select auto-complete candidates.
          (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
          (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)

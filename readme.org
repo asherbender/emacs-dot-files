@@ -67,7 +67,7 @@ The main aims and features of this configuration are:
 
 ** Word processing
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-text-mode.org][Text]]  | Global configuration for text-modes  |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-text-mode.org][Text]]  | Global configuration for text modes |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-latex.org][LaTeX]] | Configurations for LaTeX development |
 
 #+begin_src emacs-lisp :exports none
@@ -77,10 +77,12 @@ The main aims and features of this configuration are:
 
 ** Programming
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]] | Configurations for python development |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-magit.org][Magit]]  | Configurations for (ma)git interface  |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-prog-mode.org][Programming]] | Global configuration for programming modes |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]]      | Configurations for python development      |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-magit.org][Magit]]       | Configurations for (ma)git interface       |
 
 #+begin_src emacs-lisp :exports none
+(load-org-config "init-prog-mode.org")
 (load-org-config "init-python.org")
 (load-org-config "init-magit.org")
 #+end_src

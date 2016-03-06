@@ -1,0 +1,18 @@
+* Programming modes
+
+Configure universal behaviour for programming modes
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook
+   (lambda()
+     ;; Indicate the location of the fill column.
+     (turn-on-fci-mode)
+
+     ;; Only auto-fill inside comments.
+     (set (make-local-variable 'comment-auto-fill-only-comments) t)
+
+     ;; Turn on `flyspell-mode' for comments and strings.
+     (setq flyspell-prog-mode t)
+   )
+)
+#+END_SRC
