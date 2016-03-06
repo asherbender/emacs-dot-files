@@ -35,18 +35,20 @@ The main aims and features of this configuration are:
 
 ** Navigation
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-navigation.org][Cursor]]  | Modifications to default cursor movements |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-window.org][Window]]  | Window movement and management            |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-buffer.org][Buffer]]  | Buffer management                         |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-hydra.org][Hydra]]   | Hydra menu definitions                    |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-isearch.org][isearch]] | Incremental search                        |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-navigation.org][Cursor]]  | Modifications to default cursor movements      |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-isearch.org][isearch]] | Incremental search                             |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-window.org][Window]]  | Window movement and management                 |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-buffer.org][Buffer]]  | Buffer management                              |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-hydra.org][Hydra]]   | Hydra menu definitions                         |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-helm.org][Helm]]    | Incremental completion and selection framework |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-navigation.org")
+(load-org-config "init-isearch.org")
 (load-org-config "init-window.org")
 (load-org-config "init-buffer.org")
 (load-org-config "init-hydra.org")
-(load-org-config "init-isearch.org")
+(load-org-config "init-helm.org")
 #+end_src
 
 ** Word processing

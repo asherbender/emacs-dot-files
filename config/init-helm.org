@@ -1,0 +1,108 @@
+* Helm
+
+#+BEGIN_QUOTE
+Helm is incremental completion and selection narrowing framework for
+Emacs. It will help steer you in the right direction when you're
+looking for stuff in Emacs (like buffers, files, etc). [[[https://emacs-helm.github.io/helm/][source]]]
+#+END_QUOTE
+
+** Key bindings
+
+| Key         | Binding                         | Description                                                                 |
+|-------------+---------------------------------+-----------------------------------------------------------------------------|
+| M-x         | helm-M-x                        | List commands                                                               |
+| M-y         | helm-show-kill-ring             | Shows the content of the kill ring                                          |
+| C-x b       | helm-mini                       | Shows open buffers, recently opened files                                   |
+| C-x C-f     | helm-find-files                 | The helm version for find-file                                              |
+| C-s         | helm-ff-run-grep                | Run grep from within                                                        |
+| C-c h i     | helm-semantic-or-imenu          | Helm interface to semantic/imenu                                            |
+| C-c h m     | helm-man-woman                  | Jump to any man entry                                                       |
+| C-c h /     | helm-find                       | Helm interface to find                                                      |
+| C-c h l     | helm-locate                     | Helm interface to locate                                                    |
+| C-c h o     | helm-occur                      | Similar to occur                                                            |
+| C-c h d     | helm-descbinds                  |                                                                             |
+| C-c h a     | helm-apropos                    | Describes commands, functions, variables                                    |
+| C-c h h g   | helm-info-gnus                  |                                                                             |
+| C-c h h i   | helm-info-at-point              |                                                                             |
+| C-c h h r   | helm-info-emacs                 |                                                                             |
+| C-c h <tab> | helm-lisp-completion-at-point   | Provides a list of available functions                                      |
+| C-c h b     | helm-resume                     | Resumes a previous helm session                                             |
+| C-h SPC     | helm-all-mark-rings             | Views content of local and global mark rings                                |
+| C-c h r     | helm-regex                      | Visualizes regex matches                                                    |
+| C-c h x     | helm-register                   | Shows content of registers                                                  |
+| C-c h t     | helm-top                        | Helm interface to top                                                       |
+| C-c h s     | helm-surfraw                    | Command line interface to many web search engines                           |
+| C-c h g     | helm-google-suggest             | Interactively enter search terms and get results from Google in helm buffer |
+| C-c h c     | helm-color                      | Lists all available faces                                                   |
+| C-c h M-:   | helm-eval-expression-with-eldoc | Get instant results for emacs lisp expressions in the helm buffer           |
+| C-c h C-,   | helm-calcul-expression          | Helm interface to calc                                                      |
+
+** Main configuration
+
+Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm
+    :diminish ""
+    :init
+    (helm-mode 1)
+    :config
+    (progn
+      (require 'helm-config)
+
+      ;; Global limit for number of candidates displayed.  When the
+      ;; pattern is empty, the number of candidates shown will be as
+      ;; set here instead of the entire list, which may be hundreds or
+      ;; thousands. Since narrowing and filtering rapidly reduces
+      ;; available candidates, having a small list will keep the
+      ;; interface responsive.
+      (setq helm-candidate-number-limit 75)
+
+      ;; Force splitting inside selected window when non--nil.
+      (setq helm-split-window-in-side-p t)
+
+      ;; Move to end or beginning of source when reaching top or bottom of
+      ;; source. This happen when using `helm-next/previous-line' (default nil).
+      (setq helm-move-to-line-cycle-in-source t)
+
+      ;; Non-nil if Helm-Autoresize mode is enabled.
+      (helm-autoresize-mode t)
+
+      ;; Specifies a minimum height and defaults to the height of helm window's frame
+      ;; in percentage (default 10).
+      (setq helm-autoresize-min-height 10)
+
+      ;; Specifies a maximum height and defaults to the height of helm window's frame
+      ;; in percentage (default 40).
+      (setq helm-autoresize-max-height 30)
+
+      ;; The default "C-x c" is quite close to "C-x C-c", which quits
+      ;; Emacs.  Changed to "C-c h". Note: We must set "C-c h" globally,
+      ;; because we cannot change `helm-command-prefix-key' once
+      ;; `helm-config' is loaded.
+      (global-set-key (kbd "C-c h") 'helm-command-prefix)
+      (global-unset-key (kbd "C-x c"))
+
+      (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+      (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)   ; make TAB works in terminal
+      (define-key helm-map (kbd "C-z")  'helm-select-action)              ; list actions using C-z
+    )
+    :bind (("C-x b"   . helm-mini)
+           ("C-x C-f" . helm-find-files)
+           ("M-y"     . helm-show-kill-ring)
+           ("M-x"     . helm-M-x)
+           ("C-h a"   . helm-apropos)
+           ("C-c h o" . helm-occur)
+           ("C-c h g" . helm-google-suggest)
+          )
+  )
+#+END_SRC
+
+** Describe bindings
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-descbinds
+    :init (helm-descbinds-mode t)
+    :bind ("C-c h d"   . helm-descbinds)
+  )
+#+END_SRC
