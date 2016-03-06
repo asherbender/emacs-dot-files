@@ -39,6 +39,8 @@ Create a 'main' Hydra for launching other Hydra menus
 
   ("w" hydra-window/body nil :exit t)
   ("b" hydra-buffer/body nil :exit t)
+  ("g" hydra-goto/body   nil :exit t)
+  ("m" magit-status      nil :exit t)
 
   ("ESC" nil "quit")
   ("SPC" nil "quit")
@@ -188,5 +190,4 @@ Group related window commands
   ("SPC" nil "quit")
   ("q" nil "quit")
 )
-(global-set-key (kbd "C-x w") 'hydra-window/body)
 #+END_SRC

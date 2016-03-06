@@ -13,24 +13,24 @@ The main aims and features of this configuration are:
 - Package installation and updates managed by [[https://github.com/jwiegley/use-package][use-package]]
 - Modular configuration
 
-** Frames and Graphical Displays
+** General
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-general.org][General]]      | Basic user interface settings          |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-line-column.org][Line numbers]] | Line and column numbering              |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-global-map.org][Global map]]   | Define modifications to global key map |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-general.org][General]]      | Basic user interface settings                  |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-line-column.org][Line numbers]] | Line and column numbering                      |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-global-map.org][Global map]]   | Define modifications to global key map         |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]]      | Configure backup~ and #auto-save# management   |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]]     | Spelling program and on-the-fly spell checking |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]         | Configure undo system                          |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]]   | Whitespace management                          |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-general.org")
 (load-org-config "init-line-column.org")
 (load-org-config "init-global-map.org")
-#+end_src
-
-** Saving Files
-
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]] | Configure backup~ and #auto-save# management |
-
-#+begin_src emacs-lisp :exports none
 (load-org-config "init-backup.org")
+(load-org-config "init-spelling.org")
+(load-org-config "init-undo-tree.org")
+(load-org-config "init-whitespace.org")
 #+end_src
 
 ** Navigation
@@ -45,24 +45,6 @@ The main aims and features of this configuration are:
 (load-org-config "init-window.org")
 (load-org-config "init-buffer.org")
 (load-org-config "init-hydra.org")
-#+end_src
-
-** Correction
-
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]] | Spelling program and on-the-fly spell checking |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]     | Configure undo system                          |
-
-#+begin_src emacs-lisp :exports none
-(load-org-config "init-spelling.org")
-(load-org-config "init-undo-tree.org")
-#+end_src
-
-** Formatting
-
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]] | Whitespace management |
-
-#+begin_src emacs-lisp :exports none
-(load-org-config "init-whitespace.org")
 #+end_src
 
 ** Word processing
