@@ -1,0 +1,16 @@
+* Incremental search
+
+** Navigation
+
+Allow arrow keys to navigate during isearch [[[http://ergoemacs.org/emacs/emacs_isearch_by_arrow_keys.html][source]]]
+
+#+BEGIN_SRC emacs-lisp
+(progn
+  (define-key isearch-mode-map (kbd "<up>")   ' isearch-ring-retreat)
+  (define-key isearch-mode-map (kbd "<down>")  'isearch-ring-advance)
+  (define-key isearch-mode-map (kbd "<left>")  'isearch-repeat-backward)
+  (define-key isearch-mode-map (kbd "<right>") 'isearch-repeat-forward)
+  (define-key minibuffer-local-isearch-map (kbd "<left>")  'isearch-reverse-exit-minibuffer)
+  (define-key minibuffer-local-isearch-map (kbd "<right>") 'isearch-forward-exit-minibuffer)
+)
+#+END_SRC
