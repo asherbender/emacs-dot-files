@@ -39,6 +39,14 @@ this can make the scrolling confusing.
 (setq scroll-step 1)
 #+END_SRC
 
+Toggle visualization of matching parens. When enabled, any
+matching parenthesis is highlighted in `show-paren-style' after
+`show-paren-delay' seconds of Emacs idle time.
+#+BEGIN_SRC emacs-lisp
+(show-paren-mode t)
+(setq show-paren-delay 0)
+#+END_SRC
+
 ** Cursor line
 
 Highlight the line containing the cursor in every buffer.
