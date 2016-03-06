@@ -16,14 +16,14 @@ Create a 'main' Hydra for launching other Hydra menus
 #+BEGIN_SRC emacs-lisp
 (defhydra hydra-main (:color pink)
   "
-  ^Navigation^                         ^Hydra menus^
-  ^^^^^^^^------------------------------------------------------------
-  _h_/_H_: backward  char/word         _w_: Window management
-  _j_/_J_: previous  line/paragraph    _b_: Buffer management
-  _k_/_K_: next      line/paragraph
-  _l_/_L_: forward   char/word
-  _a_: home
-  _e_: end
+  ^Navigation^                       |  ^Menus^
+  ^^^^^^^^---------------------------+---------------------------------
+  _h_/_H_: backward  char/word       |  _w_: Window management
+  _j_/_J_: previous  line/paragraph  |  _b_: Buffer management
+  _k_/_K_: next      line/paragraph  |  _m_: Magit
+  _l_/_L_: forward   char/word       |
+  _a_: home                          |
+  _e_: end                           |
 
   "
   ("h" backward-char      nil :color red)
