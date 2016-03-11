@@ -10,6 +10,7 @@ looking for stuff in Emacs (like buffers, files, etc). [[[https://emacs-helm.git
 
 | Key         | Binding                         | Description                                                                 |
 |-------------+---------------------------------+-----------------------------------------------------------------------------|
+| ;           | ace-jump-helm-line              | Jump to a candidate and execute the default action.                         |
 | M-x         | helm-M-x                        | List commands                                                               |
 | M-y         | helm-show-kill-ring             | Shows the content of the kill ring                                          |
 | C-x b       | helm-mini                       | Shows open buffers, recently opened files                                   |
@@ -105,4 +106,29 @@ Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
     :init (helm-descbinds-mode t)
     :bind ("C-c h d"   . helm-descbinds)
   )
+#+END_SRC
+
+** Ace jump
+
+#+BEGIN_SRC emacs-lisp
+(use-package ace-jump-helm-line
+  :config
+  (progn
+    (eval-after-load "helm"
+      '(define-key helm-map (kbd ";") 'ace-jump-helm-line)
+    )
+
+    ;; By default select the candidate after a jump.
+    (setq ace-jump-helm-line-default-action 'select)
+
+    ;; Select instead of default action (redundant key-binding)
+    (setq ace-jump-helm-line-select-key ?e)
+
+    ;; Move instead of default action
+    (setq ace-jump-helm-line-move-only-key ?o)
+
+    ;; Persistent action instead of default action
+    (setq ace-jump-helm-line-persistent-key ?p)
+  )
+)
 #+END_SRC
