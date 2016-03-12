@@ -73,3 +73,18 @@ inserted at point regardless of any selection.
 #+BEGIN_SRC emacs-lisp
 (delete-selection-mode 1)
 #+END_SRC
+
+** Scrolling
+
+Scroll the buffer with several lines of padding around the cursor.
+This keep lines of context around the cursor visible during
+scrolling. [[https://github.com/aspiers/smooth-scrolling][smooth-scrolling]] also minimises the frequency of sudden
+scroll jumps.
+
+#+BEGIN_SRC emacs-lisp
+(use-package smooth-scrolling
+  :defer t
+  :config
+  (setq smooth-scroll-margin 5)
+)
+#+END_SRC

@@ -11,9 +11,14 @@ More detail on managing line numbers can be found at [[http://www.emacswiki.org/
 #+BEGIN_SRC emacs-lisp
 (use-package linum
   :config
-  ;; Turn on the linum mode. In linum mode each line's line number is displayed in
-  ;; the displayed in the window's left margin.
-  (global-linum-mode t)
+  (progn
+    ;; Turn on the linum mode. In linum mode each line's line number is displayed in
+    ;; the displayed in the window's left margin.
+    (global-linum-mode t)
+
+    ;; Delay updates to give Emacs a chance for other changes.
+    (setq linum-delay t)
+  )
 )
 #+END_SRC
 
