@@ -1,0 +1,13 @@
+* Code folding
+
+** Origami
+
+Origami is a text folding minor mode for Emacs. With this minor mode
+enabled, regions of text.can be collapsed and expanded. [[[https://github.com/gregsexton/origami.el][source]]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package origami
+    :init
+    (global-origami-mode)
+)
+#+END_SRC

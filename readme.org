@@ -64,11 +64,12 @@ The main aims and features of this configuration are:
 ** Programming
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-prog-mode.org][Programming]] | Global configuration for programming modes |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]]      | Configurations for python development      |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-magit.org][Magit]]       | Configurations for (ma)git interface       |
-
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-folding.org][Folding]]     | Code folding configuration                 |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]]      | Configurations for python development      |
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-prog-mode.org")
-(load-org-config "init-python.org")
 (load-org-config "init-magit.org")
+(load-org-config "init-folding.org")
+(load-org-config "init-python.org")
 #+end_src
