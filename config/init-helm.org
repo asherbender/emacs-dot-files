@@ -99,6 +99,48 @@ Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
   )
 #+END_SRC
 
+** Swoop
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-swoop
+    :bind (("M-s" . helm-swoop)
+           ("M-S" . helm-swoop-back-to-last-point))
+    :config
+    (progn
+
+      ;; When doing isearch, hand the word over to helm-swoop
+      (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
+
+      ;; From helm-swoop to helm-multi-swoop-all
+      (define-key helm-swoop-map (kbd "C-a") 'helm-multi-swoop-all-from-helm-swoop)
+
+      ;; Move up and down like isearch
+      (define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
+      (define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
+      (define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
+      (define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
+
+      ;; Save each buffer you edit when editing is complete.
+      (setq helm-multi-swoop-edit-save t)
+
+      ;; Split window when having multiple windows open.
+      (setq helm-swoop-split-with-multiple-windows nil)
+
+      ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
+      (setq helm-swoop-split-direction 'split-window-horizontally)
+
+      ;; If nil, you can slightly boost invoke speed in exchange for text color.
+      (setq helm-swoop-speed-or-color nil)
+
+      ;; Return to the opposite side of line.
+      (setq helm-swoop-move-to-line-cycle t)
+
+      ;; Use face to line numbers on helm-swoop buffer.
+      (setq helm-swoop-use-line-number-face t)
+    )
+  )
+#+END_SRC
+
 ** Describe bindings
 
 #+BEGIN_SRC emacs-lisp
