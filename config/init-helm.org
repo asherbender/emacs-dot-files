@@ -38,6 +38,7 @@ looking for stuff in Emacs (like buffers, files, etc). [[[https://emacs-helm.git
 | C-c h M-:   | helm-eval-expression-with-eldoc | Get instant results for emacs lisp expressions in the helm buffer           |
 | C-c h C-,   | helm-calcul-expression          | Helm interface to calc                                                      |
 
+
 ** Main configuration
 
 Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
@@ -46,7 +47,7 @@ Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
 (use-package helm
     :diminish ""
     :init
-    (helm-mode 1)
+    (helm-mode t)
     :config
     (progn
       (require 'helm-config)
@@ -64,7 +65,7 @@ Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
 
       ;; Move to end or beginning of source when reaching top or bottom of
       ;; source. This happen when using `helm-next/previous-line' (default nil).
-      (setq helm-move-to-line-cycle-in-source t)
+      (setq helm-move-to-line-cycle-in-source nil)
 
       ;; Non-nil if Helm-Autoresize mode is enabled.
       (helm-autoresize-mode t)
@@ -98,6 +99,7 @@ Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
           )
   )
 #+END_SRC
+
 
 ** Swoop
 
@@ -141,6 +143,7 @@ Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
   )
 #+END_SRC
 
+
 ** Describe bindings
 
 #+BEGIN_SRC emacs-lisp
@@ -149,6 +152,7 @@ Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
     :bind ("C-c h d"   . helm-descbinds)
   )
 #+END_SRC
+
 
 ** Ace jump
 
