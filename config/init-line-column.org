@@ -12,10 +12,6 @@ More detail on managing line numbers can be found at [[http://www.emacswiki.org/
 (use-package linum
   :config
   (progn
-    ;; Turn on the linum mode. In linum mode each line's line number is displayed in
-    ;; the displayed in the window's left margin.
-    (global-linum-mode t)
-
     ;; Delay updates to give Emacs a chance for other changes.
     (setq linum-delay t)
   )
