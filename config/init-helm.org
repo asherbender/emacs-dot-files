@@ -44,62 +44,61 @@ looking for stuff in Emacs (like buffers, files, etc). [[[https://emacs-helm.git
 Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
 
 #+BEGIN_SRC emacs-lisp
-(use-package helm
-    :diminish ""
-    :init
-    (helm-mode t)
-    :config
-    (progn
-      (require 'helm-config)
+  (use-package helm
+      :diminish ""
+      :init
+      (helm-mode t)
+      :config
+      (progn
+        (require 'helm-config)
 
-      ;; Global limit for number of candidates displayed.  When the
-      ;; pattern is empty, the number of candidates shown will be as
-      ;; set here instead of the entire list, which may be hundreds or
-      ;; thousands. Since narrowing and filtering rapidly reduces
-      ;; available candidates, having a small list will keep the
-      ;; interface responsive.
-      (setq helm-candidate-number-limit 75)
+        ;; Global limit for number of candidates displayed.  When the
+        ;; pattern is empty, the number of candidates shown will be as
+        ;; set here instead of the entire list, which may be hundreds or
+        ;; thousands. Since narrowing and filtering rapidly reduces
+        ;; available candidates, having a small list will keep the
+        ;; interface responsive.
+        (setq helm-candidate-number-limit 75)
 
-      ;; Force splitting inside selected window when non--nil.
-      (setq helm-split-window-in-side-p t)
+        ;; Force splitting inside selected window when non--nil.
+        (setq helm-split-window-in-side-p t)
 
-      ;; Move to end or beginning of source when reaching top or bottom of
-      ;; source. This happen when using `helm-next/previous-line' (default nil).
-      (setq helm-move-to-line-cycle-in-source nil)
+        ;; Move to end or beginning of source when reaching top or bottom of
+        ;; source. This happen when using `helm-next/previous-line' (default nil).
+        (setq helm-move-to-line-cycle-in-source nil)
 
-      ;; Non-nil if Helm-Autoresize mode is enabled.
-      (helm-autoresize-mode t)
+        ;; Non-nil if Helm-Autoresize mode is enabled.
+        (helm-autoresize-mode t)
 
-      ;; Specifies a minimum height and defaults to the height of helm window's frame
-      ;; in percentage (default 10).
-      (setq helm-autoresize-min-height 10)
+        ;; Specifies a minimum height and defaults to the height of helm window's frame
+        ;; in percentage (default 10).
+        (setq helm-autoresize-min-height 10)
 
-      ;; Specifies a maximum height and defaults to the height of helm window's frame
-      ;; in percentage (default 40).
-      (setq helm-autoresize-max-height 30)
+        ;; Specifies a maximum height and defaults to the height of helm window's frame
+        ;; in percentage (default 40).
+        (setq helm-autoresize-max-height 30)
 
-      ;; The default "C-x c" is quite close to "C-x C-c", which quits
-      ;; Emacs.  Changed to "C-c h". Note: We must set "C-c h" globally,
-      ;; because we cannot change `helm-command-prefix-key' once
-      ;; `helm-config' is loaded.
-      (global-set-key (kbd "C-c h") 'helm-command-prefix)
-      (global-unset-key (kbd "C-x c"))
+        ;; The default "C-x c" is quite close to "C-x C-c", which quits
+        ;; Emacs.  Changed to "C-c h". Note: We must set "C-c h" globally,
+        ;; because we cannot change `helm-command-prefix-key' once
+        ;; `helm-config' is loaded.
+        (global-set-key (kbd "C-c h") 'helm-command-prefix)
+        (global-unset-key (kbd "C-x c"))
 
-      (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-      (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)   ; make TAB works in terminal
-      (define-key helm-map (kbd "C-z")  'helm-select-action)              ; list actions using C-z
+        (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+        (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)   ; make TAB works in terminal
+        (define-key helm-map (kbd "C-z")  'helm-select-action)              ; list actions using C-z
+      )
+      :bind (("C-x b"   . helm-mini)
+             ("C-x C-f" . helm-find-files)
+             ("M-y"     . helm-show-kill-ring)
+             ("M-x"     . helm-M-x)
+             ("C-h a"   . helm-apropos)
+             ("C-c h o" . helm-occur)
+             ("C-c h g" . helm-google-suggest)
+            )
     )
-    :bind (("C-x b"   . helm-mini)
-           ("C-x C-f" . helm-find-files)
-           ("M-y"     . helm-show-kill-ring)
-           ("M-x"     . helm-M-x)
-           ("C-h a"   . helm-apropos)
-           ("C-c h o" . helm-occur)
-           ("C-c h g" . helm-google-suggest)
-          )
-  )
 #+END_SRC
-
 
 ** Swoop
 
