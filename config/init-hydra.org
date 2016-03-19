@@ -18,11 +18,11 @@ Create a 'main' Hydra for launching other Hydra menus
   "
   ^^Navigation^^                     | Menus
   ^^-------------------------------^^+---------------------------------
-  _h_/_H_: backward  char/word       |  _w_: Window management
-  _j_/_J_: previous  line/paragraph  |  _b_: Buffer management
-  _k_/_K_: next      line/paragraph  |  _m_: Magit
-  _l_/_L_: forward   char/word       |  _o_: Origami
-  _a_^^: home                        |
+  _h_/_H_: backward  char/word       |  _n_: Navigation
+  _j_/_J_: previous  line/paragraph  |  _w_: Window management
+  _k_/_K_: next      line/paragraph  |  _b_: Buffer management
+  _l_/_L_: forward   char/word       |  _m_: Magit
+  _a_^^: home                        |	_o_: Origami
   _e_^^: end                         |
 
   "
@@ -37,10 +37,11 @@ Create a 'main' Hydra for launching other Hydra menus
   ("a" beginning-of-line  nil)
   ("e" move-end-of-line   nil)
 
-  ("w" hydra-window/body  nil :exit t)
-  ("b" hydra-buffer/body  nil :exit t)
-  ("m" magit-status       nil :exit t)
-  ("o" hydra-origami/body nil :exit t)
+  ("n" hydra-navigation/body  nil :exit t)
+  ("w" hydra-window/body      nil :exit t)
+  ("b" hydra-buffer/body      nil :exit t)
+  ("m" magit-status           nil :exit t)
+  ("o" hydra-origami/body     nil :exit t)
 
   ("RET" nil "quit")
   ("ESC" nil "quit")
@@ -86,6 +87,61 @@ that =jj= is an infrequent pair and on the home row, as shown below:
 
 #+BEGIN_SRC emacs-lisp
 (key-chord-define-global "jj" 'hydra-main/body)
+#+END_SRC
+
+
+** Navigation Hydra
+
+#+BEGIN_SRC emacs-lisp
+(defhydra hydra-navigation (:color blue :hint nil)
+  "
+  ^^Navigation^^                 ^Search^                ^Other^
+  ^^--------------------------^^-^-----------------------^---------------------
+  _h_/_H_: backward  char/word   _o_: helm-occur         _b_: helm-mini
+  _j_/_J_: previous  line/para   _S_: helm-swoop         _f_: helm-find-files
+  _k_/_K_: next      line/para   _s_: isearch forward    _F_: helm-recent-files
+  _l_/_L_: forward   char/word   _r_: isearch backward   _W_: ace-window
+  _c_/_w_: avy goto  char/word   ^ ^
+  _a_/_e_: home/end
+  _g_^^: goto line
+  "
+
+  ;; Character
+  ("h" backward-char      nil :color red)
+  ("j" next-line          nil :color red)
+  ("k" previous-line      nil :color red)
+  ("l" forward-char       nil :color red)
+  ("c" avy-goto-char)
+
+  ;; Word
+  ("H" backward-word      nil :color red)
+  ("J" forward-paragraph  nil :color red)
+  ("K" backward-paragraph nil :color red)
+  ("L" forward-word       nil :color red)
+  ("w" avy-goto-word-1)
+
+  ("g" goto-line          nil)
+  ("a" beginning-of-line  nil)
+  ("e" move-end-of-line   nil)
+
+  ;; Search
+  ("o" helm-occur)
+  ("S" helm-swoop)
+  ("s" isearch-forward)
+  ("r" isearch-backward)
+
+  ;; Other
+  ("b" helm-mini)
+  ("f" helm-find-files)
+  ("F" helm-recentf)
+  ("W" ace-window)
+
+  ;; Quit
+  ("RET" nil)
+  ("ESC" nil)
+  ("SPC" nil)
+  ("q"   nil)
+)
 #+END_SRC
 
 

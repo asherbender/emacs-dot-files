@@ -85,6 +85,11 @@ Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
         (global-set-key (kbd "C-c h") 'helm-command-prefix)
         (global-unset-key (kbd "C-x c"))
 
+        ;; Provide an improved version of `push-mark'.  Modify the
+        ;; behavior of `push-mark' to update the `global-mark-ring'
+        ;; after each new visit.
+        (helm-push-mark-mode t)
+
         (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
         (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)   ; make TAB works in terminal
         (define-key helm-map (kbd "C-z")  'helm-select-action)              ; list actions using C-z
@@ -99,6 +104,7 @@ Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
             )
     )
 #+END_SRC
+
 
 ** Swoop
 
