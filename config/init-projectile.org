@@ -46,6 +46,7 @@ project just create an empty .projectile file in it. [[[https://github.com/bbats
 | C-c p q     | projectile-switch-open-project                      |
 | C-c p r     | projectile-replace                                  |
 
+
 ** Configuration
 
 #+BEGIN_SRC emacs-lisp
@@ -103,4 +104,41 @@ project just create an empty .projectile file in it. [[[https://github.com/bbats
       (setq projectile-completion-system 'helm)
     )
   )
+#+END_SRC
+
+** Hydra
+
+#+BEGIN_SRC emacs-lisp
+(defhydra hydra-project (:color blue :hint nil :idle 0.4)
+  "
+  Project: %(projectile-project-root)
+
+  File^^                      Buffer^^               Search/Replace
+  -----------------------------------------------------------------------
+  [_f_] find in project       [_b_] switch buffer    [_g_] grep
+  [_F_] find in projects      [_k_] kill buffers     [_o_] multi-occur
+  [_e_] recent file            ^ ^                   [_r_] replace string
+
+  Directory^^                 Tag^^                   Other
+  -----------------------------------------------------------------------
+  [_d_] directory in project  [_t_] find tag         [_s_] switch project
+  [_D_] root directory        [_T_] regenerate tags  [_i_] project info
+  "
+  ("a"   projectile-ag)
+  ("D"   projectile-dired)
+  ("R"   projectile-regenerate-tags)
+  ("b"   helm-projectile-switch-to-buffer)
+  ("d"   helm-projectile-find-dir)
+  ("e"   helm-projectile-recentf)
+  ("f"   helm-projectile-find-file-dwim)
+  ("F"   helm-projectile-find-file-in-known-projects)
+  ("g"   projectile-grep)
+  ("i"   projectile-project-info)
+  ("t"   projectile-find-tag)
+  ("T"   projectile-regenerate-tags)
+  ("k"   projectile-kill-buffers)
+  ("o"   projectile-multi-occur)
+  ("r"   projectile-replace)
+  ("s"   projectile-switch-project)
+)
 #+END_SRC
