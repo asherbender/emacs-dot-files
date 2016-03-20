@@ -18,6 +18,7 @@ Set appearance of window number
                     :foreground "black")
 #+END_SRC
 
+
 ** Movement
 
 Provide interactive functions which allow users to manipulate the
@@ -30,6 +31,7 @@ window arrangements in the current frame.
 )
 #+END_SRC
 
+
 ** Jump
 
 Jump to another window using a char-based decision tree.
@@ -40,5 +42,69 @@ Jump to another window using a char-based decision tree.
 (use-package ace-window
   :config
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+)
+#+END_SRC
+
+** Hydra
+
+#+BEGIN_SRC emacs-lisp
+(require 'hydra-examples)
+(defhydra hydra-window (:color pink)
+  "
+  ^Navigation^     ^Size/Splitting^           ^Arrangement^
+  ^^^^^^^^----------------------------------------------------------------------
+  _h_: left        _H_: decrease width        _fv_: flip vertically
+  _j_: down	   _J_: decrease height       _fh_: flip horizontally
+  _k_: up	   _K_: increase height       _rc_: rotate frame clockwise
+  _l_: right	   _L_: increase width        _ra_: rotate frame anti-clockwise
+  _n_: next  	   _sv_: split vertically      _=_: make all same width/height
+  _p_: previous    _sh_: split horizontally
+  _a_: jump
+
+  _d_: delete selected                       _e_: delete all except selected
+
+  "
+  ("h" windmove-left   nil :color red)
+  ("j" windmove-down   nil :color red)
+  ("k" windmove-up     nil :color red)
+  ("l" windmove-right  nil :color red)
+  ("n" next-window     nil)
+  ("p" previous-window nil)
+  ("a" ace-window      nil :color blue)
+
+  ("H" hydra-move-splitter-left   nil)
+  ("J" hydra-move-splitter-down   nil)
+  ("K" hydra-move-splitter-up     nil)
+  ("L" hydra-move-splitter-right  nil)
+  ("sv" split-window-vertically   nil)
+  ("sh" split-window-horizontally nil)
+
+  ("<left>"  windmove-left  nil)
+  ("<down>"  windmove-down  nil)
+  ("<up>"    windmove-up    nil)
+  ("<right>" windmove-right nil)
+
+  ("<S-left>"  hydra-move-splitter-left  nil)
+  ("<S-down>"  hydra-move-splitter-down  nil)
+  ("<S-up>"    hydra-move-splitter-up    nil)
+  ("<S-right>" hydra-move-splitter-right nil)
+
+  ("fv" flip-frame                  nil)
+  ("fh" flop-frame                  nil)
+  ("rc" rotate-frame-clockwise      nil)
+  ("ra" rotate-frame-anti-clockwise nil)
+  ("="  balance-windows             nil)
+
+  ("d" delete-window             nil)
+  ("e" delete-other-windows      nil)
+  ("0" delete-window             nil)
+  ("1" delete-other-windows      nil)
+  ("2" split-window-vertically   nil)
+  ("3" split-window-horizontally nil)
+
+  ("RET" nil "quit")
+  ("ESC" nil "quit")
+  ("SPC" nil "quit")
+  ("q"   nil "quit")
 )
 #+END_SRC
