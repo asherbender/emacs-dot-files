@@ -1,0 +1,106 @@
+* Projectile
+
+#+BEGIN_QUOTE
+Projectile is a project interaction library for Emacs. Its goal is to
+provide a nice set of features operating on a project level without
+introducing external dependencies (when feasible).
+
+Projectile tries to be practical - portability is great, but if some
+external tools could speed up some task substantially and the tools
+are available, Projectile will leverage them.
+
+This library provides easy project management and navigation. The
+concept of a project is pretty basic - just a folder containing
+special file. Currently git, mercurial, darcs and bazaar repos are
+considered projects by default. So are lein, maven, sbt, scons, rebar
+and bundler projects. If you want to mark a folder manually as a
+project just create an empty .projectile file in it. [[[https://github.com/bbatsov/projectile][source]]]
+#+END_QUOTE
+
+** Keybinding
+
+| Key         | Binding                                             |
+|-------------+-----------------------------------------------------|
+| C-c p       | projectile-command-map                              |
+| C-c p F     | helm-projectile-find-file-in-known-projects         |
+| C-c p I     | projectile-ibuffer                                  |
+| C-c p P     | projectile-test-project                             |
+| C-c p R     | projectile-regenerate-tags                          |
+| C-c p S     | projectile-save-project-buffers                     |
+| C-c p T     | projectile-find-test-file                           |
+| C-c p a     | helm-projectile-find-other-file                     |
+| C-c p b     | helm-projectile-switch-to-buffer                    |
+| C-c p c     | projectile-compile-project                          |
+| C-c p d     | helm-projectile-find-dir                            |
+| C-c p e     | helm-projectile-recentf                             |
+| C-c p f     | helm-projectile-find-file                           |
+| C-c p g     | helm-projectile-find-file-dwim                      |
+| C-c p h     | helm-projectile                                     |
+| C-c p i     | projectile-invalidate-cache                         |
+| C-c p j     | projectile-find-tag                                 |
+| C-c p k     | projectile-kill-buffers                             |
+| C-c p l     | projectile-find-file-in-directory                   |
+| C-c p m     | projectile-commander                                |
+| C-c p o     | projectile-multi-occur                              |
+| C-c p p     | helm-projectile-switch-project                      |
+| C-c p q     | projectile-switch-open-project                      |
+| C-c p r     | projectile-replace                                  |
+
+** Configuration
+
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :diminish projectile-mode
+    :config
+    (progn
+        (setq projectile-keymap-prefix (kbd "C-c p"))
+
+        ;; The completion system to be used by Projectile.
+        (setq projectile-completion-system 'default)
+
+        ;; When t enables project files caching.
+        ;;
+        ;; Project caching is automatically enabled by default if you're
+        ;; using the native indexing method.
+        (setq projectile-enable-caching t)
+
+        ;; There are two indexing methods - native and alien.
+        ;;
+        ;; The native method is implemented in Emacs Lisp (therefore it
+        ;; is native to Emacs).  It's advantage is that is portable and
+        ;; will work everywhere that Emacs does.  It's disadvantage is
+        ;; that is a bit slow (especially for large projects).
+        ;; Generally it's a good idea to pair the native indexing method
+        ;; with caching.
+        ;;
+        ;; The alien indexing method uses external tools (e.g. git,
+        ;; find, etc) to speed up the indexing process.  The
+        ;; disadvantage of this method is that it's not well supported
+        ;; on Windows systems.
+        ;;
+        ;; By default alien indexing is the default on all operating
+        ;; systems, except Windows.
+        (setq projectile-indexing-method 'alien)
+        (add-to-list 'projectile-globally-ignored-files "node-modules")
+    )
+    :config
+    (projectile-global-mode)
+  )
+#+END_SRC
+
+
+** Helm integration
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-projectile
+    :init
+    (helm-projectile-on)
+    :config
+    (progn
+      (setq projectile-switch-project-action 'projectile-dired)
+
+      ;; Use helm as the completion system in Projectile.
+      (setq projectile-completion-system 'helm)
+    )
+  )
+#+END_SRC

@@ -65,11 +65,13 @@ The main aims and features of this configuration are:
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-prog-mode.org][Programming]] | Global configuration for programming modes |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-git.org][Git]]         | Configurations for git interface           |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-projectile.org][Projectile]]  | Project management                         |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-folding.org][Folding]]     | Code folding configuration                 |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]]      | Configurations for python development      |
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-prog-mode.org")
 (load-org-config "init-git.org")
+(load-org-config "init-projectile.org")
 (load-org-config "init-folding.org")
 (load-org-config "init-python.org")
 #+end_src
