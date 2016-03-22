@@ -1,16 +1,25 @@
 * White space
 
+- Set fill-column and use spaces instead of tabs when indenting
 - Display whitespace primarily on overlength lines and TABS
 - Simplify whitespace visualisations to prevent distractions
 - Remove whitespace when a file is saved
+
+** Tabs
+
+#+BEGIN_SRC emacs-lisp
+(setq-default fill-column 80)
+(setq-default default-tab-width 2)
+(setq-default indent-tabs-mode nil)
+#+END_SRC
+
+** White space configuration
 
 Toggle whitespace visualization globally (do not display in mode-line).
 #+BEGIN_SRC emacs-lisp
 (global-whitespace-mode 1)
 (diminish 'global-whitespace-mode "")
 #+END_SRC
-
-** Configuration
 
 Specify which kind of blank is visualized:
 - face :: enable visualization via faces.
@@ -45,6 +54,7 @@ saving.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
+
 
 ** Appearance
 
