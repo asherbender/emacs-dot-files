@@ -21,7 +21,7 @@
 ;; packages (hot from the repo).
 (unless (assoc-default "melpa" package-archives)
   (add-to-list 'package-archives
-               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+               '("melpa" . "https://melpa.org/packages/") t)
 )
 
 ;; Load Emacs Lisp packages, and activate them. Ensure packages are
@@ -41,6 +41,7 @@
 )
 (setq use-package-verbose t)
 (require 'use-package)
+(setq use-package-always-ensure t)
 
 (defun load-org-config (file)
   "Load org-babel configuration files."
