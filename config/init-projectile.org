@@ -106,6 +106,7 @@ project just create an empty .projectile file in it. [[[https://github.com/bbats
   )
 #+END_SRC
 
+
 ** Hydra
 
 #+BEGIN_SRC emacs-lisp
@@ -115,16 +116,17 @@ project just create an empty .projectile file in it. [[[https://github.com/bbats
 
   File^^                      Buffer^^               Search/Replace
   -----------------------------------------------------------------------
-  [_f_] find in project       [_b_] switch buffer    [_g_] grep
-  [_F_] find in projects      [_k_] kill buffers     [_o_] multi-occur
-  [_e_] recent file            ^ ^                   [_r_] replace string
+  [_f_] find in project       [_b_] switch buffer    [_a_] Ack
+  [_F_] find in projects      [_k_] kill buffers     [_g_] grep
+  [_e_] recent file            ^ ^                   [_o_] multi-occur
+   ^ ^                         ^ ^                   [_r_] replace string
 
   Directory^^                 Tag^^                   Other
   -----------------------------------------------------------------------
   [_d_] directory in project  [_t_] find tag         [_s_] switch project
   [_D_] root directory        [_T_] regenerate tags  [_i_] project info
   "
-  ("a"   projectile-ag)
+  ("a"   helm-projectile-ack)
   ("D"   projectile-dired)
   ("R"   projectile-regenerate-tags)
   ("b"   helm-projectile-switch-to-buffer)
@@ -132,7 +134,7 @@ project just create an empty .projectile file in it. [[[https://github.com/bbats
   ("e"   helm-projectile-recentf)
   ("f"   helm-projectile-find-file-dwim)
   ("F"   helm-projectile-find-file-in-known-projects)
-  ("g"   projectile-grep)
+  ("g"   helm-projectile-grep)
   ("i"   projectile-project-info)
   ("t"   projectile-find-tag)
   ("T"   projectile-regenerate-tags)
