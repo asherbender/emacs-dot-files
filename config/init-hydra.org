@@ -4,6 +4,7 @@ Allow related commands to be grouped into [[https://github.com/abo-abo/hydra][hy
 
 #+begin_src emacs-lisp :exports none
 (use-package hydra
+  :ensure t
   :config
   (hydra-add-font-lock)
 )
