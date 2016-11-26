@@ -1,6 +1,6 @@
 * Programming modes
 
-Configure universal behaviour for programming modes
+Configure universal behaviour for programming modes.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook
@@ -17,6 +17,9 @@ Configure universal behaviour for programming modes
 
        ;; Turn on `flyspell-mode' for comments and strings.
        (setq flyspell-prog-mode t)
+
+       ;; Preference projectile find-file in programming modes.
+       (local-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
      )
   )
 #+END_SRC
