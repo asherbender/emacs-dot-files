@@ -13,11 +13,6 @@ By default the 'goto' command is bound to "M-g g".
 (define-key global-map "\M-g" 'goto-line)
 #+END_SRC
 
-By default the 'set-fill-column' command is bound to "C-x f"
-#+BEGIN_SRC emacs-lisp
-(global-set-key (read-kbd-macro "C-x f") 'find-file-at-point)
-#+END_SRC
-
 By default the 'toggle-input-method' is bound to "M-\". Complement the
 'delete-horizontal-space' function with 'just-one-space'.
 #+BEGIN_SRC emacs-lisp
