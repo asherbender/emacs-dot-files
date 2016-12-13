@@ -14,10 +14,6 @@ Configure universal behaviour for text modes
 
        ;; Load Flyspell for text-mode environments.
        (flyspell-mode 1)
-
-       ;; Bind ispell-word and flyspell-goto-next-error to less awkward keys
-       (define-key text-mode-map (kbd "C-c ,") 'ispell-word)
-       (define-key text-mode-map (kbd "C-c .") 'flyspell-goto-next-error)
      )
   )
 #+END_SRC
