@@ -17,16 +17,48 @@ Ensure the ispell process starts in your home directory.
 
 ** Fly-spell
 
-- Function for moving to previous/next error and loading corrections
+*** Error navigation
+
+Allow navigation to the previous and next errors during corrections. This is
+done using both advice and modifying local keymaps. During corrections, ispell
+uses a hardcoded keymap to select actions (see ispell-command-loop). This makes
+it difficult to modify the behaviour of ispell-word in an elegant way
+(e.g. using hooks).
 
 #+BEGIN_SRC emacs-lisp
-(defun flyspell-check-next-highlighted-word ()
-  "Goto next error and load corrections."
-  (interactive)
-  (flyspell-goto-next-error)
-  (ispell-word)
-)
+  (defvar ispell-last-key (kbd ","))
+  (defvar ispell-next-key (kbd "."))
+
+  (defun ispell-cancel-and-correct-last (arg)
+    (flyspell-check-last)
+    (kbd "C-g")
+  )
+
+  (defun ispell-cancel-and-correct-next (arg)
+    (flyspell-check-next)
+    (kbd "C-g")
+  )
+
+  (defadvice ispell-word (before ispell-word-before activate)
+    (define-key local-function-key-map ispell-last-key 'ispell-cancel-and-correct-last)
+    (define-key local-function-key-map ispell-next-key 'ispell-cancel-and-correct-next)
+  )
+
+  (defun flyspell-check-last ()
+    "Move to the previous error and display corrections."
+    (interactive)
+    (flyspell-check-previous-highlighted-word)
+  )
+
+  (defun flyspell-check-next ()
+    "Move to the next error and display corrections."
+    (interactive)
+    (flyspell-goto-next-error)
+    (ispell-word)
+  )
 #+END_SRC
+
+*** Configuration
 
 - Turn on `flyspell-mode' for all text when a major mode for editing
   text, written for humans to read, is loaded.
@@ -48,8 +80,8 @@ Ensure the ispell process starts in your home directory.
     '(define-key flyspell-mode-map [down-mouse-3] 'flyspell-correct-word)
 
     ;; Bind ispell-word and flyspell-goto-next-error to less awkward keys
-    (global-set-key (kbd "C-c ,") 'flyspell-check-previous-highlighted-word)
-    (global-set-key (kbd "C-c .") 'flyspell-check-next-highlighted-word)
+    (global-set-key (kbd "C-c ,") 'flyspell-check-last)
+    (global-set-key (kbd "C-c .") 'flyspell-check-next)
   )
 )
 #+END_SRC
