@@ -90,3 +90,9 @@ scroll jumps.
   )
 )
 #+END_SRC
+
+Fully expand org file structures when loading.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-startup-folded nil)
+#+END_SRC
