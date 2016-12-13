@@ -93,6 +93,21 @@ Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
         (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
         (define-key helm-map (kbd "C-i")   'helm-execute-persistent-action) ; make TAB works in terminal
         (define-key helm-map (kbd "C-z")   'helm-select-action)             ; list actions using C-z
+
+        ;; Enable fuzzy matching.
+        (setq helm-M-x-fuzzy-match                  t
+              helm-apropos-fuzzy-match              t
+              helm-buffers-fuzzy-matching           t
+              helm-completion-in-region-fuzzy-match t
+              helm-etags-fuzzy-match                t
+              helm-ff-fuzzy-matching                t
+              helm-file-cache-fuzzy-match           t
+              helm-lisp-fuzzy-completion            t
+              helm-locate-fuzzy-match               t
+              helm-locate-library-fuzzy-match       t
+              helm-mode-fuzzy-match                 t
+              helm-projectile-fuzzy-match           t
+              helm-recentf-fuzzy-match              t)
       )
       :bind (("C-x b"   . helm-mini)
              ("C-x C-f" . helm-find-files)
