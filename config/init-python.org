@@ -61,38 +61,67 @@ pip install yapf
 ** Configuration
 
 #+BEGIN_SRC emacs-lisp
-(use-package elpy
-  :init (with-eval-after-load 'python (elpy-enable))
-  :config
-  (progn
+  (use-package elpy
+    :init (with-eval-after-load 'python (elpy-enable))
+    :config
+    (progn
 
-    ;; Configure elpy.
-    (setq elpy-rpc-backend "jedi"
-          elpy-rpc-project-specific 't)
+      ;; Permanently set jedi as the backend.
+      ;;
+      ;; Note: Both jedi and rope can be installed. For instance, jedi may be used
+      ;;       for auto completion and rope for refactoring support. However, when
+      ;;       both rope and jedi are installed, elpy will pick rope as the backend
+      ;;       by default.
+      (setq elpy-rpc-backend "jedi"
+            elpy-rpc-project-specific 't)
 
-    ;; Prefer ipython.
-    (when (executable-find "ipython")
-          (elpy-use-ipython))
+      ;; Prefer ipython.
+      (when (executable-find "ipython")
+            (elpy-use-ipython))
 
-    (when (fboundp 'flycheck-mode)
-      (setq elpy-modules (delete 'elpy-module-flymake elpy-modules))
+      (when (fboundp 'flycheck-mode)
+        (setq elpy-modules (delete 'elpy-module-flymake elpy-modules))
+      )
+
+      ;; Configurations loaded when pythom-mode is activated.
+      (add-hook 'python-mode-hook
+         (lambda ()
+
+           ;; Stop PEP8 complaints.
+           (set-fill-column 79)
+
+           ;; Use C-n/C-p to select auto-complete candidates.
+           (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+           (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+
+           ;; Function for block indent if region (of text) is active. Otherwise
+           ;; auto-complete.
+           (defun python-tab ()
+             (interactive)
+               (if (region-active-p)
+                 (progn
+                   (python-indent-shift-right (region-beginning) (region-end))
+                   ;; (setq deactivate-mark t)
+                 )
+                 (company-begin-backend 'elpy-company-backend)
+               )
+           )
+
+           ;; Function for block dedent if region (of text) is active.
+           (defun python-backtabk ()
+             (interactive)
+               (if (region-active-p)
+                 (python-indent-shift-left (region-beginning) (region-end))
+               )
+           )
+
+           (define-key python-mode-map (kbd "<tab>")     'python-tab)
+           (define-key python-mode-map (kbd "<backtab>") 'python-backtab)
+         )
+      )
+
+      ;; Hide highlight indentation mode line symbol.
+      (eval-after-load "highlight-indentation" '(diminish 'highlight-indentation-mode))
     )
-
-    ;; Configurations loaded when pythom-mode is activated.
-    (add-hook 'python-mode-hook
-       (lambda ()
-
-         ;; Stop PEP8 complaints.
-         (set-fill-column 79)
-
-         ;; Use C-n/C-p to select auto-complete candidates.
-         (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
-         (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
-       )
-    )
-
-    ;; Hide highlight indentation mode line symbol.
-    (eval-after-load "highlight-indentation" '(diminish 'highlight-indentation-mode))
   )
-)
 #+END_SRC
