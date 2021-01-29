@@ -83,6 +83,8 @@ scroll jumps.
 
 #+BEGIN_SRC emacs-lisp
 (use-package smooth-scrolling
+
+  ;; Execute code after package is loaded.
   :config
   (progn
     (smooth-scrolling-mode t)

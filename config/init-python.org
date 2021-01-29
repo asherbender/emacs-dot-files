@@ -61,67 +61,75 @@ pip install yapf
 ** Configuration
 
 #+BEGIN_SRC emacs-lisp
-  (use-package elpy
-    :init (with-eval-after-load 'python (elpy-enable))
-    :config
-    (progn
+(use-package elpy
 
-      ;; Permanently set jedi as the backend.
-      ;;
-      ;; Note: Both jedi and rope can be installed. For instance, jedi may be used
-      ;;       for auto completion and rope for refactoring support. However, when
-      ;;       both rope and jedi are installed, elpy will pick rope as the backend
-      ;;       by default.
-      (setq elpy-rpc-backend "jedi"
-            elpy-rpc-project-specific 't)
+  ;; Execute code before package is loaded.
+  :init (with-eval-after-load 'python (elpy-enable))
 
-      ;; Prefer ipython.
-      (when (executable-find "ipython")
-            (elpy-use-ipython))
+  ;; Execute code after package is loaded.
+  :config
+  (progn
 
-      (when (fboundp 'flycheck-mode)
-        (setq elpy-modules (delete 'elpy-module-flymake elpy-modules))
-      )
+    ;; Permanently set jedi as the backend.
+    ;;
+    ;; Note: Both jedi and rope can be installed. For instance, jedi may be used
+    ;;       for auto completion and rope for refactoring support. However, when
+    ;;       both rope and jedi are installed, elpy will pick rope as the backend
+    ;;       by default.
+    (setq elpy-rpc-backend "jedi"
+          elpy-rpc-project-specific 't)
 
-      ;; Configurations loaded when pythom-mode is activated.
-      (add-hook 'python-mode-hook
-         (lambda ()
+    ;; Use Jupyter console.
+    (setq python-shell-interpreter "jupyter"
+          python-shell-interpreter-args "console --simple-prompt"
+          python-shell-prompt-detect-failure-warning nil)
+    (add-to-list 'python-shell-completion-native-disabled-interpreters "jupyter")
 
-           ;; Stop PEP8 complaints.
-           (set-fill-column 79)
+    (when (fboundp 'flycheck-mode)
+      (setq elpy-modules (delete 'elpy-module-flymake elpy-modules))
+    )
 
-           ;; Use C-n/C-p to select auto-complete candidates.
-           (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
-           (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+    ;; Configurations loaded when pythom-mode is activated.
+    (add-hook 'python-mode-hook
+       (lambda ()
 
-           ;; Function for block indent if region (of text) is active. Otherwise
-           ;; auto-complete.
-           (defun python-tab ()
-             (interactive)
-               (if (region-active-p)
-                 (progn
-                   (python-indent-shift-right (region-beginning) (region-end))
-                   ;; (setq deactivate-mark t)
-                 )
-                 (company-begin-backend 'elpy-company-backend)
-               )
+         ;; Stop PEP8 complaints.
+         (set-fill-column 79)
+
+         ;; Use C-n/C-p to select auto-complete candidates.
+         (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+         (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+
+         ;; Function for block indent if region (of text) is active. Otherwise
+         ;; auto-complete.
+         (defun python-tab ()
+           (interactive)
+           (cond
+             ((or (bolp) (equal (char-before) ? ))
+                (python-indent-shift-right (point-at-bol) (point-at-eol))
+             )
+             ((region-active-p)
+                (python-indent-shift-right (region-beginning) (region-end))
+             )
+             (t
+                (company-begin-backend 'elpy-company-backend)
+             )
            )
-
-           ;; Function for block dedent if region (of text) is active.
-           (defun python-backtabk ()
-             (interactive)
-               (if (region-active-p)
-                 (python-indent-shift-left (region-beginning) (region-end))
-               )
-           )
-
-           (define-key python-mode-map (kbd "<tab>")     'python-tab)
-           (define-key python-mode-map (kbd "<backtab>") 'python-backtab)
          )
-      )
 
-      ;; Hide highlight indentation mode line symbol.
-      (eval-after-load "highlight-indentation" '(diminish 'highlight-indentation-mode))
+         ;; Function for block dedent if region (of text) is active.
+         (defun python-backtab ()
+           (interactive)
+             (if (region-active-p)
+               (python-indent-shift-left (region-beginning) (region-end))
+               (python-indent-shift-left (point-at-bol) (point-at-eol))
+             )
+         )
+
+         (define-key python-mode-map (kbd "<tab>")     'python-tab)
+         (define-key python-mode-map (kbd "<backtab>") 'python-backtab)
+       )
     )
   )
+)
 #+END_SRC

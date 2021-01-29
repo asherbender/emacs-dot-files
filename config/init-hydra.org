@@ -4,9 +4,12 @@ Allow related commands to be grouped into [[https://github.com/abo-abo/hydra][hy
 
 #+begin_src emacs-lisp :exports none
 (use-package hydra
-  :ensure t
+
+  ;; Execute code after package is loaded.
   :config
-  (hydra-add-font-lock)
+  (progn
+    (hydra-add-font-lock)
+  )
 )
 #+END_SRC
 

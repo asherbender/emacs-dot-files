@@ -18,7 +18,6 @@
 Toggle whitespace visualization globally (do not display in mode-line).
 #+BEGIN_SRC emacs-lisp
 (global-whitespace-mode 1)
-(diminish 'global-whitespace-mode "")
 #+END_SRC
 
 Specify which kind of blank is visualized:
@@ -31,30 +30,40 @@ Specify which kind of blank is visualized:
                 `whitespace-line-column'.
 
 #+BEGIN_SRC emacs-lisp
-(setq whitespace-style '(face
-                         empty
-                         tabs
-                         tab-mark
-                         trailing
-                         lines-tail))
-#+END_SRC
+(use-package whitespace
+  :diminish (global-whitespace-mode
+             whitespace-mode
+             whitespace-newline-mode)
 
+  ;; Execute code before package is loaded.
+  :init
+  (progn
 
-Exclude modes from whitespace visualisation.
-#+BEGIN_SRC emacs-lisp
-(setq whitespace-global-modes '(not eshell-mode
-                                    shell-mode
-                                    dired-mode
-                                    org-mode)
+    ;; Specify whitespace to visualise.
+    (setq whitespace-style '(face
+                             empty
+                             tabs
+                             tab-mark
+                             trailing
+                             lines-tail))
+
+    ;; Exclude modes from whitespace visualisation.
+    (setq whitespace-global-modes '(not eshell-mode
+                                        shell-mode
+                                        dired-mode
+                                        org-mode)
+    )
+  )
+
+  ;; Execute code after package is loaded.
+  :config
+  (progn
+
+    ;; Delete all trailing whitespace across the current buffer before saving.
+    (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  )
 )
 #+END_SRC
-
-Delete all trailing whitespace across the current buffer before
-saving.
-#+BEGIN_SRC emacs-lisp
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-#+END_SRC
-
 
 ** Appearance
 

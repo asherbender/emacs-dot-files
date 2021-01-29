@@ -43,6 +43,8 @@ Allow commands to be bound to a combination of key-strokes.
 
 #+BEGIN_SRC emacs-lisp
 (use-package key-chord
+
+  ;; Execute code before package is loaded.
   :init
   (progn
     (key-chord-mode 1)

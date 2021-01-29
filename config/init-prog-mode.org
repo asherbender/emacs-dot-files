@@ -3,23 +3,23 @@
 Configure universal behaviour for programming modes.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook
-     (lambda()
-       ;; Turn on the linum mode. In linum mode each line's line number
-       ;; is displayed in the displayed in the window's left margin.
-       (linum-mode t)
+(add-hook 'prog-mode-hook
+   (lambda()
+     ;; Turn on the linum mode. In linum mode each line's line number
+     ;; is displayed in the displayed in the window's left margin.
+     (linum-mode t)
 
-       ;; Indicate the location of the fill column.
-       (turn-on-fci-mode)
+     ;; Indicate the location of the fill column.
+     (turn-on-fci-mode)
 
-       ;; Only auto-fill inside comments.
-       (set (make-local-variable 'comment-auto-fill-only-comments) t)
+     ;; Only auto-fill inside comments.
+     (set (make-local-variable 'comment-auto-fill-only-comments) t)
 
-       ;; Turn on `flyspell-mode' for comments and strings.
-       (setq flyspell-prog-mode t)
+     ;; Turn on `flyspell-mode' for comments and strings.
+     (setq flyspell-prog-mode t)
 
-       ;; Preference projectile find-file in programming modes.
-       (local-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
-     )
-  )
+     ;; Preference projectile find-file in programming modes.
+     (local-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
+   )
+)
 #+END_SRC

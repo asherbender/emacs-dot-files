@@ -26,36 +26,36 @@ it difficult to modify the behaviour of ispell-word in an elegant way
 (e.g. using hooks).
 
 #+BEGIN_SRC emacs-lisp
-  (defvar ispell-last-key (kbd ","))
-  (defvar ispell-next-key (kbd "."))
+(defvar ispell-last-key (kbd ","))
+(defvar ispell-next-key (kbd "."))
 
-  (defun ispell-cancel-and-correct-last (arg)
-    (flyspell-check-last)
-    (kbd "C-g")
-  )
+(defun ispell-cancel-and-correct-last (arg)
+  (flyspell-check-last)
+  (kbd "C-g")
+)
 
-  (defun ispell-cancel-and-correct-next (arg)
-    (flyspell-check-next)
-    (kbd "C-g")
-  )
+(defun ispell-cancel-and-correct-next (arg)
+  (flyspell-check-next)
+  (kbd "C-g")
+)
 
-  (defadvice ispell-word (before ispell-word-before activate)
-    (define-key local-function-key-map ispell-last-key 'ispell-cancel-and-correct-last)
-    (define-key local-function-key-map ispell-next-key 'ispell-cancel-and-correct-next)
-  )
+(defadvice ispell-word (before ispell-word-before activate)
+  (define-key local-function-key-map ispell-last-key 'ispell-cancel-and-correct-last)
+  (define-key local-function-key-map ispell-next-key 'ispell-cancel-and-correct-next)
+)
 
-  (defun flyspell-check-last ()
-    "Move to the previous error and display corrections."
-    (interactive)
-    (flyspell-check-previous-highlighted-word)
-  )
+(defun flyspell-check-last ()
+  "Move to the previous error and display corrections."
+  (interactive)
+  (flyspell-check-previous-highlighted-word)
+)
 
-  (defun flyspell-check-next ()
-    "Move to the next error and display corrections."
-    (interactive)
-    (flyspell-goto-next-error)
-    (ispell-word)
-  )
+(defun flyspell-check-next ()
+  "Move to the next error and display corrections."
+  (interactive)
+  (flyspell-goto-next-error)
+  (ispell-word)
+)
 #+END_SRC
 
 *** Configuration
@@ -68,20 +68,26 @@ it difficult to modify the behaviour of ispell-word in an elegant way
 
 #+BEGIN_SRC emacs-lisp
 (use-package flyspell
-  :ensure t
+
+  ;; Execute code before package is loaded.
   :init
   (progn
     (setq flyspell-issue-message-flag nil
           flyspell-issue-welcome-flag nil)
     (add-hook 'text-mode-hook 'flyspell-mode)
     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  )
 
+  ;; Execute code after package is loaded.
+  :config
+  (progn
     ;; Correct errors with the right mouse button (rather than the middle).
-    '(define-key flyspell-mode-map [down-mouse-3] 'flyspell-correct-word)
+    (define-key flyspell-mouse-map [down-mouse-3] 'flyspell-correct-word)
+    (define-key flyspell-mouse-map [mouse-3]      'undefined)
 
     ;; Bind ispell-word and flyspell-goto-next-error to less awkward keys
-    (global-set-key (kbd "C-c ,") 'flyspell-check-last)
-    (global-set-key (kbd "C-c .") 'flyspell-check-next)
+    (define-key flyspell-mode-map (kbd "C-c ,") 'flyspell-check-last)
+    (define-key flyspell-mode-map (kbd "C-c .") 'flyspell-check-next)
   )
 )
 #+END_SRC

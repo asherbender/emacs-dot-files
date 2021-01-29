@@ -3,17 +3,17 @@
 Configure universal behaviour for text modes
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'text-mode-hook
-     (lambda()
-       ;; Turn on the linum mode. In linum mode each line's line number
-       ;; is displayed in the displayed in the window's left margin.
-       (linum-mode t)
+(add-hook 'text-mode-hook
+   (lambda()
+     ;; Turn on the linum mode. In linum mode each line's line number
+     ;; is displayed in the displayed in the window's left margin.
+     (linum-mode t)
 
-       ;; Turn on auto-fill mode automatically in text-mode and related modes.
-       (auto-fill-mode 1)
+     ;; Turn on auto-fill mode automatically in text-mode and related modes.
+     (auto-fill-mode 1)
 
-       ;; Load Flyspell for text-mode environments.
-       (flyspell-mode 1)
-     )
-  )
+     ;; Load Flyspell for text-mode environments.
+     (flyspell-mode 1)
+   )
+)
 #+END_SRC

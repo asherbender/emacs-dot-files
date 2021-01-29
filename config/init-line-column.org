@@ -10,6 +10,8 @@ More detail on managing line numbers can be found at [[http://www.emacswiki.org/
 
 #+BEGIN_SRC emacs-lisp
 (use-package linum
+
+  ;; Execute code after package is loaded.
   :config
   (progn
     ;; Delay updates to give Emacs a chance for other changes.
@@ -31,9 +33,12 @@ Graphically indicate the location of the fill column.
 #+BEGIN_SRC emacs-lisp
 (use-package fill-column-indicator
   :defer t
-  :config
 
-  ;; Indicate the location of the fill column.
-  (fci-mode)
+  ;; Execute code after package is loaded.
+  :config
+  (progn
+    ;; Indicate the location of the fill column.
+    (fci-mode)
+  )
 )
 #+END_SRC

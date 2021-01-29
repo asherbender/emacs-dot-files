@@ -1,0 +1,53 @@
+* YAML
+
+Provide major mode for editing files in the YAML data format. It features syntax
+highlighting and auto-indentation.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode
+
+    :mode ("\\.yml$" . yaml-mode)
+
+    ;; Execute code after package is loaded.
+    :config
+    (progn
+
+      ;; Configurations loaded when yaml-mode is activated.
+      (add-hook 'yaml-mode-hook
+         (lambda ()
+
+           ;; Set fill column and indicate position.
+           (set-fill-column 79)
+           (fci-mode t)
+
+           ;; Set default indentation.
+           (setq yaml-indent-offset 4)
+
+           ;; Highlight indentation.
+           (highlight-indentation-mode t)
+
+           ;; Ensure flycheck is enabled.
+           (flycheck-mode t)
+         )
+      )
+    )
+  )
+#+END_SRC
+
+Flycheck integration for [[https://github.com/adrienverge/yamllint][yamllint]]. yamllint does not only check for syntax
+validity, but for weirdnesses like key repetition and cosmetic problems such as
+lines length, trailing spaces, indentation, etc.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-yamllint
+    :defer t
+
+    ;; Execute code before package is loaded.
+    :init
+    (progn
+      (eval-after-load 'flycheck
+        '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup)
+      )
+    )
+  )
+#+END_SRC

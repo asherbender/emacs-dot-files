@@ -35,19 +35,20 @@ The main aims and features of this configuration are:
 
 ** Navigation
 
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-hydra.org][Hydra]]   | Hydra menu definitions                         |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-navigation.org][Cursor]]  | Modifications to default cursor movements      |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-isearch.org][isearch]] | Incremental search                             |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-window.org][Window]]  | Window movement and management                 |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-buffer.org][Buffer]]  | Buffer management                              |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-hydra.org][Hydra]]   | Hydra menu definitions                         |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-helm.org][Helm]]    | Incremental completion and selection framework |
 
 #+begin_src emacs-lisp :exports none
+;; Note order is important (init-hydra must be loaded before init-window).
+(load-org-config "init-hydra.org")
 (load-org-config "init-navigation.org")
 (load-org-config "init-isearch.org")
 (load-org-config "init-window.org")
 (load-org-config "init-buffer.org")
-(load-org-config "init-hydra.org")
 (load-org-config "init-helm.org")
 #+end_src
 
@@ -68,10 +69,13 @@ The main aims and features of this configuration are:
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-projectile.org][Projectile]]  | Project management                         |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-origami.org][Folding]]     | Code folding configuration                 |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]]      | Configurations for python development      |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-yaml.org][YAML]]        | Configurations for YAML development        |
+
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-prog-mode.org")
 (load-org-config "init-git.org")
 (load-org-config "init-projectile.org")
 (load-org-config "init-origami.org")
 (load-org-config "init-python.org")
+(load-org-config "init-yaml.org")
 #+end_src

@@ -4,6 +4,7 @@
 
 #+BEGIN_SRC emacs-lisp
 (use-package window-numbering
+  ;; Execute code after package is loaded.
   :config
   (window-numbering-mode)
 )
@@ -26,6 +27,7 @@ window arrangements in the current frame.
 
 #+BEGIN_SRC emacs-lisp
 (use-package transpose-frame
+  ;; Execute code after package is loaded.
   :config
   (require 'windmove)
 )
@@ -40,6 +42,7 @@ Jump to another window using a char-based decision tree.
 
 #+BEGIN_SRC emacs-lisp
 (use-package ace-window
+  ;; Execute code after package is loaded.
   :config
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 )

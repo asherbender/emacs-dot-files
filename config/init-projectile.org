@@ -50,60 +50,69 @@ project just create an empty .projectile file in it. [[[https://github.com/bbats
 ** Configuration
 
 #+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :diminish projectile-mode
-    :config
-    (progn
-        (setq projectile-keymap-prefix (kbd "C-c p"))
+(use-package projectile
+  :defer 5
+  :diminish
 
-        ;; The completion system to be used by Projectile.
-        (setq projectile-completion-system 'default)
+  ;; Execute code before package is loaded.
+  :init
+  (progn
+      (setq projectile-keymap-prefix (kbd "C-c p"))
 
-        ;; When t enables project files caching.
-        ;;
-        ;; Project caching is automatically enabled by default if you're
-        ;; using the native indexing method.
-        (setq projectile-enable-caching t)
+      ;; The completion system to be used by Projectile.
+      (setq projectile-completion-system 'default)
 
-        ;; There are two indexing methods - native and alien.
-        ;;
-        ;; The native method is implemented in Emacs Lisp (therefore it
-        ;; is native to Emacs).  It's advantage is that is portable and
-        ;; will work everywhere that Emacs does.  It's disadvantage is
-        ;; that is a bit slow (especially for large projects).
-        ;; Generally it's a good idea to pair the native indexing method
-        ;; with caching.
-        ;;
-        ;; The alien indexing method uses external tools (e.g. git,
-        ;; find, etc) to speed up the indexing process.  The
-        ;; disadvantage of this method is that it's not well supported
-        ;; on Windows systems.
-        ;;
-        ;; By default alien indexing is the default on all operating
-        ;; systems, except Windows.
-        (setq projectile-indexing-method 'alien)
-        (add-to-list 'projectile-globally-ignored-files "node-modules")
-    )
-    :config
-    (projectile-global-mode)
+      ;; When t enables project files caching.
+      ;;
+      ;; Project caching is automatically enabled by default if you're
+      ;; using the native indexing method.
+      (setq projectile-enable-caching t)
+
+      ;; There are two indexing methods - native and alien.
+      ;;
+      ;; The native method is implemented in Emacs Lisp (therefore it
+      ;; is native to Emacs).  It's advantage is that is portable and
+      ;; will work everywhere that Emacs does.  It's disadvantage is
+      ;; that is a bit slow (especially for large projects).
+      ;; Generally it's a good idea to pair the native indexing method
+      ;; with caching.
+      ;;
+      ;; The alien indexing method uses external tools (e.g. git,
+      ;; find, etc) to speed up the indexing process.  The
+      ;; disadvantage of this method is that it's not well supported
+      ;; on Windows systems.
+      ;;
+      ;; By default alien indexing is the default on all operating
+      ;; systems, except Windows.
+      (setq projectile-indexing-method 'alien)
+      (add-to-list 'projectile-globally-ignored-files "node-modules")
   )
+
+  ;; Execute code after package is loaded.
+  :config
+  (projectile-global-mode)
+)
 #+END_SRC
 
 
 ** Helm integration
 
 #+BEGIN_SRC emacs-lisp
-  (use-package helm-projectile
-    :init
-    (helm-projectile-on)
-    :config
-    (progn
-      (setq projectile-switch-project-action 'projectile-dired)
+(use-package helm-projectile
 
-      ;; Use helm as the completion system in Projectile.
-      (setq projectile-completion-system 'helm)
-    )
+  ;; Execute code before package is loaded.
+  :init
+  (helm-projectile-on)
+
+  ;; Execute code after package is loaded.
+  :config
+  (progn
+    (setq projectile-switch-project-action 'projectile-dired)
+
+    ;; Use helm as the completion system in Projectile.
+    (setq projectile-completion-system 'helm)
   )
+)
 #+END_SRC
 
 
