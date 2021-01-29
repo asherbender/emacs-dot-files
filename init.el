@@ -15,13 +15,15 @@
 ;; Initalize all ELPA packages.
 (require 'package)
 
+;; Work around for fixing access to repositories.
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 ;; MELPA (or Milkypostman’s ELPA or Milkypostman’s Experimental Lisp
 ;; Package Repository if you’re not into the whole brevity thing) is
 ;; a package.el repository for development versions of Emacs
 ;; packages (hot from the repo).
-(unless (assoc-default "melpa" package-archives)
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/") t)
+(setq package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/"))
 )
 
 ;; Load Emacs Lisp packages, and activate them. Ensure packages are
@@ -38,9 +40,13 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package)
+  (package-install 'diminish)
+  (package-install 'bind-key)
 )
 (setq use-package-verbose t)
 (require 'use-package)
+(require 'diminish)
+(require 'bind-key)
 (setq use-package-always-ensure t)
 
 (defun load-org-config (file)
@@ -68,3 +74,17 @@
 ;; Turn off debugging after initialisation.
 (setq debug-on-error nil)
 (setq debug-on-quit nil)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (csv-mode multiple-cursors markdown-mode flycheck-yamllint yaml-mode elpy origami helm-projectile projectile diff-hl magit auctex-latexmk auctex ace-jump-helm-line helm-descbinds helm-swoop helm buffer-move ace-jump-buffer ace-window transpose-frame window-numbering mwim hydra undo-tree key-chord fill-column-indicator smooth-scrolling use-package))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
