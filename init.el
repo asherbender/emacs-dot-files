@@ -81,7 +81,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (csv-mode multiple-cursors markdown-mode flycheck-yamllint yaml-mode elpy origami helm-projectile projectile diff-hl magit auctex-latexmk auctex ace-jump-helm-line helm-descbinds helm-swoop helm buffer-move ace-jump-buffer ace-window transpose-frame window-numbering mwim hydra undo-tree key-chord fill-column-indicator smooth-scrolling use-package))))
+    (ein unfill csv-mode multiple-cursors markdown-mode flycheck-yamllint yaml-mode elpy origami helm-projectile projectile diff-hl magit auctex-latexmk auctex ace-jump-helm-line helm-descbinds helm-swoop helm buffer-move ace-jump-buffer ace-window transpose-frame window-numbering mwim hydra undo-tree key-chord fill-column-indicator smooth-scrolling use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -196,18 +196,3 @@ like:
 \section{<title>}
 \label{sec:title}
 #+END_EXAMPLE
-
-#+BEGIN_SRC emacs-lisp
-(setq LaTeX-section-hook
-      '(LaTeX-section-heading
-        LaTeX-section-title
-        (lambda() (insert-section-block title))
-        LaTeX-section-section
-        LaTeX-section-label
-        (lambda() (previous-line 3)
-                  (delete-char 1)
-                  (next-line 2)
-        )
-       )
-)
-#+END_SRC
