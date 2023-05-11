@@ -1,3 +1,26 @@
+;; Select your preferred version of Emacs from:
+;;
+;;     http://mirrors.kernel.org/gnu/emacs/
+;;
+;; Download preferred version:
+;;
+;;     wget http://mirrors.kernel.org/gnu/emacs/emacs-<VERSION>.tar.gz \
+;;          -O ~/src/emacs-<VERSION>.gz
+;;
+;; Unpack archive:
+;;
+;;     cd ~/src/
+;;     tar -zxvf emacs-<VERSION>.tar.xz
+;;
+;; Build Emacs:
+;;
+;;     sudo apt-get install build-essential
+;;     sudo apt-get build-dep emacs
+;;     cd ~/src/emacs-<VERSION>
+;;     mkdir build && cd build
+;;     ../configure
+;;     sudo make -j6
+
 ;; Enable debugging during initialisation (disable at end).
 (setq debug-on-error t)
 (setq debug-on-quit t)
@@ -15,16 +38,25 @@
 ;; Initalize all ELPA packages.
 (require 'package)
 
-;; Work around for fixing access to repositories.
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-
-;; MELPA (or Milkypostman’s ELPA or Milkypostman’s Experimental Lisp
-;; Package Repository if you’re not into the whole brevity thing) is
-;; a package.el repository for development versions of Emacs
-;; packages (hot from the repo).
-(setq package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/"))
+;; The Emacs Lisp Package Archive (ELPA) is included in Emacs, starting with
+;; version 24. Starting with Emacs 28.1, the NonGNU ELPA repository is also
+;; enabled by default. For Emacs >=28.1, the following are no longer required:
+;;
+;;     (add-to-list 'package-archives '("gnu"    . "https://elpa.gnu.org/packages/"))
+;;     (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/"))
+;;
+(if (< emacs-major-version 28)
+    (add-to-list 'package-archives '("nongnu"        . "https://elpa.nongnu.org/nongnu/"))
 )
+(if (< emacs-major-version 24)
+    (add-to-list 'package-archives '("gnu"    . "https://elpa.gnu.org/packages/"))
+)
+
+;; MELPA (or Milkypostman's ELPA or Milkypostman's Experimental Lisp Package
+;; Repository if you're not into the whole brevity thing) is a package.el
+;; repository for development versions of Emacs packages (hot from the repo).
+;;
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
 ;; Load Emacs Lisp packages, and activate them. Ensure packages are
 ;; installed automatically if not already present on your system.
@@ -74,17 +106,3 @@
 ;; Turn off debugging after initialisation.
 (setq debug-on-error nil)
 (setq debug-on-quit nil)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (ein unfill csv-mode multiple-cursors markdown-mode flycheck-yamllint yaml-mode elpy origami helm-projectile projectile diff-hl magit auctex-latexmk auctex ace-jump-helm-line helm-descbinds helm-swoop helm buffer-move ace-jump-buffer ace-window transpose-frame window-numbering mwim hydra undo-tree key-chord fill-column-indicator smooth-scrolling use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
