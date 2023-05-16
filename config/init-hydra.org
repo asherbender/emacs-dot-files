@@ -26,8 +26,8 @@ Create a 'main' Hydra for launching other Hydra menus
   _j_/_J_: previous  line/paragraph  |  _w_: Window management
   _k_/_K_: next      line/paragraph  |  _b_: Buffer management
   _l_/_L_: forward   char/word       |  _p_: Projectile
-  _a_^^: home                        |	_m_: Magit
-  _e_^^: end                         |  _o_: Origami
+  _a_^^: home                        |  _m_: Magit
+  _e_^^: end                         |
 
   "
   ("h" backward-char      nil :color red)
@@ -46,7 +46,6 @@ Create a 'main' Hydra for launching other Hydra menus
   ("b" hydra-buffer/body      nil :exit t)
   ("p" hydra-project/body     nil :exit t)
   ("m" magit-status           nil :exit t)
-  ("o" hydra-origami/body     nil :exit t)
 
   ("RET" nil "quit")
   ("ESC" nil "quit")
