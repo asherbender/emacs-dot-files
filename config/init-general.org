@@ -1,10 +1,34 @@
 * General settings
 
+** Configuration variables
+
+#+BEGIN_SRC emacs-lisp
+(defgroup user-emacs-auto nil
+  "Group for configuring Emacs auto-generated files."
+  :group 'extensions)
+
+(defcustom user-emacs-auto-directory
+  (concat user-emacs-directory "auto/")
+  "Directory beneath which additional per-user Emacs-specific, auto-generated
+  files are placed. This variable can be used to configure Emacs to store
+  automatically generated information in this directory. Note that this should
+  end with a directory separator."
+  :group 'user-emacs-auto
+  :type 'directory)
+
+;; Make auto-generated files directory if it does not exist.
+(unless (file-directory-p user-emacs-auto-directory)
+  (make-directory user-emacs-auto-directory t))
+
+#+END_SRC
+
+
 ** User interface
 
 This variable, if non-nil, inhibits the startup screen. If non-nil, Emacs
-typically displays the ‘*scratch*’ buffer (see the variable
+typically displays the ~*scratch*~ buffer (see the variable
 initial-buffer-choice).
+
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-screen t)
 #+END_SRC
