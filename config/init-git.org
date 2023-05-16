@@ -40,6 +40,34 @@ documentation]]:
         between, but conventions vary here
 #+END_EXAMPLE
 
+** Transient
+
+~Magit~ (3.3.0) depends on ~transient~.
+
+#+BEGIN_SRC emacs-lisp
+(use-package transient
+  :defer t
+  :config
+
+  (defcustom user-emacs-auto-transient
+    (concat user-emacs-auto-directory "transient/")
+    "For auto-generated files from transient mode."
+    :group 'user-emacs-auto
+    :type 'directory)
+
+  (customize-set-variable
+    'transient-levels-file
+    (concat user-emacs-auto-transient "levels.el"))
+
+  (customize-set-variable
+    'transient-values-file
+    (concat user-emacs-auto-transient "values.el"))
+
+  (customize-set-variable
+    'transient-history-file
+    (concat user-emacs-auto-transient "history.el"))
+)
+#+END_SRC
 
 ** Magit
 
