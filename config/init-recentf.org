@@ -1,0 +1,36 @@
+* Recentf
+
+~Recentf~ has been part of GNU Emacs since version 21. Its behaviour is
+configured in this section.
+
+Specify location of recentf files.
+
+#+BEGIN_SRC emacs-lisp
+(defcustom user-emacs-auto-recentf
+  (concat user-emacs-auto-directory "recentf/")
+  "For auto-generated files from recentf mode."
+  :group 'user-emacs-auto
+  :type 'directory)
+
+;; Make recentf files directory if it does not exist.
+(unless (file-directory-p user-emacs-auto-recentf)
+  (make-directory user-emacs-auto-recentf t))
+
+;; Set location of the recent file list.
+(customize-set-variable
+  'recentf-save-file
+  (concat user-emacs-auto-recentf "recentf"))
+#+END_SRC
+
+Customise behaviour.
+
+#+BEGIN_SRC emacs-lisp
+;; Set maximum number of items in the recentf menu.
+(customize-set-variable 'recentf-max-menu-items  25)
+
+;; Set maximum number of items of the recent list that will be saved.
+(customize-set-variable 'recentf-max-saved-items 50)
+
+;; Save recent files every 5 minutes.
+;;(run-at-time nil (* 5 60) 'recentf-save-list)
+#+END_SRC

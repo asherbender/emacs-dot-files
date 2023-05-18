@@ -22,6 +22,7 @@ The main aims and features of this configuration are:
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]]     | Spelling program and on-the-fly spell checking |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]         | Configure undo system                          |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]]   | Whitespace management                          |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-recentf.org][Recent files]] | Configure recently opened files management     |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-general.org")
@@ -31,6 +32,7 @@ The main aims and features of this configuration are:
 (load-org-config "init-spelling.org")
 (load-org-config "init-undo-tree.org")
 (load-org-config "init-whitespace.org")
+(load-org-config "init-recentf.org")
 #+end_src
 
 ** Navigation
