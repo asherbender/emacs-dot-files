@@ -1,30 +1,65 @@
 * Undo-tree
 
+Global location to save undo-tree history files rather than littering the file
+system with .~undo-tree~ files.
+
+#+BEGIN_SRC emacs-lisp
+(defcustom user-emacs-auto-undotree
+  (concat user-emacs-auto-directory "undotree/")
+  "Directory for auto-generated undo-tree history files."
+  :group 'user-emacs-auto
+  :type 'directory)
+#+END_SRC
+
 - Replace standard Emacs undo system with the undo-tree system
 - Display diff by default
 - Exit undo-tree-visualiser when the RETURN key is pressed
 
+
 #+BEGIN_SRC emacs-lisp
-(use-package undo-tree
-  :defer t
-  :diminish undo-tree-mode
+  (use-package undo-tree
+    :defer t
+    :diminish undo-tree-mode
 
-  ;; Execute code before package is loaded.
-  :init (global-undo-tree-mode t)
+    ;; Execute code before package is loaded.
+    :init (global-undo-tree-mode t)
 
-  ;; Execute code after package is loaded.
-  :config
-  (progn
-    (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
+    ;; Execute code after package is loaded.
+    :config
+    (progn
 
-    ;; When non-nil, display diff by default in undo-tree visualizer.
-    ;;
-    ;; Note: The diff display can be toggled on or off using 'd',
-    ;;       regardless of the setting of this variable.
-    (setq undo-tree-visualizer-diff t)
+      ;; Explicitly ask Emacs to save undo-tree history files (default
+      ;; behaviour since ~0.8.2).
+      (if (and (<= emacs-major-version 24) (< emacs-minor-version 3))
+          (setq undo-tree-auto-save-history t)
+          (customize-set-variable 'undo-tree-auto-save-history t)
+      )
 
-    ;; Exit undo-tree when the RETURN key is pressed.
-    (define-key undo-tree-visualizer-mode-map (kbd "RET") 'undo-tree-visualizer-quit)
+      ;; Save undo-tree history files to global location.
+      (setq undo-tree-history-directory-alist `(("." . ,user-emacs-auto-undotree)))
+
+      ;; Since the undo-tree history files are in a global location, the
+      ;; '.~undo-tree~' suffix is not required. Use an advising function to
+      ;; remove the suffix from 'undo-tree-make-history-save-file-name'. Add '#'
+      ;; to the beginning and end of the basename (like auto-save) in case the
+      ;; global directory fails.
+      (defun remove-undo-tree-suffix (orig-func &rest args)
+        (message "args %S" args)
+        (let* ((filename (apply orig-func args))
+               (dirname  (file-name-directory filename))
+               (basename (file-name-nondirectory filename)))
+          (setq basename (replace-regexp-in-string "\\.~undo-tree~$" "" basename))
+          (setq basename (concat "#" basename "#"))
+          (setq filename (concat dirname basename))
+          filename)
+      )
+      (advice-add 'undo-tree-make-history-save-file-name :around #'remove-undo-tree-suffix)
+
+
+      ;; Exit undo-tree when the RETURN key is pressed.
+      (define-key undo-tree-visualizer-mode-map (kbd "RET") 'undo-tree-visualizer-quit)
+
+      (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
+    )
   )
-)
 #+END_SRC
