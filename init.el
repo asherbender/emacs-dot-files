@@ -21,6 +21,22 @@
 ;;     ../configure
 ;;     sudo make -j6
 
+(defun message-center (str width)
+  (let*
+      (
+       (str-length (length str))
+       (remaining-width (- width str-length 2))
+       (left-padding  (make-string (/ remaining-width 2) ?-))
+       (right-padding (make-string (- remaining-width (/ remaining-width 2)) ?-))
+       (padded (concat left-padding " " str " " right-padding))
+      )
+    (message padded)
+  )
+)
+
+;; Flag start of initialisation in *messages*.
+(message-center "Initialising Emacs" 80)
+
 ;; Enable debugging during initialisation (disable at end).
 (setq debug-on-error t)
 (setq debug-on-quit t)
@@ -30,10 +46,6 @@
 
 ;; Define location of configuration directory.
 (defconst config-directory (concat user-emacs-directory "config/"))
-
-;; Define column and tab widths.
-(defconst default-column-width   80)
-(defconst default-code-tab-width 4 )
 
 ;; Initalize all ELPA packages.
 (require 'package)
@@ -46,7 +58,7 @@
 ;;     (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/"))
 ;;
 (if (< emacs-major-version 28)
-    (add-to-list 'package-archives '("nongnu"        . "https://elpa.nongnu.org/nongnu/"))
+    (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/"))
 )
 (if (< emacs-major-version 24)
     (add-to-list 'package-archives '("gnu"    . "https://elpa.gnu.org/packages/"))
@@ -58,15 +70,11 @@
 ;;
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
-;; Load Emacs Lisp packages, and activate them. Ensure packages are
-;; installed automatically if not already present on your system.
-(package-initialize)
 (setq package-enable-at-startup nil)
-(setq use-package-always-ensure t)
+(setq use-package-verbose t)
 
-(let ((elapsed (float-time (time-subtract (current-time) emacs-start-time))))
-     (message "Loaded packages in %.3fs" elapsed)
-)
+;;------------------------
+;; defcustom package-user-dir (locate-user-emacs-file "elpa")
 
 ;; Boot-strap and load use-package if it does not exist.
 (unless (package-installed-p 'use-package)
@@ -74,13 +82,24 @@
   (package-install 'use-package)
   (package-install 'diminish)
   (package-install 'bind-key)
+  (eval-when-compile
+      (require 'use-package)
+      (require 'diminish)
+      (require 'bind-key)
+  )
 )
-(setq use-package-verbose t)
-(require 'use-package)
-(require 'diminish)
-(require 'bind-key)
+
+;; Load Emacs Lisp packages, and activate them. Ensure packages are
+;; installed automatically if not already present on your system.
+(package-initialize)
 (setq use-package-always-ensure t)
 
+(let ((elapsed (float-time (time-subtract (current-time) emacs-start-time))))
+     (message "Packages initialised in %.3fs" elapsed)
+)
+
+
+;; Define loading function used in `readme.org`.
 (defun load-org-config (file)
   "Load org-babel configuration files."
   (setq load-start-time (current-time))
@@ -95,13 +114,17 @@
 (require 'org)
 (org-babel-load-file (concat user-emacs-directory "readme.org"))
 
+
 ;; Message how long it took to load everything (minus packages).
 (let ((elapsed (float-time (time-subtract (current-time)
                                            emacs-start-time))
                )
       )
-  (message "Loading settings...done (%.3fs)" elapsed)
+  (message "Initialisation completed in %.3f seconds." elapsed)
+  (message "Garbage collections performed: %d." gcs-done)
 )
+
+(message-center "Initialisation complete" 80)
 
 ;; Turn off debugging after initialisation.
 (setq debug-on-error nil)
