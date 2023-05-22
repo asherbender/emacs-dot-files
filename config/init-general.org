@@ -2,6 +2,15 @@
 
 ** Configuration variables
 
+Define column and tab widths.
+
+#+BEGIN_SRC emacs-lisp
+(defconst default-column-width   80)
+(defconst default-code-tab-width 4 )
+#+END_SRC
+
+Create group for auto-generated files.
+
 #+BEGIN_SRC emacs-lisp
 (defgroup user-emacs-auto nil
   "Group for configuring Emacs auto-generated files."
