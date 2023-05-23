@@ -1,0 +1,18 @@
+* Docker
+
+~Dockerfile~ syntax highlighting. See the [[https://github.com/spotify/dockerfile-mode][repository]] for more information.
+
+#+BEGIN_SRC emacs-lisp
+(use-package dockerfile-mode
+  :ensure t
+)
+#+END_SRC
+
+[[https://www.gnu.org/software/emacs/manual/html_mono/transient.html][Transient]] keymaps for docker containers, images, volumes, networks, contexts and
+docker-compose. See the [[https://github.com/Silex/docker.el/][repository]] for more information.
+
+#+BEGIN_SRC emacs-lisp
+(use-package docker
+  :ensure t
+)
+#+END_SRC
