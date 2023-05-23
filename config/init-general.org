@@ -31,6 +31,11 @@ Create group for auto-generated files.
 
 #+END_SRC
 
+Move the location used for storing customisation information to a separate
+file. This will stop Emacs from appending data to [[https://github.com/asherbender/emacs-dot-files/blob/master/init.el][init.el]].
+#+BEGIN_SRC emacs-lisp
+(customize-set-variable 'custom-file (concat user-emacs-directory "custom.el"))
+#+END_SRC
 
 ** User interface
 
