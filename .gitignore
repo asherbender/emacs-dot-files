@@ -1,4 +1,6 @@
 *~
+auto/
 config/*~
 config/*.el
-
+elpa/
+session.*
