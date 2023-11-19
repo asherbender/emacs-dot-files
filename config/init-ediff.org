@@ -1,0 +1,25 @@
+* Ediff
+
+Configure Ediff - a comprehensive visual interface to Unix diff and patch
+utilities.
+
+#+BEGIN_SRC emacs-lisp
+
+
+  ;; The multiframe setup is done by the ediff-setup-windows-multiframe function,
+  ;; which is the default on windowing displays. The plain setup, one where all
+  ;; windows are always in one frame, is done by ediff-setup-windows-plain, which
+  ;; is the default on a non-windowing display (or in an xterm window). In fact,
+  ;; under Emacs, you can switch freely between these two setups by executing the
+  ;; command ediff-toggle-multiframe using the Minibuffer of the Menubar.
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+  ;; Controls the way you want the window be split between file-A and file-B (and
+  ;; file-C, if applicable). It defaults to the vertical split
+  ;; (split-window-vertically, but you can set it to split-window-horizontally, if
+  ;; you so wish. Ediff also lets you switch from vertical to horizontal split and
+  ;; back interactively.
+  (setq ediff-split-window-function 'split-window-horizontally)
+
+
+#+END_SRC

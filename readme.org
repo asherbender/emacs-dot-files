@@ -67,17 +67,21 @@ The main aims and features of this configuration are:
 ** Programming
 
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-prog-mode.org][Programming]] | Global configuration for programming modes |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-git.org][Git]]         | Git configuration                          |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-docker.org][Docker]]      | Docker configuration                       |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-projectile.org][Projectile]]  | Project management                         |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-git.org][Git]]         | Git configuration                          |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-ediff.org][Ediff]]       | Ediff configuration                        |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]]      | Configurations for python development      |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-docker.org][Docker]]      | Docker configuration                       |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-yaml.org][YAML]]        | Configurations for YAML development        |
+
+#+TBLFM:
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-prog-mode.org")
-(load-org-config "init-git.org")
 ;; (load-org-config "init-projectile.org")
-(load-org-config "init-docker.org")
+(load-org-config "init-git.org")
+(load-org-config "init-ediff.org")
 (load-org-config "init-python.org")
+(load-org-config "init-docker.org")
 (load-org-config "init-yaml.org")
 #+end_src
