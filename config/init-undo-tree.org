@@ -21,8 +21,35 @@ system with .~undo-tree~ files.
     :defer t
     :diminish undo-tree-mode
 
+    :bind (:map undo-tree-map ("C-x u" . undo-tree-visualize))
+
     ;; Execute code before package is loaded.
-    :init (global-undo-tree-mode t)
+    :init
+    (progn
+      (global-undo-tree-mode t)
+
+      (defhydra hydra-undo-tree (:color blue :hint nil)
+        "
+        ^Undo Tree^         ^Navigation^
+        -------------------------------------
+        _p_: Previous       _h_: Left
+        _n_: Next           _j_: Down
+        _f_: Parent         _k_: Up
+        _u_: Undo           _l_: Right
+        _r_: Redo           _q_: Quit
+        "
+        ("p" undo-tree-visualize-undo)
+        ("u" undo-tree-visualize-undo)
+        ("n" undo-tree-visualize-redo)
+        ("r" undo-tree-visualize-redo)
+        ("f" undo-tree-visualize-switch-branch-right)
+        ("h" undo-tree-visualize-left)
+        ("j" undo-tree-visualize-down)
+        ("k" undo-tree-visualize-up)
+        ("l" undo-tree-visualize-right)
+        ("q" undo-tree-visualizer-quit :color blue)
+      )
+    )
 
     ;; Execute code after package is loaded.
     :config
@@ -59,7 +86,31 @@ system with .~undo-tree~ files.
       ;; Exit undo-tree when the RETURN key is pressed.
       (define-key undo-tree-visualizer-mode-map (kbd "RET") 'undo-tree-visualizer-quit)
 
-      (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
+      ;;(define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
+
+      ;; (defadvice undo-tree-draw-tree (after hydra-undo-tree activate)
+      ;;   (hydra-undo-tree/body))
+
+
+      ;; (advice-add 'undo-tree-visualize-undo :before 'hydra-undo-tree/body)
+      ;; (advice-add 'undo-tree-visualize-redo :before 'hydra-undo-tree/body)
+
+      ;; (advice-add 'undo-tree-visualize-undo-to-x :before 'hydra-undo-tree/body)
+      ;; (advice-add 'undo-tree-visualize-redo-to-x :before 'hydra-undo-tree/body)
+
+      ;; (advice-add 'undo-tree-visualize-switch-branch-left :before 'hydra-undo-tree/body)
+      ;; (advice-add 'undo-tree-visualize-switch-branch-right :before 'hydra-undo-tree/body)
+
+      ;; (advice-add 'undo-tree-visualizer-scroll-up :before 'hydra-undo-tree/body)
+      ;; (advice-add 'undo-tree-visualizer-scroll-down :before 'hydra-undo-tree/body)
+      ;; (advice-add 'undo-tree-visualizer-scroll-left :before 'hydra-undo-tree/body)
+      ;; (advice-add 'undo-tree-visualizer-scroll-right :before 'hydra-undo-tree/body)
+
+      ;; (advice-add 'undo-tree-visualizer-toggle-diff :before 'hydra-undo-tree/body)
+      ;; (advice-add 'undo-tree-visualizer-toggle-timestamps :before 'hydra-undo-tree/body)
+      ;; (advice-add 'undo-tree-visualizer-mouse-set :after 'hydra-undo-tree/body)
+
+
     )
   )
 #+END_SRC
