@@ -5,12 +5,11 @@ Configure universal behaviour for programming modes.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'prog-mode-hook
    (lambda()
-     ;; Turn on the linum mode. In linum mode each line's line number
-     ;; is displayed in the displayed in the window's left margin.
-     (linum-mode t)
+     ;; Display line numbers in the window's left margin.
+     (display-line-numbers-mode 1)
 
      ;; Indicate the location of the fill column.
-     (turn-on-fci-mode)
+     (display-fill-column-indicator-mode t)
 
      ;; Only auto-fill inside comments.
      (set (make-local-variable 'comment-auto-fill-only-comments) t)

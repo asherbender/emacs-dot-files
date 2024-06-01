@@ -5,9 +5,8 @@ Configure universal behaviour for text modes
 #+BEGIN_SRC emacs-lisp
 (add-hook 'text-mode-hook
    (lambda()
-     ;; Turn on the linum mode. In linum mode each line's line number
-     ;; is displayed in the displayed in the window's left margin.
-     (linum-mode t)
+     ;; Display line numbers in the window's left margin.
+     (display-line-numbers-mode 1)
 
      ;; Turn on auto-fill mode automatically in text-mode and related modes.
      (auto-fill-mode 1)

@@ -116,17 +116,23 @@ inserted at point regardless of any selection.
 
 Scroll the buffer with several lines of padding around the cursor.
 This keep lines of context around the cursor visible during
-scrolling. [[https://github.com/aspiers/smooth-scrolling][smooth-scrolling]] also minimises the frequency of sudden
-scroll jumps.
+scrolling.
 
 #+BEGIN_SRC emacs-lisp
-(use-package smooth-scrolling
 
-  ;; Execute code after package is loaded.
-  :config
+;; Scroll text pixel-by-pixel.
+(setq pixel-scroll-mode t)
+
+;; Number of lines of margin at the top and bottom of a window.  Trigger
+;; automatic scrolling whenever point gets within this many lines of the top or
+;; bottom of the window.
+(setq scroll-margin 5)
+
+;; Built into Emacs 29.
+(if (>= emacs-major-version 29)
   (progn
-    (smooth-scrolling-mode t)
-    (setq smooth-scroll-margin 5)
+    ;; Allow pixel scrolling according to the turning of the mouse wheel.
+    (setq pixel-scroll-precision-mode t)
   )
 )
 #+END_SRC

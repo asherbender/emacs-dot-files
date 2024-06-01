@@ -18,7 +18,6 @@ highlighting and auto-indentation.
 
            ;; Set fill column and indicate position.
            (set-fill-column 79)
-           (fci-mode t)
 
            ;; Set default indentation.
            (setq yaml-indent-offset 4)

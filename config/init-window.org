@@ -1,25 +1,5 @@
 * Window management
 
-** Window numbering
-
-#+BEGIN_SRC emacs-lisp
-(use-package window-numbering
-  ;; Execute code after package is loaded.
-  :config
-  (window-numbering-mode)
-)
-#+END_SRC
-
-Set appearance of window number
-
-#+BEGIN_SRC emacs-lisp
-(set-face-attribute 'window-numbering-face nil
-                    :weight 'bold
-                    :background "gray"
-                    :foreground "black")
-#+END_SRC
-
-
 ** Movement
 
 Provide interactive functions which allow users to manipulate the
@@ -58,12 +38,11 @@ Jump to another window using a char-based decision tree.
   ^Navigation^     ^Size/Splitting^           ^Arrangement^
   ^^^^^^^^----------------------------------------------------------------------
   _h_: left        _H_: decrease width        _fv_: flip vertically
-  _j_: down	   _J_: decrease height       _fh_: flip horizontally
-  _k_: up	   _K_: increase height       _rc_: rotate frame clockwise
-  _l_: right	   _L_: increase width        _ra_: rotate frame anti-clockwise
-  _n_: next  	   _sv_: split vertically      _=_: make all same width/height
+  _j_: down        _J_: decrease height       _fh_: flip horizontally
+  _k_: up          _K_: increase height       _rc_: rotate frame clockwise
+  _l_: right       _L_: increase width        _ra_: rotate frame anti-clockwise
+  _n_: next        _sv_: split vertically      _=_: make all same width/height
   _p_: previous    _sh_: split horizontally
-  _a_: jump
 
   _d_: delete selected                       _e_: delete all except selected
 

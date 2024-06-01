@@ -34,8 +34,8 @@
   )
 )
 
-;; Flag start of initialisation in *messages*.
-(message-center "Initialising Emacs" 80)
+;; Flag start of initialisation in *Messages* buffer.
+(message-center "Initialising packages" 80)
 
 ;; Enable debugging during initialisation (disable at end).
 (setq debug-on-error t)
@@ -70,41 +70,60 @@
 ;;
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
-(setq package-enable-at-startup nil)
-(setq use-package-verbose t)
-
-;;------------------------
-;; defcustom package-user-dir (locate-user-emacs-file "elpa")
-
-;; Boot-strap and load use-package if it does not exist.
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package)
-  (package-install 'diminish)
-  (package-install 'bind-key)
-  (eval-when-compile
-      (require 'use-package)
-      (require 'diminish)
-      (require 'bind-key)
-  )
-)
-
 ;; Load Emacs Lisp packages, and activate them. Ensure packages are
 ;; installed automatically if not already present on your system.
 (package-initialize)
 (setq use-package-always-ensure t)
 
+(setq package-enable-at-startup nil)
+(setq use-package-verbose t)
+
+;; Boot-strap and load use-package if it does not exist.
+(if (< emacs-major-version 29)
+  (progn
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package)
+      (package-install 'diminish)
+      (package-install 'bind-key)
+    )
+    (eval-when-compile
+      (require 'use-package)
+    )
+    (require 'diminish)
+    (require 'bind-key)
+  )
+  ;; Built into Emacs 29: 'use-package'  and 'bind-key'.
+  (progn
+    (unless (package-installed-p 'diminish)
+      (package-refresh-contents)
+      (package-install 'diminish)
+    )
+    (require 'diminish)
+    (require 'bind-key)
+  )
+)
+
 (let ((elapsed (float-time (time-subtract (current-time) emacs-start-time))))
      (message "Packages initialised in %.3fs" elapsed)
 )
-
+(message-center "Loading configurations" 80)
 
 ;; Define loading function used in `readme.org`.
 (defun load-org-config (file)
   "Load org-babel configuration files."
   (setq load-start-time (current-time))
-  (message "Loading: %s" (expand-file-name file config-directory))
-  (org-babel-load-file (expand-file-name file config-directory))
+
+  ;; Set to 't' to output org-babel-load-file messages to the *Messages*
+  ;; buffer. Set 'nil' to suppress output.
+  (defvar load-configuration-verbose t)
+  (if load-configuration-verbose
+    (org-babel-load-file (expand-file-name file config-directory))
+    (let ((message-log-max nil))
+      (org-babel-load-file (expand-file-name file config-directory))
+    )
+  )
+
   (let ((elapsed (float-time (time-subtract (current-time) load-start-time))))
        (message "Loaded: %s (%.3fs)" file elapsed)
   )
@@ -120,11 +139,10 @@
                                            emacs-start-time))
                )
       )
+  (message (make-string 80 ?-))
   (message "Initialisation completed in %.3f seconds." elapsed)
   (message "Garbage collections performed: %d." gcs-done)
 )
-
-(message-center "Initialisation complete" 80)
 
 ;; Turn off debugging after initialisation.
 (setq debug-on-error nil)

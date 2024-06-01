@@ -64,7 +64,6 @@ Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
   ;; Execute code after package is loaded.
   :config
   (progn
-    (require 'helm-config)
 
     ;; Global limit for number of candidates displayed.  When the
     ;; pattern is empty, the number of candidates shown will be as
@@ -178,34 +177,6 @@ Mostly adapted from [[[http://tuhdo.github.io/helm-intro.html][source]]]
   :init
   (progn
     (helm-descbinds-mode t)
-  )
-)
-#+END_SRC
-
-
-** Ace jump
-
-#+BEGIN_SRC emacs-lisp
-(use-package ace-jump-helm-line
-
-  ;; Execute code after package is loaded.
-  :config
-  (progn
-    (eval-after-load "helm"
-      '(define-key helm-map (kbd ";") 'ace-jump-helm-line)
-    )
-
-    ;; By default select the candidate after a jump.
-    (setq ace-jump-helm-line-default-action 'select)
-
-    ;; Select instead of default action (redundant key-binding)
-    (setq ace-jump-helm-line-select-key ?e)
-
-    ;; Move instead of default action
-    (setq ace-jump-helm-line-move-only-key ?o)
-
-    ;; Persistent action instead of default action
-    (setq ace-jump-helm-line-persistent-key ?p)
   )
 )
 #+END_SRC

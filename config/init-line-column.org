@@ -9,15 +9,7 @@
 More detail on managing line numbers can be found at [[http://www.emacswiki.org/emacs/LineNumbers][emacswiki]].
 
 #+BEGIN_SRC emacs-lisp
-(use-package linum
-
-  ;; Execute code after package is loaded.
-  :config
-  (progn
-    ;; Delay updates to give Emacs a chance for other changes.
-    (setq linum-delay t)
-  )
-)
+(global-display-line-numbers-mode 1)
 #+END_SRC
 
 ** Column configuration
@@ -31,14 +23,5 @@ Toggle column number display in the mode line (Column Number mode).
 Graphically indicate the location of the fill column.
 
 #+BEGIN_SRC emacs-lisp
-(use-package fill-column-indicator
-  :defer t
-
-  ;; Execute code after package is loaded.
-  :config
-  (progn
-    ;; Indicate the location of the fill column.
-    (fci-mode)
-  )
-)
+(global-display-fill-column-indicator-mode 1)
 #+END_SRC

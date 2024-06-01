@@ -18,6 +18,12 @@
 ;; Don’t compact font caches during GC.
 (setq inhibit-compacting-font-caches t)
 
+(setq package-user-dir
+      (locate-user-emacs-file
+       (concat (file-name-as-directory "elpa") emacs-version)
+       )
+)
+
 ;; Make the initial buffer load faster by setting its mode to fundamental-mode
 (customize-set-variable 'initial-major-mode 'fundamental-mode)
 
