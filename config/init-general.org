@@ -37,6 +37,21 @@ file. This will stop Emacs from appending data to [[https://github.com/asherbend
 (customize-set-variable 'custom-file (concat user-emacs-directory "custom.el"))
 #+END_SRC
 
+** Auto-reverts
+
+Automatically revert any buffer associated with a file when the file changes on
+disk.
+#+BEGIN_SRC emacs-lisp
+(global-auto-revert-mode 1)
+#+END_SRC
+
+Automatically revert the Buffer List associated with a directory when the
+directory contents changes on disk. This is useful for keeping `buffer-menu` and
+Dired synchronised with changes on the disk.
+#+BEGIN_SRC emacs-lisp
+(setq global-auto-revert-non-file-buffers 1)
+#+END_SRC
+
 ** User interface
 
 This variable, if non-nil, inhibits the startup screen. If non-nil, Emacs
