@@ -21,8 +21,9 @@ The main aims and features of this configuration are:
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]]      | Configure backup~ and #auto-save# management   |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]]     | Spelling program and on-the-fly spell checking |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]         | Configure undo system                          |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]]   | Whitespace management                          |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]]   | Whitespace management                          |                                              |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-recentf.org][Recent files]] | Configure recently opened files management     |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-repeat.org][Repeat]]       | Convenient way to repeat previous commands     |
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-general.org")
@@ -33,6 +34,7 @@ The main aims and features of this configuration are:
 (load-org-config "init-undo-tree.org")
 (load-org-config "init-whitespace.org")
 (load-org-config "init-recentf.org")
+(load-org-config "init-repeat.org")
 #+end_src
 
 ** Navigation
@@ -42,7 +44,6 @@ The main aims and features of this configuration are:
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-isearch.org][isearch]] | Incremental search                             |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-window.org][Window]]  | Window movement and management                 |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-helm.org][Helm]]    | Incremental completion and selection framework |
-
 #+begin_src emacs-lisp :exports none
 ;; Note order is important (init-hydra must be loaded before init-window).
 (load-org-config "init-hydra.org")

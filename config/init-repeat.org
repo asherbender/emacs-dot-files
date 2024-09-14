@@ -1,0 +1,16 @@
+* Repeat mode
+
+=repeat-mode= allows commands to be repeated by typing a single character.
+
+#+BEGIN_SRC emacs-lisp
+(use-package repeat
+  :config
+  (setq set-mark-command-repeat-pop t)
+
+  (repeat-mode 1)
+)
+#+END_SRC
+
+To describe transient keymaps for repeating multi-key commands run =M-x
+describe-repeat-maps=. Refer to the documentation for instruction on how to [[https://www.gnu.org/software/emacs/manual/html_node/use-package/Binding-to-repeat_002dmaps.html][bind
+to repeat-maps]].
