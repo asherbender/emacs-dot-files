@@ -72,48 +72,20 @@ documentation]]:
 ** Magit
 
 #+BEGIN_SRC emacs-lisp
-(use-package magit
-  :defer t
+  (use-package magit
+    :defer t
 
-  ;; Execute code before package is loaded.
-  :config
-  (progn
+    ;; Execute code before package is loaded.
+    :config
+    (progn
 
-    ;; Unconditionally turn on Flyspell mode.  Also prevent comments
-    ;; from being checked and finally check current non-comment
-    ;; text.
-    (git-commit-turn-on-flyspell)
+      ;; Maximum length of summary line.
+      (setq git-commit-summary-max-length 50)
 
-    ;; Maximum length of summary line.
-    (setq git-commit-summary-max-length 50)
-
-    ;; Wrap text to 72 characters.
-    (setq git-commit-fill-column 72)
-
-    ;; Do not warn user of commit style violations. Syntax
-    ;; highlighting of violations will remain.
-    ;;
-    ;; Note: This is not a particularly elegant solution!
-    ;;
-    (setq git-commit-finish-query-functions
-          (delete 'git-commit-check-style-conventions
-                  git-commit-finish-query-functions)
-    )
-
-    ;; Create buffer local faces.
-    (add-hook 'git-commit-mode-hook
-      (lambda ()
-
-        ;; TAB face.
-        (copy-face 'whitespace-tab 'git-commit-whitespace-tab)
-    	  (set-face-attribute 'git-commit-whitespace-tab nil
-    			      :background "white")
-        (set (make-local-variable 'whitespace-tab)
-             'git-commit-whitespace-tab)
-    	)
+      ;; Wrap text to 72 characters.
+      (setq git-commit-fill-column 72)
     )
   )
-)
 #+END_SRC
 
 
