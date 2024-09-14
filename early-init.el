@@ -1,5 +1,11 @@
 ;;; early-init.el -*- lexical-binding: t; -*-
 
+(when (boundp 'native-comp-eln-load-path)
+  (startup-redirect-eln-cache
+   (expand-file-name "auto/eln-cache" user-emacs-directory)
+  )
+)
+
 ;;; Garbage collection
 ;; Increase the GC threshold for faster startup
 ;; The default is 800 kilobytes.  Measured in bytes.
