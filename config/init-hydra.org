@@ -25,9 +25,9 @@ Create a 'main' Hydra for launching other Hydra menus
   _h_/_H_: backward  char/word       |  _n_: Navigation
   _j_/_J_: previous  line/paragraph  |  _w_: Window management
   _k_/_K_: next      line/paragraph  |  _b_: Buffer management
-  _l_/_L_: forward   char/word       |  _p_: Projectile
-  _a_^^: home                        |  _m_: Magit
-  _e_^^: end                         |
+  _l_/_L_: forward   char/word       |  _c_: Python
+  _a_^^: home                        |  _p_: Projectile
+  _e_^^: end                         |  _m_: Magit
 
   "
   ("h" backward-char      nil :color red)
@@ -44,6 +44,7 @@ Create a 'main' Hydra for launching other Hydra menus
   ("n" hydra-navigation/body  nil :exit t)
   ("w" hydra-window/body      nil :exit t)
   ("b" hydra-buffer/body      nil :exit t)
+  ("c" hydra-python/body      nil :exit t)
   ("p" hydra-project/body     nil :exit t)
   ("m" magit-status           nil :exit t)
 
@@ -99,15 +100,17 @@ that =jj= is an infrequent pair and on the home row, as shown below:
 #+BEGIN_SRC emacs-lisp
 (defhydra hydra-navigation (:color blue :hint nil)
   "
-  ^^Navigation^^                 ^Search^                ^Other^
-  ^^--------------------------^^-^-----------------------^---------------------
-  _h_/_H_: backward  char/word   _o_: helm-occur         _b_: helm-mini
-  _j_/_J_: previous  line/para   _S_: helm-swoop         _f_: helm-find-files
-  _k_/_K_: next      line/para   _s_: isearch forward    _F_: helm-recent-files
-  _l_/_L_: forward   char/word   _r_: isearch backward   _W_: ace-window
-  _c_/_w_: avy goto  char/word   ^ ^
+  ^^Navigation^^                  ^Search^                 ^Other^
+  ^^------------------------^^    ^-------------------     ^---------------------
+  _h_/_H_: backward  char/word    _o_: helm-occur          _b_: helm-mini
+  _j_/_J_: previous  line/para    _S_: helm-swoop          _f_: helm-find-files
+  _k_/_K_: next      line/para    _s_: isearch forward     _F_: helm-recent-files
+  _l_/_L_: forward   char/word    _r_: isearch backward    _W_: ace-window
+
+  _c_/_w_: avy goto  char/word
   _a_/_e_: home/end
-  _g_^^: goto line
+  _g_^^:   goto line
+
   "
 
   ;; Character
@@ -141,10 +144,10 @@ that =jj= is an infrequent pair and on the home row, as shown below:
   ("W" ace-window)
 
   ;; Quit
-  ("RET" nil)
-  ("ESC" nil)
-  ("SPC" nil)
-  ("q"   nil)
+  ("RET" nil "quit")
+  ("ESC" nil "quit")
+  ("SPC" nil "quit")
+  ("q"   nil "quit")
 )
 #+END_SRC
 
@@ -181,6 +184,70 @@ Group related buffer commands
   ("<up>"    buf-move-up    nil)
   ("<right>" buf-move-right nil)
 
+  ;; Quit
+  ("RET" nil "quit")
+  ("ESC" nil "quit")
+  ("SPC" nil "quit")
+  ("q"   nil "quit")
+)
+#+END_SRC
+
+
+
+#+BEGIN_SRC emacs-lisp
+(defhydra hydra-python (:color blue :hint nil)
+  "
+  ^^list/defun      ^^block           ^^statment
+  ^^------------    ^^-------------   ^^------------------
+  _lf_: forward     _bf_: forward     _sf_: forward
+  _lb_: backward    _bb_: backward    _sb_: backward
+  _ds_: start       _bs_: start       _ss_: start
+  _de_: end         _be_: end         _se_: end
+
+  ^^insert skeleton ^^                ^^indent
+  ^^----------------^^-------------   ^^------------------
+  _ip_: import      _if_: for         _df_: shift right
+  _ic_: class       _ii_: if          _db_: shift left
+  _id_: def         _ie_: else        _dd_: dedent
+  _it_: try         _iw_: while       _dg_: guess indent
+
+  "
+
+  ;; Navigate list/defun
+  ("lf" python-nav-up-list                nil)
+  ("lb" python-nav-backward-up-list       nil)
+  ("ds" beginning-of-defun                nil)
+  ("de" end-of-defun                      nil)
+
+  ;; Navigate block
+  ("bf" python-nav-forward-block          nil)
+  ("bb" python-nav-backward-block         nil)
+  ("bs" python-nav-beginning-of-block     nil)
+  ("be" python-nav-end-of-block           nil)
+
+  ;; Navigate statement
+  ("sf" python-nav-forward-statement      nil)
+  ("sb" python-nav-backward-statement     nil)
+  ("ss" python-nav-beginning-of-statement nil)
+  ("se" python-nav-end-of-statement       nil)
+
+  ;; Indent
+  ("db" python-indent-shift-left          nil)
+  ("df" python-indent-shift-right         nil)
+  ("dd" python-indent-dedent-line         nil)
+  ("dg" python-indent-guess-indent-offset nil)
+
+  ;; Insert
+  ("ip" python-skeleton-import nil)
+  ("ic" python-skeleton-class  nil)
+  ("id" python-skeleton-def    nil)
+  ("if" python-skeleton-for    nil)
+  ("ii" python-skeleton-if     nil)
+  ("ie" python-skeleton-else   nil)
+  ("iw" python-skeleton-while  nil)
+  ("it" python-skeleton-try    nil)
+
+  ;; Quit
   ("RET" nil "quit")
   ("ESC" nil "quit")
   ("SPC" nil "quit")

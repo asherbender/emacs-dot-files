@@ -32,62 +32,67 @@ Jump to another window using a char-based decision tree.
 ** Hydra
 
 #+BEGIN_SRC emacs-lisp
-(require 'hydra-examples)
-(defhydra hydra-window (:color pink)
-  "
-  ^Navigation^     ^Size/Splitting^           ^Arrangement^
-  ^^^^^^^^----------------------------------------------------------------------
-  _h_: left        _H_: decrease width        _fv_: flip vertically
-  _j_: down        _J_: decrease height       _fh_: flip horizontally
-  _k_: up          _K_: increase height       _rc_: rotate frame clockwise
-  _l_: right       _L_: increase width        _ra_: rotate frame anti-clockwise
-  _n_: next        _sv_: split vertically      _=_: make all same width/height
-  _p_: previous    _sh_: split horizontally
+  (require 'hydra-examples)
+  (defhydra hydra-window (:color pink)
+    "
+    ^^Navigation   ^^                  ^^Size                    ^^Delete
+    ^^-------------^^---------------   ^^--------------------    ^^--------------------
+    _h_: left      _n_: next           _H_: decrease width       _d_: selected
+    _j_: down      _p_: previous       _J_: decrease height      _e_: all except selected
+    _k_: up        _o_: other          _K_: increase height
+    _l_: right     _a_: ace            _L_: increase width
+    ^ ^            ^ ^                 _=_: equal width/height
 
-  _d_: delete selected                       _e_: delete all except selected
+    ^^Split               ^^Flip                ^^Rotate
+    ^^----------------    ^^----------------    ^^----------------
+    _sv_: vertically      _fv_: vertically      _rc_: clockwise
+    _sh_: horizontally    _fh_: horizontally    _ra_: anti-clockwise
 
-  "
-  ("h" windmove-left   nil :color red)
-  ("j" windmove-down   nil :color red)
-  ("k" windmove-up     nil :color red)
-  ("l" windmove-right  nil :color red)
-  ("n" next-window     nil)
-  ("p" previous-window nil)
-  ("a" ace-window      nil :color blue)
+    "
 
-  ("H" hydra-move-splitter-left   nil)
-  ("J" hydra-move-splitter-down   nil)
-  ("K" hydra-move-splitter-up     nil)
-  ("L" hydra-move-splitter-right  nil)
-  ("sv" split-window-vertically   nil)
-  ("sh" split-window-horizontally nil)
+    ("<left>"  windmove-left  nil)
+    ("<down>"  windmove-down  nil)
+    ("<up>"    windmove-up    nil)
+    ("<right>" windmove-right nil)
 
-  ("<left>"  windmove-left  nil)
-  ("<down>"  windmove-down  nil)
-  ("<up>"    windmove-up    nil)
-  ("<right>" windmove-right nil)
+    ("h" windmove-left   nil :color red)
+    ("j" windmove-down   nil :color red)
+    ("k" windmove-up     nil :color red)
+    ("l" windmove-right  nil :color red)
 
-  ("<S-left>"  hydra-move-splitter-left  nil)
-  ("<S-down>"  hydra-move-splitter-down  nil)
-  ("<S-up>"    hydra-move-splitter-up    nil)
-  ("<S-right>" hydra-move-splitter-right nil)
+    ("n" next-window     nil)
+    ("p" previous-window nil)
+    ("o" other-window    nil)
+    ("a" ace-window      nil :color blue)
 
-  ("fv" flip-frame                  nil)
-  ("fh" flop-frame                  nil)
-  ("rc" rotate-frame-clockwise      nil)
-  ("ra" rotate-frame-anti-clockwise nil)
-  ("="  balance-windows             nil)
+    ("H" hydra-move-splitter-left   nil)
+    ("J" hydra-move-splitter-down   nil)
+    ("K" hydra-move-splitter-up     nil)
+    ("L" hydra-move-splitter-right  nil)
+    ("sv" split-window-vertically   nil)
+    ("sh" split-window-horizontally nil)
 
-  ("d" delete-window             nil)
-  ("e" delete-other-windows      nil)
-  ("0" delete-window             nil)
-  ("1" delete-other-windows      nil)
-  ("2" split-window-vertically   nil)
-  ("3" split-window-horizontally nil)
+    ("<S-left>"  hydra-move-splitter-left  nil)
+    ("<S-down>"  hydra-move-splitter-down  nil)
+    ("<S-up>"    hydra-move-splitter-up    nil)
+    ("<S-right>" hydra-move-splitter-right nil)
 
-  ("RET" nil "quit")
-  ("ESC" nil "quit")
-  ("SPC" nil "quit")
-  ("q"   nil "quit")
-)
+    ("fv" flip-frame                  nil)
+    ("fh" flop-frame                  nil)
+    ("rc" rotate-frame-clockwise      nil)
+    ("ra" rotate-frame-anti-clockwise nil)
+    ("="  balance-windows             nil)
+
+    ("d" delete-window             nil)
+    ("e" delete-other-windows      nil)
+    ("0" delete-window             nil)
+    ("1" delete-other-windows      nil)
+    ("2" split-window-vertically   nil)
+    ("3" split-window-horizontally nil)
+
+    ("RET" nil "quit")
+    ("ESC" nil "quit")
+    ("SPC" nil "quit")
+    ("q"   nil "quit")
+  )
 #+END_SRC
