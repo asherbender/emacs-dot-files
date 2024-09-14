@@ -74,7 +74,6 @@ The main aims and features of this configuration are:
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-docker.org][Docker]]      | Docker configuration                       |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-yaml.org][YAML]]        | Configurations for YAML development        |
 
-#+TBLFM:
 
 #+begin_src emacs-lisp :exports none
 (load-org-config "init-prog-mode.org")
@@ -85,3 +84,67 @@ The main aims and features of this configuration are:
 (load-org-config "init-docker.org")
 (load-org-config "init-yaml.org")
 #+end_src
+
+** Compiling Emacs from source
+
+The Emacs sources can be retrieved from the [[https://ftp.gnu.org/pub/gnu/emacs/][FTP server]] of the the GNU project or
+the development sources can be access via Git [[https://savannah.gnu.org/projects/emacs/][on Savannah]]. An overview of
+compiling Emacs 29 on a Debian-based distribution is given here. For more
+information, see the [[https://www.gnu.org/software/emacs/manual/html_node/efaq/Installing-Emacs.html][manual]] and the build instructions in the sources [[https://git.savannah.gnu.org/cgit/emacs.git/tree/INSTALL][INSTALL]]
+file.
+
+*** Clone the Emacs repository
+
+#+BEGIN_SRC shell
+  git clone git://git.savannah.gnu.org/emacs.git
+  cd emacs
+#+END_SRC
+
+*** Checkout desired tag
+
+#+BEGIN_SRC shell
+  git checkout emacs-29.4
+#+END_SRC
+
+*** Install dependencies
+
+#+BEGIN_SRC shell
+  sudo apt install build-essential
+  sudo apt build-dep emacs
+  sudo apt install gcc-12 libgccjit0 libgccjit-12-dev libtree-sitter-dev
+#+END_SRC
+
+*** Review configuration options
+
+#+BEGIN_SRC shell
+  ./configure --help
+#+END_SRC
+
+*** Configure build
+
+#+BEGIN_SRC shell
+  ./autogen.sh
+  CC="gcc-12" ./configure         \
+    --build=x86_64-linux-gnu      \
+    --with-x                      \
+    --with-x-toolkit=gtk3         \
+    --with-sound=alsa             \
+    --without-mailutils           \
+    --with-imagemagick            \
+    --without-compress-install    \
+    --with-tree-sitter            \
+    --with-native-compilation=aot \
+    --with-json
+#+END_SRC
+
+*** Compile
+
+#+BEGIN_SRC shell
+  make NATIVE_FULL_AOT=1 -j16
+#+END_SRC
+
+*** Install
+
+#+BEGIN_SRC shell
+  sudo make install
+#+END_SRC
