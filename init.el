@@ -1,25 +1,18 @@
-;; Select your preferred version of Emacs from:
+;; init.el --- Initialization file. -*- lexical-binding: t; -*-
+
+(when (< emacs-major-version 29)
+  (error "Configuration relies on Emacs 29. Detected version %s" emacs-major-version)
+)
+
+;; Set location for the asynchronous native compilation *.eln files. See:
 ;;
-;;     http://mirrors.kernel.org/gnu/emacs/
+;;     https://www.gnu.org/software/emacs/manual/html_node/elisp/Native_002dCompilation-Functions.html
 ;;
-;; Download preferred version:
-;;
-;;     wget http://mirrors.kernel.org/gnu/emacs/emacs-<VERSION>.tar.gz \
-;;          -O ~/src/emacs-<VERSION>.gz
-;;
-;; Unpack archive:
-;;
-;;     cd ~/src/
-;;     tar -zxvf emacs-<VERSION>.tar.xz
-;;
-;; Build Emacs:
-;;
-;;     sudo apt-get install build-essential
-;;     sudo apt-get build-dep emacs
-;;     cd ~/src/emacs-<VERSION>
-;;     mkdir build && cd build
-;;     ../configure
-;;     sudo make -j6
+(when (boundp 'native-comp-eln-load-path)
+  (startup-redirect-eln-cache
+   (expand-file-name "auto/eln-cache" user-emacs-directory)
+  )
+)
 
 (defun message-center (str width)
   (let*
@@ -34,79 +27,83 @@
   )
 )
 
-;; Flag start of initialisation in *Messages* buffer.
-(message-center "Initialising packages" 80)
-
 ;; Enable debugging during initialisation (disable at end).
 (setq debug-on-error t)
 (setq debug-on-quit t)
 
+;;------------------------------------------------------------------------------
+;;                              Initialise packages
+;;------------------------------------------------------------------------------
+
+;; Flag start of initialisation in *Messages* buffer.
+(message-center "Initialising packages" 80)
+
 ;; Keep track of loading time.
 (defconst emacs-start-time (current-time))
+
 
 ;; Define location of configuration directory.
 (defconst config-directory (concat user-emacs-directory "config/"))
 
-;; Initalize all ELPA packages.
+;; (require 'package)
+;; (setq use-package-always-ensure t)
+;; ;;(setq package-enable-at-startup nil)
+;; (setq use-package-verbose t)
+
+
+(setq package-user-dir
+      (locate-user-emacs-file
+       (concat (file-name-as-directory "elpa") emacs-version)
+       )
+)
+
+;; Package archives.
 (require 'package)
-
-;; The Emacs Lisp Package Archive (ELPA) is included in Emacs, starting with
-;; version 24. Starting with Emacs 28.1, the NonGNU ELPA repository is also
-;; enabled by default. For Emacs >=28.1, the following are no longer required:
-;;
-;;     (add-to-list 'package-archives '("gnu"    . "https://elpa.gnu.org/packages/"))
-;;     (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/"))
-;;
-(if (< emacs-major-version 28)
-    (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/"))
-)
-(if (< emacs-major-version 24)
-    (add-to-list 'package-archives '("gnu"    . "https://elpa.gnu.org/packages/"))
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org"   . "https://orgmode.org/elpa/")
+                         ("gnu"   . "https://elpa.gnu.org/packages/"))
 )
 
-;; MELPA (or Milkypostman's ELPA or Milkypostman's Experimental Lisp Package
-;; Repository if you're not into the whole brevity thing) is a package.el
-;; repository for development versions of Emacs packages (hot from the repo).
-;;
-(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+;; Set archive priorities.
+(setq package-archive-priorities
+      '(("gnu"      . 100)
+        ("nongnu"   . 50)
+        ("melpa"    . 10))
+)
 
-;; Load Emacs Lisp packages, and activate them. Ensure packages are
-;; installed automatically if not already present on your system.
+;; (setq package-user-dir
+;;       (locate-user-emacs-file
+;;        (concat (file-name-as-directory "elpa") emacs-version)
+;;        )
+;; )
+
+
+;; Initialize the package system
 (package-initialize)
+
+;; Bootstrap `use-package` if it's not installed
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+;; Always ensure packages are installed if missing
 (setq use-package-always-ensure t)
 
-(setq package-enable-at-startup nil)
-(setq use-package-verbose t)
+;; Load `use-package` for configuring packages
+(require 'use-package)
 
-;; Boot-strap and load use-package if it does not exist.
-(if (< emacs-major-version 29)
-  (progn
-    (unless (package-installed-p 'use-package)
-      (package-refresh-contents)
-      (package-install 'use-package)
-      (package-install 'diminish)
-      (package-install 'bind-key)
-    )
-    (eval-when-compile
-      (require 'use-package)
-    )
-    (require 'diminish)
-    (require 'bind-key)
-  )
-  ;; Built into Emacs 29: 'use-package'  and 'bind-key'.
-  (progn
-    (unless (package-installed-p 'diminish)
-      (package-refresh-contents)
-      (package-install 'diminish)
-    )
-    (require 'diminish)
-    (require 'bind-key)
-  )
-)
+;; Optional: Use `diminish` and `bind-key` for cleaner mode lines and keybinding management
+(use-package diminish :ensure t)
+(use-package bind-key :ensure t)
+
 
 (let ((elapsed (float-time (time-subtract (current-time) emacs-start-time))))
      (message "Packages initialised in %.3fs" elapsed)
-)
+     )
+
+;;------------------------------------------------------------------------------
+;;                              Load configurations
+;;------------------------------------------------------------------------------
 (message-center "Loading configurations" 80)
 
 ;; Define loading function used in `readme.org`.
