@@ -10,20 +10,20 @@ The main aims and features of this configuration are:
 
 - Literate programming paradigm via Org-mode [[http://orgmode.org/worg/org-contrib/babel/][Babel]]
 - Configuration simultaneously versioned and documented on GitHub
-- Package installation and updates managed by [[https://github.com/jwiegley/use-package][use-package]]
+- Package installation and updates managed by [[https://www.gnu.org/software/emacs/manual/html_node/use-package/index.html][use-package]]
 - Modular configuration
 
 ** General
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-general.org][General]]      | Basic user interface settings                  |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-line-column.org][Line numbers]] | Line and column numbering                      |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-global-map.org][Global map]]   | Define modifications to global key map         |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]]      | Configure backup~ and #auto-save# management   |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]]     | Spelling program and on-the-fly spell checking |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo.org][Undo]]         | Configure undo system                          |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]]   | Whitespace management                          |                                              |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-recentf.org][Recent files]] | Configure recently opened files management     |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-repeat.org][Repeat]]       | Convenient way to repeat previous commands     |
+| [[config/init-general.org][General]]      | Basic user interface settings                  |
+| [[config/init-line-column.org][Line numbers]] | Line and column numbering                      |
+| [[config/init-global-map.org][Global map]]   | Define modifications to global key map         |
+| [[config/init-backup.org][Backups]]      | Configure backup~ and #auto-save# management   |
+| [[config/init-spelling.org][Spelling]]     | Spelling program and on-the-fly spell checking |
+| [[config/init-undo.org][Undo]]         | Configure undo system                          |
+| [[config/init-whitespace.org][Whitespace]]   | Whitespace management                          |
+| [[config/init-recentf.org][Recent files]] | Configure recently opened files management     |
+| [[config/init-repeat.org][Repeat]]       | Convenient way to repeat previous commands     |
 
 #+begin_src emacs-lisp :exports none
   (load-org-config "init-general.org")
@@ -39,24 +39,25 @@ The main aims and features of this configuration are:
 
 ** Navigation
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-hydra.org][Hydra]]   | Hydra menu definitions                         |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-navigation.org][Cursor]]  | Modifications to default cursor movements      |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-isearch.org][isearch]] | Incremental search                             |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-window.org][Window]]  | Window movement and management                 |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-helm.org][Helm]]    | Incremental completion and selection framework |
+| [[config/init-hydra.org][Hydra]]   | Hydra menu definitions                         |
+| [[config/init-navigation.org][Cursor]]  | Modifications to default cursor movements      |
+| [[config/init-isearch.org][isearch]] | Incremental search                             |
+| [[config/init-window.org][Window]]  | Window movement and management                 |
+| [[config/init-helm.org][Helm]]    | Incremental completion and selection framework |
+
 #+begin_src emacs-lisp :exports none
-;; Note order is important (init-hydra must be loaded before init-window).
-(load-org-config "init-hydra.org")
-(load-org-config "init-navigation.org")
-(load-org-config "init-isearch.org")
-(load-org-config "init-window.org")
-(load-org-config "init-helm.org")
+  ;; Note order is important (init-hydra must be loaded before init-window).
+  (load-org-config "init-hydra.org")
+  (load-org-config "init-navigation.org")
+  (load-org-config "init-isearch.org")
+  (load-org-config "init-window.org")
+  (load-org-config "init-helm.org")
 #+end_src
 
 ** Word processing
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-text-mode.org][Text]]  | Global configuration for text modes |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-latex.org][LaTeX]] | Configurations for LaTeX development |
+| [[config/init-text-mode.org][Text]]  | Global configuration for text modes  |
+| [[config/init-latex.org][LaTeX]] | Configurations for LaTeX development |
 
 #+begin_src emacs-lisp :exports none
   (load-org-config "init-latex.org")
@@ -65,23 +66,22 @@ The main aims and features of this configuration are:
 
 ** Programming
 
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-prog-mode.org][Programming]] | Global configuration for programming modes |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-projectile.org][Projectile]]  | Project management                         |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-git.org][Git]]         | Git configuration                          |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-ediff.org][Ediff]]       | Ediff configuration                        |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-python.org][Python]]      | Configurations for python development      |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-docker.org][Docker]]      | Docker configuration                       |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-yaml.org][YAML]]        | Configurations for YAML development        |
-
+| [[config/init-prog-mode.org][Programming]] | Global configuration for programming modes   |
+| [[config/init-projectile.org][Projectile]]  | Project management                           |
+| [[config/init-git.org][Git]]         | Git configuration                            |
+| [[config/init-ediff.org][Ediff]]       | Ediff configuration                          |
+| [[config/init-python.org][Python]]      | Configurations for python development        |
+| [[config/init-docker.org][Docker]]      | Docker configuration                         |
+| [[config/init-yaml.org][YAML]]        | Configurations for YAML development          |
 
 #+begin_src emacs-lisp :exports none
-(load-org-config "init-prog-mode.org")
-;; (load-org-config "init-projectile.org")
-(load-org-config "init-git.org")
-(load-org-config "init-ediff.org")
-(load-org-config "init-python.org")
-(load-org-config "init-docker.org")
-(load-org-config "init-yaml.org")
+  (load-org-config "init-prog-mode.org")
+  (load-org-config "init-project.org")
+  (load-org-config "init-git.org")
+  (load-org-config "init-ediff.org")
+  (load-org-config "init-python.org")
+  (load-org-config "init-docker.org")
+  (load-org-config "init-yaml.org")
 #+end_src
 
 ** Compiling Emacs from source
