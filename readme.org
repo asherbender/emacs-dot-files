@@ -37,13 +37,20 @@ The main aims and features of this configuration are:
   (load-org-config "init-repeat.org")
 #+end_src
 
+** Completion
+
+| [[config/init-complete-minibuffer.org][Minibuffer]] | Configure minibuffer completions |
+
+#+begin_src emacs-lisp :exports none
+  (load-org-config "init-complete-minibuffer.org")
+#+end_src
+
 ** Navigation
 
 | [[config/init-hydra.org][Hydra]]   | Hydra menu definitions                         |
 | [[config/init-navigation.org][Cursor]]  | Modifications to default cursor movements      |
 | [[config/init-isearch.org][isearch]] | Incremental search                             |
 | [[config/init-window.org][Window]]  | Window movement and management                 |
-| [[config/init-helm.org][Helm]]    | Incremental completion and selection framework |
 
 #+begin_src emacs-lisp :exports none
   ;; Note order is important (init-hydra must be loaded before init-window).
@@ -51,7 +58,6 @@ The main aims and features of this configuration are:
   (load-org-config "init-navigation.org")
   (load-org-config "init-isearch.org")
   (load-org-config "init-window.org")
-  (load-org-config "init-helm.org")
 #+end_src
 
 ** Word processing
