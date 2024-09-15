@@ -20,21 +20,21 @@ The main aims and features of this configuration are:
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-global-map.org][Global map]]   | Define modifications to global key map         |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-backup.org][Backups]]      | Configure backup~ and #auto-save# management   |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-spelling.org][Spelling]]     | Spelling program and on-the-fly spell checking |
-| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo-tree.org][Undo]]         | Configure undo system                          |
+| [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-undo.org][Undo]]         | Configure undo system                          |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-whitespace.org][Whitespace]]   | Whitespace management                          |                                              |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-recentf.org][Recent files]] | Configure recently opened files management     |
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-repeat.org][Repeat]]       | Convenient way to repeat previous commands     |
 
 #+begin_src emacs-lisp :exports none
-(load-org-config "init-general.org")
-(load-org-config "init-line-column.org")
-(load-org-config "init-global-map.org")
-(load-org-config "init-backup.org")
-(load-org-config "init-spelling.org")
-(load-org-config "init-undo-tree.org")
-(load-org-config "init-whitespace.org")
-(load-org-config "init-recentf.org")
-(load-org-config "init-repeat.org")
+  (load-org-config "init-general.org")
+  (load-org-config "init-line-column.org")
+  (load-org-config "init-global-map.org")
+  (load-org-config "init-backup.org")
+  (load-org-config "init-spelling.org")
+  (load-org-config "init-undo.org")
+  (load-org-config "init-whitespace.org")
+  (load-org-config "init-recentf.org")
+  (load-org-config "init-repeat.org")
 #+end_src
 
 ** Navigation
@@ -59,8 +59,8 @@ The main aims and features of this configuration are:
 | [[https://github.com/asherbender/emacs-dot-files/blob/master/config/init-latex.org][LaTeX]] | Configurations for LaTeX development |
 
 #+begin_src emacs-lisp :exports none
-(load-org-config "init-latex.org")
-(load-org-config "init-text-mode.org")
+  (load-org-config "init-latex.org")
+  (load-org-config "init-text-mode.org")
 #+end_src
 
 ** Programming

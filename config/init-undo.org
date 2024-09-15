@@ -1,0 +1,68 @@
+* Undo configurations
+
+** Vundo
+
+Replace standard Emacs undo system with =vundo=
+
+#+BEGIN_SRC emacs-lisp
+  (use-package vundo
+    :ensure t
+    :bind (("C-x u" . vundo))
+    :config
+    (setq vundo-glyph-alist vundo-unicode-symbols)
+  )
+#+END_SRC
+
+** Undo-Fu-Session
+
+Save undo history with =undo-fu-session=:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-fu-session
+    :ensure t
+    :init
+    ;; Create the undo history directory if it doesn't exist.
+    (let ((undo-dir (expand-file-name "auto/undo-history" user-emacs-directory)))
+      (unless (file-directory-p undo-dir)
+        (make-directory undo-dir t))
+    )
+    :config
+    (progn
+
+      ;; Do not use compression when saving undo history
+      (setq undo-fu-session-compression nil)
+
+      ;; Disable file limit for undo histories.
+      (setq undo-fu-session-file-limit nil)
+
+      ;; Save undo histories in 'auto' subdirectory.
+      (setq undo-fu-session-directory (expand-file-name "auto/undo-history" user-emacs-directory))
+
+      ;; Ignore the following files when saving undo histories.
+      (setq undo-fu-session-incompatible-files
+            '("/COMMIT_EDITMSG\\'"
+              "/git-rebase-todo\\'")
+      )
+
+      ;; Call default function for computing the session file-path and remove the
+      ;; extension.
+      (defun undo-session-file-name (filename ext)
+        "Generate undo-fu-session file name without extension."
+        (let* ((fname (undo-fu-session-make-file-name filename ext))
+               (ext-length (length ext))
+               (fname-length (length fname)))
+          (if (and (string-suffix-p ext fname) (> fname-length ext-length))
+              (substring fname 0 (- fname-length ext-length))
+            fname
+          )
+        )
+      )
+
+      ;; Set function that computes the session file-path for the buffer.
+      (setq undo-fu-session-make-file-name-function 'undo-session-file-name)
+
+      ;; Enable undo-fu-session globally
+      (undo-fu-session-global-mode)
+    )
+  )
+#+END_SRC
