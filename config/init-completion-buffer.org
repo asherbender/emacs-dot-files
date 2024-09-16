@@ -1,0 +1,49 @@
+* Buffer completion
+
+** Buffer completion UI (frontend)
+
+#+BEGIN_QUOTE
+Corfu enhances in-buffer completion with a small completion popup. The current
+candidates are shown in a popup below or above the point. The candidates can be
+selected by moving up and down. Corfu is the minimalistic in-buffer completion
+counterpart of the Vertico minibuffer UI. [[[https://github.com/minad/corfu][source]]]
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp
+  (use-package corfu
+    :ensure t
+    :init
+    (global-corfu-mode)
+    :custom
+    (corfu-cycle t)           ;; Enable cycling for `corfu`
+    (corfu-auto t)            ;; Enable auto-completion
+    (corfu-auto-prefix 2)     ;; Start auto-completion after typing 2 characters
+    (corfu-echo-documentation t) ;; Show documentation in echo area
+    :bind (:map corfu-map
+                ("TAB" . corfu-next)    ;; Bind `TAB` to cycle forward
+                ("S-TAB" . corfu-previous))
+  )
+#+END_SRC
+
+** Buffer completion commands
+
+#+BEGIN_QUOTE
+Cape provides Completion At Point Extensions which can be used in combination
+with Corfu, Company or the default completion UI. [[[https://github.com/minad/cape][source]]]
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp
+  (use-package cape
+    :ensure t
+    ;; Bind dedicated completion commands
+    :bind (("C-c p p" . completion-at-point) ;; Complete at point
+           ("C-c p t" . cape-dabbrev)        ;; Text completion
+           ("C-c p d" . cape-dict)           ;; Dictionary completion
+           ("C-c p f" . cape-file))          ;; File completion
+    :init
+    ;; Add useful defaults to completion-at-point-functions
+    (add-to-list 'completion-at-point-functions #'cape-file)
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+    (add-to-list 'completion-at-point-functions #'cape-keyword)
+  )
+#+END_SRC

@@ -7,24 +7,7 @@ Configure behaviour for saving minibuffer history:
   (setq savehist-file (concat user-emacs-auto-directory "minibuffer-history"))
 #+END_SRC
 
-** Completion style (backend)
-
-#+BEGIN_QUOTE
-This package provides an orderless completion style that divides the pattern
-into space-separated components, and matches candidates that match all of the
-components in any order. Each component can match in any one of several ways:
-literally, as a regexp, as an initialism, in the flex style, or as multiple word
-prefixes. By default, regexp and literal matches are enabled. [[[https://github.com/oantolin/orderless][source]]]
-#+END_QUOTE
-
-#+BEGIN_SRC emacs-lisp
-  (use-package orderless
-    :ensure t
-    :custom
-    (completion-styles '(orderless basic))
-    (completion-category-overrides '((file (styles partial-completion))))
-  )
-#+END_SRC
+** Minibuffer completion functions (backend)
 
 #+BEGIN_QUOTE
 Consult provides search and navigation commands based on the Emacs completion
@@ -136,7 +119,7 @@ command. [[[https://github.com/minad/marginalia/][source]]]
   )
 #+END_SRC
 
-*** minibuffer completions
+*** Minibuffer completion commands
 
 #+BEGIN_QUOTE
 Embark makes it easy to choose a command to run based on what is near point,

@@ -1,0 +1,18 @@
+* Completion style
+
+#+BEGIN_QUOTE
+=orderless= provides a completion style that divides the pattern into
+space-separated components, and matches candidates that match all of the
+components in any order. Each component can match in any one of several ways:
+literally, as a regexp, as an initialism, in the flex style, or as multiple word
+prefixes. By default, regexp and literal matches are enabled. [[[https://github.com/oantolin/orderless][source]]]
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp
+  (use-package orderless
+    :ensure t
+    :custom
+    (completion-styles '(orderless basic))
+    (completion-category-overrides '((file (styles partial-completion))))
+  )
+#+END_SRC

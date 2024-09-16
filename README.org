@@ -39,10 +39,14 @@ The main aims and features of this configuration are:
 
 ** Completion
 
-| [[config/init-complete-minibuffer.org][Minibuffer]] | Configure minibuffer completions |
+| [[config/init-completion-backend.org][Backend]]    | Configure completion style (backend) |
+| [[config/init-completion-minibuffer.org][Minibuffer]] | Configure minibuffer completions     |
+| [[config/init-completion-buffer.org][Buffer]]     | Configure buffer completions         |
 
 #+begin_src emacs-lisp :exports none
-  (load-org-config "init-complete-minibuffer.org")
+  (load-org-config "init-completion-backend.org")
+  (load-org-config "init-completion-minibuffer.org")
+  (load-org-config "init-completion-buffer.org")
 #+end_src
 
 ** Navigation
