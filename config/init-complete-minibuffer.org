@@ -47,6 +47,55 @@ and =consult-ripgrep= commands, and the line-based search command
   )
 #+END_SRC
 
+#+BEGIN_QUOTE
+Consult-project-extra provides an extension to the default Consult
+functionality, using the built-in package =project.el=, defining the functions
+=consult-project-extra-find= and
+=consult-project-extra-find-other-window=. [[[https://github.com/minad/consult][source]]]
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp
+  (use-package consult-project-extra
+    :ensure t
+    :bind
+    (("C-x f" . consult-project-with-recentf-find))
+    :config
+
+    (defvar consult-project-extra--source-recent-file
+      `(:name     "Recent Files"
+        :narrow   (?r . "Recent files")
+        :category file
+        :face     consult-file
+        :history  file-name-history
+        :state    ,#'consult--file-state
+        :new      ,#'consult--file-action
+        :enabled  ,(lambda () recentf-mode)
+        :items
+        ,(lambda ()
+           (let ((ht (consult--buffer-file-hash))
+                 items)
+             (dolist (file (bound-and-true-p recentf-list) (nreverse items))
+               ;; Emacs 29 abbreviates file paths by default, see
+               ;; `recentf-filename-handlers'.  I recommend to set
+               ;; `recentf-filename-handlers' to nil to avoid any slow down.
+               (unless (eq (aref file 0) ?/)
+                 (let (file-name-handler-alist) ;; No Tramp slowdown please.
+                   (setq file (expand-file-name file))))
+               (unless (gethash file ht)
+                 (push (consult--fast-abbreviate-file-name file) items))))))
+      "Recent file candidate source for `consult-buffer'.")
+
+    (defun consult-project-with-recentf-find ()
+      "Search open buffers, project files, and recent files."
+      (interactive)
+      (let ((consult-project-extra-sources
+             (append consult-project-extra-sources
+                     (list consult-project-extra--source-recent-file))))
+        (consult-project-extra-find))
+    )
+  )
+#+END_SRC
+
 ** Minibuffer completion UI (frontend)
 
 #+BEGIN_QUOTE
