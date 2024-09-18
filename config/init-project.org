@@ -1,5 +1,6 @@
 * Project management.
 
 #+BEGIN_SRC emacs-lisp
-(require 'project)
+  (require 'project)
+  (setopt project-list-file (expand-file-name "projects" user-emacs-auto-directory))
 #+END_SRC

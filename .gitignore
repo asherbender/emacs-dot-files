@@ -1,6 +1,5 @@
-*~
 auto/
-config/*~
+cache/
 config/*.el
-elpa/
 session.*
+README.el

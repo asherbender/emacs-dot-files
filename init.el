@@ -10,7 +10,7 @@
 ;;
 (when (boundp 'native-comp-eln-load-path)
   (startup-redirect-eln-cache
-   (expand-file-name "auto/eln-cache" user-emacs-directory)
+   (expand-file-name (file-name-as-directory "cache/eln") user-emacs-directory)
   )
 )
 
@@ -31,30 +31,19 @@
 (setq debug-on-error t)
 (setq debug-on-quit t)
 
-;;------------------------------------------------------------------------------
-;;                              Initialise packages
-;;------------------------------------------------------------------------------
-
-;; Flag start of initialisation in *Messages* buffer.
-(message-center "Initialising packages" 80)
-
 ;; Keep track of loading time.
 (defconst emacs-start-time (current-time))
 
-
-;; Define location of configuration directory.
-(defconst config-directory (concat user-emacs-directory "config/"))
-
-;; (require 'package)
-;; (setq use-package-always-ensure t)
-;; ;;(setq package-enable-at-startup nil)
-;; (setq use-package-verbose t)
-
+;;------------------------------------------------------------------------------
+;;                              Initialise packages
+;;------------------------------------------------------------------------------
+(message-center "Initialising packages" 80)
 
 (setq package-user-dir
       (locate-user-emacs-file
-       (concat (file-name-as-directory "elpa") emacs-version)
-       )
+       (expand-file-name (concat (file-name-as-directory "cache/elpa") emacs-version)
+                         user-emacs-directory)
+      )
 )
 
 ;; Package archives.
@@ -71,13 +60,6 @@
         ("melpa"    . 10))
 )
 
-;; (setq package-user-dir
-;;       (locate-user-emacs-file
-;;        (concat (file-name-as-directory "elpa") emacs-version)
-;;        )
-;; )
-
-
 ;; Initialize the package system
 (package-initialize)
 
@@ -86,25 +68,28 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-;; Always ensure packages are installed if missing
+;; Always ensure packages are installed if missing.
 (setq use-package-always-ensure t)
 
-;; Load `use-package` for configuring packages
+;; Load `use-package` for configuring packages.
 (require 'use-package)
 
-;; Optional: Use `diminish` and `bind-key` for cleaner mode lines and keybinding management
+;; Use `diminish` and `bind-key` for cleaner mode lines and keybinding
+;; management.
 (use-package diminish :ensure t)
 (use-package bind-key :ensure t)
 
-
 (let ((elapsed (float-time (time-subtract (current-time) emacs-start-time))))
      (message "Packages initialised in %.3fs" elapsed)
-     )
+)
 
 ;;------------------------------------------------------------------------------
 ;;                              Load configurations
 ;;------------------------------------------------------------------------------
 (message-center "Loading configurations" 80)
+
+;; Define location of configuration directory.
+(defconst config-directory (concat user-emacs-directory "config/"))
 
 ;; Define loading function used in `readme.org`.
 (defun load-org-config (file)
@@ -130,12 +115,10 @@
 (require 'org)
 (org-babel-load-file (concat user-emacs-directory "README.org"))
 
-
-;; Message how long it took to load everything (minus packages).
-(let ((elapsed (float-time (time-subtract (current-time)
-                                           emacs-start-time))
-               )
-      )
+;;------------------------------------------------------------------------------
+;;                             Exit initialisation
+;;------------------------------------------------------------------------------
+(let ((elapsed (float-time (time-subtract (current-time) emacs-start-time))))
   (message (make-string 80 ?-))
   (message "Initialisation completed in %.3f seconds." elapsed)
   (message "Garbage collections performed: %d." gcs-done)

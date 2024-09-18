@@ -22,7 +22,8 @@ Save undo history with =undo-fu-session=:
     :ensure t
     :init
     ;; Create the undo history directory if it doesn't exist.
-    (let ((undo-dir (expand-file-name "auto/undo-history" user-emacs-directory)))
+    (let ((undo-dir (expand-file-name (file-name-as-directory "auto/undo-history")
+                                      user-emacs-auto-directory)))
       (unless (file-directory-p undo-dir)
         (make-directory undo-dir t))
     )
