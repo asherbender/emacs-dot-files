@@ -41,12 +41,12 @@ The main aims and features of this configuration are:
 
 | [[config/init-completion-backend.org][Backend]]    | Configure completion style (backend) |
 | [[config/init-completion-minibuffer.org][Minibuffer]] | Configure minibuffer completions     |
-| [[config/init-completion-buffer.org][Buffer]]     | Configure buffer completions         |
+| [[config/init-completion-at-point.org][At point]]   | Configure completion at point        |
 
 #+begin_src emacs-lisp :exports none
   (load-org-config "init-completion-backend.org")
   (load-org-config "init-completion-minibuffer.org")
-  (load-org-config "init-completion-buffer.org")
+  (load-org-config "init-completion-at-point.org")
 #+end_src
 
 ** Navigation
@@ -76,17 +76,19 @@ The main aims and features of this configuration are:
 
 ** Programming
 
-| [[config/init-prog-mode.org][Programming]] | Global configuration for programming modes   |
-| [[config/init-projectile.org][Projectile]]  | Project management                           |
-| [[config/init-git.org][Git]]         | Git configuration                            |
-| [[config/init-ediff.org][Ediff]]       | Ediff configuration                          |
-| [[config/init-python.org][Python]]      | Configurations for python development        |
-| [[config/init-docker.org][Docker]]      | Docker configuration                         |
-| [[config/init-yaml.org][YAML]]        | Configurations for YAML development          |
+| [[config/init-prog-mode.org][Programming]]        | Global configuration for programming modes   |
+| [[config/init-project.org][Project management]] | Project management                           |
+| [[config/init-tree-sitter.org][Tree-sitter]]        | Configuration for =tree-sitter= syntax trees |
+| [[config/init-git.org][Git]]                | Git configuration                            |
+| [[config/init-ediff.org][Ediff]]              | Ediff configuration                          |
+| [[config/init-python.org][Python]]             | Configurations for python development        |
+| [[config/init-docker.org][Docker]]             | Docker configuration                         |
+| [[config/init-yaml.org][YAML]]               | Configurations for YAML development          |
 
 #+begin_src emacs-lisp :exports none
   (load-org-config "init-prog-mode.org")
   (load-org-config "init-project.org")
+  (load-org-config "init-tree-sitter.org")
   (load-org-config "init-git.org")
   (load-org-config "init-ediff.org")
   (load-org-config "init-python.org")

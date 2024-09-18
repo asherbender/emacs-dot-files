@@ -1,0 +1,162 @@
+* Buffer completion
+
+** Buffer completion UI (frontend)
+
+#+BEGIN_QUOTE
+Corfu enhances in-buffer completion with a small completion popup. The current
+candidates are shown in a popup below or above the point. The candidates can be
+selected by moving up and down. Corfu is the minimalistic in-buffer completion
+counterpart of the Vertico minibuffer UI. [[[https://github.com/minad/corfu][source]]]
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp
+  (use-package corfu
+    :ensure t
+    :custom
+    (corfu-cycle t)
+    (corfu-auto t)
+    (corfu-auto-prefix 2)
+    (corfu-auto-delay 0.2)
+    :bind
+    (:map corfu-map
+          ("C-SPC" . corfu-insert-separator)
+          ("SPC"   . (lambda () (interactive) (corfu-quit) (insert " ")))
+          (":"     . (lambda () (interactive) (corfu-quit) (insert ":")))
+          ("TAB"   . corfu-insert)
+          ([tab]   . corfu-insert))
+
+    :init
+    (global-corfu-mode)
+  )
+#+END_SRC
+
+** Buffer completion commands
+
+#+BEGIN_QUOTE
+Cape provides Completion At Point Extensions which can be used in combination
+with Corfu, Company or the default completion UI. [[[https://github.com/minad/cape][source]]]
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp
+  (use-package cape
+    :ensure t
+    ;; Bind dedicated completion commands
+    :bind (("C-c p p" . completion-at-point) ;; Complete at point
+           ("C-c p t" . cape-dabbrev)        ;; Text completion
+           ("C-c p d" . cape-dict)           ;; Dictionary completion
+           ("C-c p f" . cape-file))          ;; File completion
+    :init
+    ;; Add useful defaults to completion-at-point-functions
+    (add-to-list 'completion-at-point-functions #'cape-file)
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+    (add-to-list 'completion-at-point-functions #'cape-keyword)
+  )
+#+END_SRC
+
+*** Icons for buffer completions
+
+#+BEGIN_QUOTE
+This emacs package adds configurable icon or text-based completion prefixes
+based on the =:company-kind= property that many completion backends (such as
+lsp-mode, eglot, and Emacs' elisp-mode) provide. [[[https://github.com/jdtsmith/kind-icon][source]]]
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp
+  (use-package kind-icon
+    :ensure t
+    :after corfu
+    :custom
+    (kind-icon-use-icons t)
+    (kind-icon-default-face 'corfu-default)
+    (kind-icon-blend-background nil)
+    (kind-icon-blend-frac 0.08)
+    :config
+
+    (defun svg-lib--icon-get-data (collection name &optional force-reload)
+      "Retrieve icon NAME from COLLECTION.
+
+      Cached version is returned if it exists unless FORCE-RELOAD is t."
+
+      (message "%s: %s" collection name)
+
+      ;; Build resource (URL or local path) from collection and name.
+      (let ((url-or-path (cdr (assoc collection svg-lib-icon-collections))))
+
+        (message "%s" url-or-path)
+
+        ;; Check if resource is a local directory.
+        (if (file-directory-p url-or-path)
+
+            ;; Load icon from local directory.
+            (let ((local-file (expand-file-name (format "%s.svg" name) url-or-path)))
+              (message "%s" local-file)
+              (if (file-exists-p local-file)
+                  (with-temp-buffer
+                    (insert-file-contents local-file)
+                    (xml-parse-region (point-min) (point-max)))
+                (error "Icon %s not found in local directory %s" name url-or-path)))
+
+          ;; Assume resource is a valid URL if it is not a local directory.
+          (let ((url (format url-or-path name)))
+            ;; create the svg-lib-icons-dir if not exists
+            (unless (file-exists-p svg-lib-icons-dir)
+              (make-directory svg-lib-icons-dir t))
+            (let* ((filename (expand-file-name (format "%s_%s.svg" collection name) svg-lib-icons-dir))
+                   (buffer (if (or force-reload (not (file-exists-p filename)))
+                               (with-current-buffer (url-retrieve-synchronously url)
+                                 (goto-char (point-min))
+                                 (search-forward "\n\n")
+                                 (write-region (point) (point-max) filename)
+                                 (current-buffer))
+                             (with-current-buffer (generate-new-buffer " *temp*")
+                               (insert-file-contents filename)
+                               (current-buffer)))))
+              (with-current-buffer buffer
+                (xml-parse-region (point-min) (point-max))))))))
+
+
+    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
+    (setopt svg-lib-icons-dir (expand-file-name "svg-lib" user-emacs-cache-directory))
+
+    (setopt svg-lib-icon-collections
+            (append svg-lib-icon-collections
+                    (list (cons "local-vscode"
+                                (expand-file-name (file-name-as-directory
+                                                   "icons/vscode")
+                                                  user-emacs-directory)))))
+
+    (setq kind-icon-mapping
+          '((array          "a"  :icon "array"          :face font-lock-type-face               :collection "local-vscode")
+            (boolean        "b"  :icon "boolean"        :face font-lock-builtin-face            :collection "local-vscode")
+            (class          "c"  :icon "class"          :face font-lock-type-face               :collection "local-vscode")
+            (color          "#"  :icon "color"          :face success                           :collection "local-vscode")
+            (constant       "c"  :icon "constant"       :face font-lock-constant-face           :collection "local-vscode")
+            (constructor    "c"  :icon "constructor"    :face font-lock-function-name-face      :collection "local-vscode")
+            (enum           "e"  :icon "enum"           :face font-lock-builtin-face            :collection "local-vscode")
+            (enum-member    "e"  :icon "enum-member"    :face font-lock-builtin-face            :collection "local-vscode")
+            (event          "e"  :icon "event"          :face font-lock-warning-face            :collection "local-vscode")
+            (field          "f"  :icon "field"          :face font-lock-variable-name-face      :collection "local-vscode")
+            (file           "f"  :icon "file"           :face font-lock-string-face             :collection "local-vscode")
+            (folder         "d"  :icon "folder"         :face font-lock-doc-face                :collection "local-vscode")
+            (function       "f"  :icon "function"       :face font-lock-function-name-face      :collection "local-vscode")
+            (interface      "i"  :icon "interface"      :face font-lock-type-face               :collection "local-vscode")
+            (keyword        "k"  :icon "keyword"        :face font-lock-keyword-face            :collection "local-vscode")
+            (method         "m"  :icon "method"         :face font-lock-function-name-face      :collection "local-vscode")
+            (module         "{"  :icon "module"         :face font-lock-preprocessor-face       :collection "local-vscode")
+            (numeric        "n"  :icon "numeric"        :face font-lock-builtin-face            :collection "local-vscode")
+            (operator       "o"  :icon "operator"       :face font-lock-comment-delimiter-face  :collection "local-vscode")
+            (property       "p"  :icon "property"       :face font-lock-variable-name-face      :collection "local-vscode")
+            (reference      "r"  :icon "reference"      :face font-lock-variable-name-face      :collection "local-vscode")
+            (snippet        "S"  :icon "snippet"        :face font-lock-string-face             :collection "local-vscode")
+            (string         "s"  :icon "string"         :face font-lock-string-face             :collection "local-vscode")
+            (struct         "%"  :icon "struct"         :face font-lock-variable-name-face      :collection "local-vscode")
+            (text           "t"  :icon "text"           :face font-lock-doc-face                :collection "local-vscode")
+            (type-parameter "t"  :icon "type-parameter" :face font-lock-type-face               :collection "local-vscode")
+            (unit           "u"  :icon "unit"           :face font-lock-constant-face           :collection "local-vscode")
+            (value          "v"  :icon "value"          :face font-lock-builtin-face            :collection "local-vscode")
+            (variable       "v"  :icon "variable"       :face font-lock-variable-name-face      :collection "local-vscode")
+            (t              "."  :icon "misc"           :face font-lock-warning-face            :collection "local-vscode")
+            )
+    )
+  )
+#+END_SRC

@@ -9,10 +9,30 @@ prefixes. By default, regexp and literal matches are enabled. [[[https://github.
 #+END_QUOTE
 
 #+BEGIN_SRC emacs-lisp
+
+  ;; Customise the TAB key to indent or completion-at-point, depending on
+  ;; context. The command first tries to indent the current line, and if the line
+  ;; was already indented, it calls completion-at-point to complete the text at
+  ;; point. See:
+  ;;
+  ;;     https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode_002dSpecific-Indent.html
+  ;;
+  (setq tab-always-indent 'complete)
+
+  ;; Specify the completion styles to use. See:
+  ;;
+  ;;     https://www.gnu.org/software/emacs/manual/html_node/emacs/Completion-Styles.html
+  ;;
+  ;;(setq completion-styles '(flex basic partial-completion emacs22))
+
+
   (use-package orderless
     :ensure t
     :custom
     (completion-styles '(orderless basic))
+    (completion-category-defaults nil)
     (completion-category-overrides '((file (styles partial-completion))))
   )
 #+END_SRC
+
+#+RESULTS:

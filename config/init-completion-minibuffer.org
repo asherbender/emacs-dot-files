@@ -20,7 +20,7 @@ and =consult-ripgrep= commands, and the line-based search command
 #+BEGIN_SRC emacs-lisp
   (use-package consult
     :ensure t
-    :bind (("C-s" . consult-line)
+    :bind (("M-s" . consult-line)
            ("C-x b" . consult-buffer)
           )
     :hook (completion-list-mode . consult-preview-at-point-mode)
@@ -95,6 +95,7 @@ to be highly flexible, extendable and modular. [[[https://github.com/minad/verti
     :ensure t
     :init
     (vertico-mode)
+    (vertico-mouse-mode)
     :custom
     (vertico-cycle t) ;; Allow cycling through candidates
   )
@@ -116,6 +117,27 @@ command. [[[https://github.com/minad/marginalia/][source]]]
     :ensure t
     :init
     (marginalia-mode)
+  )
+#+END_SRC
+
+*** Icons for minibuffer completions
+
+#+BEGIN_QUOTE
+Add icons to completion candidates using the built in completion metadata
+functions. [[[https://github.com/iyefrat/all-the-icons-completion][source]]]
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp
+  (use-package all-the-icons
+    :ensure t
+  )
+
+  (use-package all-the-icons-completion
+    :ensure t
+    :after (marginalia all-the-icons)
+    :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+    :init
+    (all-the-icons-completion-mode)
   )
 #+END_SRC
 
