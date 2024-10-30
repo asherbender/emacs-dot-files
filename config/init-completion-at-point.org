@@ -17,16 +17,27 @@ counterpart of the Vertico minibuffer UI. [[[https://github.com/minad/corfu][sou
     (corfu-auto t)
     (corfu-auto-prefix 2)
     (corfu-auto-delay 0.2)
+    (corfu-quit-at-boundary t)   ;; Quit at completion boundary.
+    (corfu-quit-no-match t)      ;; Quit if no matching candidate is found.
     :bind
     (:map corfu-map
           ("C-SPC" . corfu-insert-separator)
-          ("SPC"   . (lambda () (interactive) (corfu-quit) (insert " ")))
-          (":"     . (lambda () (interactive) (corfu-quit) (insert ":")))
           ("TAB"   . corfu-insert)
           ([tab]   . corfu-insert))
-
     :init
     (global-corfu-mode)
+    :config
+    (dolist (c (list (cons "SPC" " ")
+                     (cons "." ".")
+                     (cons "," ",")
+                     (cons ":" ":")
+                     (cons ")" ")")
+                     (cons "}" "}")
+                     (cons "]" "]")))
+      (define-key corfu-map (kbd (car c))
+                  `(lambda () (interactive) (corfu-quit) (insert ,(cdr c)))
+      )
+    )
   )
 #+END_SRC
 
