@@ -74,8 +74,6 @@ documentation]]:
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :defer t
-
-    ;; Execute code before package is loaded.
     :config
     (progn
 
@@ -96,11 +94,9 @@ Highlight uncommitted changes on the side of the window.
 #+BEGIN_SRC emacs-lisp
 (use-package diff-hl
   :defer t
-
-  ;; Execute code before package is loaded.
-  :init
+  :config
   (progn
-    (setq diff-hl-side 'right)
+    (setq diff-hl-side 'left)
     (global-diff-hl-mode)
     (diff-hl-margin-mode)
     (diff-hl-flydiff-mode)
