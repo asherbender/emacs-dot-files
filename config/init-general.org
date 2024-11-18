@@ -158,7 +158,7 @@ lines of context around the cursor visible during scrolling.
   ;; Number of lines of margin at the top and bottom of a window.  Trigger
   ;; automatic scrolling whenever point gets within this many lines of the top or
   ;; bottom of the window.
-  (setq scroll-margin 5)
+  (setq scroll-margin 0)
 
   ;; Allow pixel scrolling according to the turning of the mouse wheel.
   (setq pixel-scroll-precision-mode t)
