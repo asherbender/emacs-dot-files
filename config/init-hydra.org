@@ -102,9 +102,9 @@ that =jj= is an infrequent pair and on the home row, as shown below:
   "
   ^^Navigation^^                  ^Search^                 ^Other^
   ^^------------------------^^    ^-------------------     ^---------------------
-  _h_/_H_: backward  char/word    _o_: helm-occur          _b_: helm-mini
-  _j_/_J_: previous  line/para    _S_: helm-swoop          _f_: helm-find-files
-  _k_/_K_: next      line/para    _s_: isearch forward     _F_: helm-recent-files
+  _h_/_H_: backward  char/word
+  _j_/_J_: previous  line/para
+  _k_/_K_: next      line/para    _s_: isearch forward
   _l_/_L_: forward   char/word    _r_: isearch backward    _W_: ace-window
 
   _c_/_w_: avy goto  char/word
@@ -132,15 +132,10 @@ that =jj= is an infrequent pair and on the home row, as shown below:
   ("e" move-end-of-line   nil)
 
   ;; Search
-  ("o" helm-occur)
-  ("S" helm-swoop)
   ("s" isearch-forward)
   ("r" isearch-backward)
 
   ;; Other
-  ("b" helm-mini)
-  ("f" helm-find-files)
-  ("F" helm-recentf)
   ("W" ace-window)
 
   ;; Quit
