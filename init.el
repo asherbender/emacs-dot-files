@@ -111,6 +111,13 @@
   )
 )
 
+(defun reload-configuration ()
+  "Reload the Emacs configuration file."
+  (interactive)
+  (load-file (expand-file-name user-init-file))
+  (message "Configuration reloaded successfully!")
+)
+
 ;; Load the configuration.
 (require 'org)
 (org-babel-load-file (concat user-emacs-directory "README.org"))
