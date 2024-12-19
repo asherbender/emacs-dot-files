@@ -64,10 +64,12 @@ The main aims and features of this configuration are:
   (load-org-config "init-window.org")
 #+end_src
 
-** Word processing
+** Text processing
 
-| [[config/init-text-mode.org][Text]]  | Global configuration for text modes  |
-| [[config/init-latex.org][LaTeX]] | Configurations for LaTeX development |
+| [[config/init-text-mode.org][Text]]     | Global configuration for text modes   |
+| [[config/init-latex.org][LaTeX]]    | Configurations for LaTeX documents    |
+| [[config/init-markdown.org][Markdown]] | Configurations for Markdown documents |
+
 
 #+begin_src emacs-lisp :exports none
   (load-org-config "init-latex.org")

@@ -1,0 +1,11 @@
+* Docker
+
+Major mode for editing ~Markdown~ formatted text. See the [[https://jblevins.org/projects/markdown-mode/][project]] for more
+information.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode
+    :ensure t
+    :magic "\\.md\\'"
+  )
+#+END_SRC
