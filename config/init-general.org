@@ -163,3 +163,17 @@ lines of context around the cursor visible during scrolling.
   ;; Allow pixel scrolling according to the turning of the mouse wheel.
   (setq pixel-scroll-precision-mode t)
 #+END_SRC
+
+** Key binding help
+
+The `which-key' mode displays the key bindings following your currently entered
+incomplete command (a prefix) in a popup.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t
+    :commands (which-key-mode)
+    :init
+    (which-key-mode)
+  )
+#+END_SRC
