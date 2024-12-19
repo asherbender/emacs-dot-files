@@ -1,236 +1,35 @@
 * Python
 
-Python editing has been configured to allow the following:
-
-- Completion ([[https://github.com/jorgenschaefer/elpy][elpy]])
-- Syntax checking ([[https://github.com/jorgenschaefer/elpy][elpy]])
-- Documentation ([[https://github.com/jorgenschaefer/elpy][elpy]])
-- Indicate the location of the fill column
-- Auto-fill comments
-
-** Installation
-
-This configuration relies on the [[https://github.com/jorgenschaefer/elpy][elpy]] package. Before using the elpy
-package install the following:
-
-#+BEGIN_SRC sh
-pip install jedi
-pip install flake8
-pip install importmagic
-pip install autopep8
-pip install yapf
-#+END_SRC
-
-** Keybindings
-
-| Key       | Binding                               |
-|-----------+---------------------------------------|
-| C-down    | elpy-nav-forward-block                |
-| C-left    | elpy-nav-backward-indent              |
-| C-return  | elpy-shell-send-current-statement     |
-| C-right   | elpy-nav-forward-indent               |
-| C-up      | elpy-nav-backward-block               |
-| M-down    | elpy-nav-move-line-or-region-down     |
-| M-left    | elpy-nav-indent-shift-left            |
-| M-right   | elpy-nav-indent-shift-right           |
-| M-up      | elpy-nav-move-line-or-region-up       |
-| S-return  | elpy-open-and-indent-line-below       |
-| C-x 4     | Prefix Command                        |
-| C-M-i     | elpy-company-backend                  |
-| M-.       | elpy-goto-definition                  |
-| C-c C-b   | elpy-nav-expand-to-indentation        |
-| C-c C-c   | elpy-shell-send-region-or-buffer      |
-| C-c C-d   | elpy-doc                              |
-| C-c C-e   | elpy-multiedit-python-symbol-at-point |
-| C-c C-f   | elpy-find-file                        |
-| C-c RET   | elpy-importmagic-add-import           |
-| C-c C-n   | elpy-flymake-next-error               |
-| C-c C-o   | elpy-occur-definitions                |
-| C-c C-p   | elpy-flymake-previous-error           |
-| C-c C-r   | Prefix Command                        |
-| C-c C-s   | elpy-rgrep-symbol                     |
-| C-c C-t   | elpy-test                             |
-| C-c C-v   | elpy-check                            |
-| C-c C-z   | elpy-shell-switch-to-shell            |
-| C-x 4 ESC | Prefix Command                        |
-| C-c C-r f | elpy-format-code                      |
-| C-c C-r i | elpy-importmagic-fixup                |
-| C-c C-r r | elpy-refactor                         |
-| C-x 4 M-. | elpy-goto-definition-other-window     |
-
-** Configuration
-
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package elpy
-
-  ;;   ;; Execute code before package is loaded.
-  ;;   :init (with-eval-after-load 'python (elpy-enable))
-
-  ;;   ;; Execute code after package is loaded.
-  ;;   :config
-  ;;   (progn
-
-  ;;     ;; Permanently set jedi as the backend.
-  ;;     ;;
-  ;;     ;; Note: Both jedi and rope can be installed. For instance, jedi may be used
-  ;;     ;;       for auto completion and rope for refactoring support. However, when
-  ;;     ;;       both rope and jedi are installed, elpy will pick rope as the backend
-  ;;     ;;       by default.
-  ;;     (setq elpy-rpc-backend "jedi"
-  ;;           elpy-rpc-project-specific 't)
-
-  ;;     ;; Use Jupyter console.
-  ;;     (setq python-shell-interpreter "jupyter"
-  ;;           python-shell-interpreter-args "console --simple-prompt"
-  ;;           python-shell-prompt-detect-failure-warning nil)
-  ;;     (add-to-list 'python-shell-completion-native-disabled-interpreters "jupyter")
-
-  ;;     (when (fboundp 'flycheck-mode)
-  ;;       (setq elpy-modules (delete 'elpy-module-flymake elpy-modules))
-  ;;     )
-
-  ;;     ;; Configurations loaded when pythom-mode is activated.
-  ;;     (add-hook 'python-mode-hook
-  ;;        (lambda ()
-
-  ;;          ;; Stop PEP8 complaints.
-  ;;          (set-fill-column 79)
-
-  ;;          ;; Use C-n/C-p to select auto-complete candidates.
-  ;;          (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
-  ;;          (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
-
-  ;;          ;; Function for block indent if region (of text) is active. Otherwise
-  ;;          ;; auto-complete.
-  ;;          (defun python-tab ()
-  ;;            (interactive)
-  ;;            (cond
-  ;;              ((or (bolp) (equal (char-before) ? ))
-  ;;                 (python-indent-shift-right (point-at-bol) (point-at-eol))
-  ;;              )
-  ;;              ((region-active-p)
-  ;;                 (python-indent-shift-right (region-beginning) (region-end))
-  ;;              )
-  ;;              (t
-  ;;                 (company-begin-backend 'elpy-company-backend)
-  ;;              )
-  ;;            )
-  ;;          )
-
-  ;;          ;; Function for block dedent if region (of text) is active.
-  ;;          (defun python-backtab ()
-  ;;            (interactive)
-  ;;              (if (region-active-p)
-  ;;                (python-indent-shift-left (region-beginning) (region-end))
-  ;;                (python-indent-shift-left (point-at-bol) (point-at-eol))
-  ;;              )
-  ;;          )
-
-  ;;          (define-key python-mode-map (kbd "<tab>")     'python-tab)
-  ;;          (define-key python-mode-map (kbd "<backtab>") 'python-backtab)
-  ;;        )
-  ;;     )
-  ;;   )
-  ;; )
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-
-;;use-package eglot
-;; :ensure t
-;; :defer t
-;; :hook (python-mode . eglot-ensure)
-;;
-
-(use-package lsp-mode
-    :ensure t
-    :defer t
-    :commands (lsp lsp-deferred)
-    :init (setq lsp-keymap-prefix "C-c l")
-    :hook (python-mode . lsp-deferred)
- )
-
-(use-package lsp-ui
-    :ensure t
-    :defer t
-    :hook (lsp-mode . lsp-ui-mode)
-    :bind (:map lsp-ui-mode-map ("C-c i" . lsp-ui-imenu))
-    :config
-    (custom-set-variables
-        '(lsp-ui-doc-delay 0.5)
-        '(lsp-ui-doc-show-with-cursor t)
-        '(lsp-ui-doc-show-with-mouse nil)
-        '(lsp-ui-doc-use-webkit t)
-        '(lsp-lens-enable nil)
-        '(lsp-eldoc-enable-hover nil)
-        '(lsp-ui-sideline-enable nil)
-        '(lsp-ui-sideline-show-hover nil)
-        '(lsp-ui-sideline-show-diagnostics nil)
-        '(lsp-ui-sideline-show-code-actions nil)
-        '(lsp-modeline-code-actions-enable nil)
-    )
-)
-
-(use-package company
-  :ensure t
-  :pin gnu
-)
-
-(use-package lsp-pyright
-    :ensure t
-    :defer t
-    :requires company
-    :hook ((python-mode . (lambda () (require 'lsp-pyright) (lsp-deferred))))
-)
-
 (use-package python
-    :ensure t
+    :mode ("\\.py\\'" . python-ts-mode)
+    :hook ((python-mode . eglot-ensure)
+           (python-ts-mode . eglot-ensure))
     :config
-    (setq python-indent-guess-indent-offset-verbose nil)
-)
-
-(use-package treemacs
-    :ensure t
-    :defer t
-    :config
-    (progn
-      (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
-            treemacs-hide-dot-git-directory          t
-            treemacs-is-never-other-window           nil
-            treemacs-max-git-entries                 5000
-            treemacs-move-forward-on-expand          nil
-            treemacs-no-png-images                   t
-            treemacs-no-delete-other-windows         t
-            treemacs-position                        'left
-            treemacs-show-cursor                     t
-            treemacs-show-hidden-files               t
-            treemacs-sorting                         'alphabetic-asc
-            treemacs-width                           35
-
-            treemacs-indent-guide-style              line
-            treemacs-workspace-switch-cleanup        nil)
-      (treemacs-follow-mode t)
-      (treemacs-filewatch-mode t)
-      (treemacs-fringe-indicator-mode 'always)
+    ;; Eglot server configuration
+    (with-eval-after-load 'eglot
+      (add-to-list 'eglot-server-programs
+                   '((python-mode python-ts-mode) . ("pyright-langserver" "--stdio"))
       )
-    :bind
-    (:map global-map
-          ("M-0"       . treemacs-select-window)
-          ("C-x t 1"   . treemacs-delete-other-windows)
-          ("C-x t t"   . treemacs)
-          ("C-x t d"   . treemacs-select-directory)
-          ("C-x t B"   . treemacs-bookmark)
-          ("C-x t C-t" . treemacs-find-file)
-          ("C-x t M-t" . treemacs-find-tag))
-  )
 
-;;(use-package treemacs-magit
-;;    :after (treemacs magit)
-;;    :ensure t
-;;)
+    )
 
-;;(use-package treemacs-projectile
-;;    :after (treemacs projectile)
-;;    :ensure t
-;;)
+    ;; Enable Flycheck for Python modes.
+    (add-hook 'python-mode-hook 'flycheck-mode)
+    (add-hook 'python-ts-mode-hook 'flycheck-mode)
+
+    ;; Add Flake8 to Flycheck.
+    (setq flycheck-python-flake8-executable "flake8")
+    (setq-default flycheck-flake8-maximum-line-length 80)
+
+    ;; Add Pylint to Flycheck.
+    (setq flycheck-python-pylint-executable "pylint")
+    (add-to-list 'flycheck-checkers 'python-pylint)
+
+    ;; Set Linters
+    (setq flycheck-checkers '(python-flake8 python-pylint))
+
+    (setq flycheck-highlighting-mode 'lines)
+    (setq flycheck-indication-mode 'left-fringe)
+)
 #+END_SRC

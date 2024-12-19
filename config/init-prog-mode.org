@@ -16,9 +16,47 @@ Configure universal behaviour for programming modes.
 
      ;; Turn on `flyspell-mode' for comments and strings.
      (setq flyspell-prog-mode t)
-
-     ;; Preference projectile find-file in programming modes.
-     (local-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
    )
+)
+#+END_SRC
+
+
+** Flycheck
+
+On-the-fly syntax checking via [[https://www.flycheck.org/en/latest/][Flycheck]]:
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :ensure t
+)
+#+END_SRC
+
+** Tree sitter
+
+Emacs does not have a mechanism for choosing between a default mode
+(e.g. =python-mode=) and the tree-sitter equivalent
+(e.g. =python-ts-mode=). When =treesit-auto= is enabled globally, the following
+rules are applied:
+
+- Automatically switch to <name>-ts-mode when the grammar for <name> is installed
+- Stick with <name>-mode if the grammar isn’t installed
+- Automatically install a grammar before opening a compatible file
+- Modify auto-mode-alist for tree-sitter modes
+
+#+BEGIN_SRC emacs-lisp
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode)
+)
+#+END_SRC
+
+** Language server protocol
+
+#+BEGIN_SRC emacs-lisp
+(use-package eglot
+  :ensure t
 )
 #+END_SRC
