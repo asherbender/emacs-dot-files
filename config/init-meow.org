@@ -1,0 +1,249 @@
+* Key chord
+
+Allow commands to be bound to a combination of key-strokes.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package key-chord
+    :ensure t
+    :config
+    (progn
+      (key-chord-mode 1)
+      (setq key-chord-one-key-delay 0.3)
+    )
+  )
+#+END_SRC
+
+* Meow
+
+#+BEGIN_SRC emacs-lisp
+(defun meow-setup ()
+  (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+  (meow-motion-overwrite-define-key
+   '("j" . meow-next)
+   '("k" . meow-prev)
+   '("<escape>" . ignore))
+  (meow-leader-define-key
+   ;; SPC j/k will run the original command in MOTION state.
+   '("j" . "H-j")
+   '("k" . "H-k")
+   ;; Use SPC (0-9) for digit arguments.
+   '("1" . meow-digit-argument)
+   '("2" . meow-digit-argument)
+   '("3" . meow-digit-argument)
+   '("4" . meow-digit-argument)
+   '("5" . meow-digit-argument)
+   '("6" . meow-digit-argument)
+   '("7" . meow-digit-argument)
+   '("8" . meow-digit-argument)
+   '("9" . meow-digit-argument)
+   '("0" . meow-digit-argument)
+   '("/" . meow-keypad-describe-key)
+   '("?" . meow-cheatsheet))
+  (meow-normal-define-key
+   '("0" . meow-expand-0)
+   '("9" . meow-expand-9)
+   '("8" . meow-expand-8)
+   '("7" . meow-expand-7)
+   '("6" . meow-expand-6)
+   '("5" . meow-expand-5)
+   '("4" . meow-expand-4)
+   '("3" . meow-expand-3)
+   '("2" . meow-expand-2)
+   '("1" . meow-expand-1)
+   '("-" . negative-argument)
+   '(";" . meow-reverse)
+   '("," . meow-inner-of-thing)
+   '("." . meow-bounds-of-thing)
+   '("[" . meow-beginning-of-thing)
+   '("]" . meow-end-of-thing)
+   '("a" . meow-append)
+   '("A" . meow-open-below)
+   '("b" . meow-back-word)
+   '("B" . meow-back-symbol)
+   '("c" . meow-change)
+   '("d" . meow-delete)
+   '("D" . meow-backward-delete)
+   '("e" . meow-next-word)
+   '("E" . meow-next-symbol)
+   '("f" . meow-find)
+   '("g" . meow-cancel-selection)
+   '("G" . meow-grab)
+   '("h" . meow-left)
+   '("H" . meow-left-expand)
+   '("i" . meow-insert)
+   '("I" . meow-open-above)
+   '("j" . meow-next)
+   '("J" . meow-next-expand)
+   '("k" . meow-prev)
+   '("K" . meow-prev-expand)
+   '("l" . meow-right)
+   '("L" . meow-right-expand)
+   '("m" . meow-join)
+   '("n" . meow-search)
+   '("o" . meow-block)
+   '("O" . meow-to-block)
+   '("p" . meow-yank)
+   '("q" . meow-quit)
+   '("Q" . meow-goto-line)
+   '("r" . meow-replace)
+   '("R" . meow-swap-grab)
+   '("s" . meow-kill)
+   '("t" . meow-till)
+   '("u" . meow-undo)
+   '("U" . meow-undo-in-selection)
+   '("v" . meow-visit)
+   '("w" . meow-mark-word)
+   '("W" . meow-mark-symbol)
+   '("x" . meow-line)
+   '("X" . meow-goto-line)
+   '("y" . meow-save)
+   '("Y" . meow-sync-grab)
+   '("z" . meow-pop-selection)
+   '("'" . repeat)
+   '("<escape>" . ignore)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package transpose-frame
+    :config
+    (require 'windmove)
+  )
+
+  (defun meow-window-setup ()
+
+    ;; Create empty keymap with no-op on all keys.
+    (setq meow-window-motion-keymap (make-keymap))
+    (suppress-keymap meow-window-motion-keymap t)
+
+    (meow-define-state window-motion
+      "Window motion"
+      :lighter "[W]"
+      :keymap meow-window-motion-keymap)
+
+    (meow-define-keys 'window-motion
+      ;; Exit/escape
+      '("<escape>" . meow-normal-mode)
+      '("i" . meow-insert-mode)
+      '("g" . meow-normal-mode)
+      '("?" . meow-cheatsheet)
+      ;; Navigation
+      '("<left>"  . windmove-left)
+      '("<up>"    . windmove-up)
+      '("<right>" . windmove-right)
+      '("<down>"  . windmove-down)
+      '("h" . windmove-left)
+      '("j" . windmove-down)
+      '("k" . windmove-up)
+      '("l" . windmove-right)
+      ;; '("n" . next-window)
+      ;; '("p" . previous-window)
+      '("o" . other-window)
+      ;; Resizing windows
+      '("H" . shrink-window-horizontally)
+      '("J" . enlarge-window)
+      '("K" . shrink-window)
+      '("L" . enlarge-window-horizontally)
+      ;; Deleting windows
+      '("d" . delete-window)
+      '("D" . delete-other-windows)
+      '("0" . delete-window)
+      '("1" . delete-other-windows)
+      '("=" . balance-windows)
+      ;; Splitting windows
+      '("sv" . split-window-vertically)
+      '("sh" . split-window-horizontally)
+      '("2"  . split-window-vertically)
+      '("3"  . split-window-horizontally)
+      ;; Transpose/rotate.
+      '("fv" . flip-frame)
+      '("fh" . flop-frame)
+      '("rc" . rotate-frame-clockwise)
+      '("ra" . rotate-frame-anti-clockwise)
+    )
+  )
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package meow
+    :ensure t
+    :config
+    ;; Basic Meow setup
+    (meow-global-mode 1)  ;; Enable Meow globally
+
+    ;; Define a minimal set of keybindings
+    (setq meow-keypad-start "s")    ;; Start the keypad with 's'
+    (setq meow-keypad-quit  "q")    ;; Quit the keypad with 'q'
+
+    ;; Example minimal layout (adjust as needed)
+    (meow-leader-define-key
+     '("f" . find-file)             ;; Quickly open files
+     '("b" . switch-to-buffer)      ;; Switch buffers
+     '("k" . kill-buffer)           ;; Kill buffer
+     '("s" . save-buffer))          ;; Save buffer
+
+    ;; Set the default editing layout (QWERTY)
+    (meow-setup)
+
+    ;; Define initial Meow state for major modes - prefer insert state.
+    (customize-set-variable 'meow-mode-state-list
+                            '(
+                              (conf-mode . insert)
+                              (fundamental-mode . insert)
+                              (help-mode . motion)
+                              (prog-mode . insert)
+                              (text-mode . insert)
+                             )
+    )
+
+    (key-chord-define meow-insert-state-keymap "jj" [escape])
+
+    (meow-window-setup)
+    (meow-define-keys 'normal '("O" . meow-window-motion-mode))
+  )
+#+END_SRC
+
+Bind an infrequently used repeat bigram (for efficiency) to Meow's 'Normal'
+mode. Bigram text analysis by [[http://norvig.com/mayzner.html][Norvig]] shows that =jj= is an infrequent pair, as
+shown below:
+
+| Bigram | Percentage |     Counts     |
+|--------+------------+----------------|
+|   aa   |   0.003%   |     79,794,787 |
+|   bb   |   0.011%   |    308,276,690 |
+|   cc   |   0.083%   |  2,344,219,345 |
+|   dd   |   0.043%   |  1,205,446,875 |
+|   ee   |   0.378%   | 10,647,199,443 |
+|   ff   |   0.146%   |  4,125,634,219 |
+|   gg   |   0.025%   |    697,999,944 |
+|   hh   |   0.001%   |     14,730,425 |
+|   ii   |   0.023%   |    642,384,029 |
+|   jj   |   0.000%   |      2,979,950 |
+|   kk   |   0.000%   |     12,782,664 |
+|   ll   |   0.577%   | 16,257,360,474 |
+|   mm   |   0.096%   |  2,708,822,249 |
+|   nn   |   0.073%   |  2,051,719,074 |
+|   oo   |   0.210%   |  5,928,601,045 |
+|   pp   |   0.137%   |  3,850,125,519 |
+|   qq   |   0.000%   |      1,712,219 |
+|   rr   |   0.121%   |  3,404,547,067 |
+|   ss   |   0.405%   | 11,421,755,201 |
+|   tt   |   0.171%   |  4,812,693,687 |
+|   uu   |   0.001%   |     22,006,895 |
+|   vv   |   0.000%   |      2,622,571 |
+|   ww   |   0.000%   |      7,377,619 |
+|   xx   |   0.003%   |     79,068,246 |
+|   yy   |   0.000%   |      1,993,017 |
+|   zz   |   0.003%   |     75,012,595 |
+
+(scraped from [[[http://norvig.com/mayzner.html][source]]])
+
+* Meow tree-sitter
+
+#+BEGIN_SRC emacs-lisp
+(use-package meow-tree-sitter
+  :after meow
+  :ensure t
+  :config
+  (meow-tree-sitter-register-defaults)
+)
+#+END_SRC

@@ -36,18 +36,3 @@ NOTE: the default register commands have not been tampered with:
 (global-set-key (kbd "C-x ,") 'set-jump-register-here)
 (global-set-key (kbd "C-x .") '(lambda() (interactive) (jump-to-register  ?h)))
 #+END_SRC
-
-** Key chord
-
-Allow commands to be bound to a combination of key-strokes.
-
-#+BEGIN_SRC emacs-lisp
-(use-package key-chord
-  :ensure t
-  :config
-  (progn
-    (key-chord-mode 1)
-    (setq key-chord-one-key-delay 0.30)
-  )
-)
-#+END_SRC
