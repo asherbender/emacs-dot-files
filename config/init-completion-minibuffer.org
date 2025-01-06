@@ -3,7 +3,10 @@
 Configure behaviour for saving minibuffer history:
 
 #+BEGIN_SRC emacs-lisp
+  ;; Toggle saving of minibuffer history.
   (savehist-mode 1)
+
+  ;; File name where minibuffer history is saved to and loaded from.
   (setq savehist-file (concat user-emacs-auto-directory "minibuffer-history"))
 #+END_SRC
 
@@ -20,7 +23,7 @@ and =consult-ripgrep= commands, and the line-based search command
 #+BEGIN_SRC emacs-lisp
   (use-package consult
     :ensure t
-    :bind (("M-s" . consult-line)
+    :bind (("M-s"   . consult-line)
            ("C-x b" . consult-buffer)
           )
     :hook (completion-list-mode . consult-preview-at-point-mode)
