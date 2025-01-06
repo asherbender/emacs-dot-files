@@ -55,45 +55,6 @@ Create a 'main' Hydra for launching other Hydra menus
 )
 #+END_SRC
 
-Enable key-chords and assign a [[https://github.com/abo-abo/hydra][hydra]] menu to an infrequently used
-repeat bigram (for efficiency). Bigram text analysis by [[http://norvig.com/mayzner.html][Norvig]] shows
-that =jj= is an infrequent pair and on the home row, as shown below:
-
-| Bigram | Percentage |     Counts     |
-|--------+------------+----------------|
-|   aa   |   0.003%   |     79,794,787 |
-|   bb   |   0.011%   |    308,276,690 |
-|   cc   |   0.083%   |  2,344,219,345 |
-|   dd   |   0.043%   |  1,205,446,875 |
-|   ee   |   0.378%   | 10,647,199,443 |
-|   ff   |   0.146%   |  4,125,634,219 |
-|   gg   |   0.025%   |    697,999,944 |
-|   hh   |   0.001%   |     14,730,425 |
-|   ii   |   0.023%   |    642,384,029 |
-|   jj   |   0.000%   |      2,979,950 |
-|   kk   |   0.000%   |     12,782,664 |
-|   ll   |   0.577%   | 16,257,360,474 |
-|   mm   |   0.096%   |  2,708,822,249 |
-|   nn   |   0.073%   |  2,051,719,074 |
-|   oo   |   0.210%   |  5,928,601,045 |
-|   pp   |   0.137%   |  3,850,125,519 |
-|   qq   |   0.000%   |      1,712,219 |
-|   rr   |   0.121%   |  3,404,547,067 |
-|   ss   |   0.405%   | 11,421,755,201 |
-|   tt   |   0.171%   |  4,812,693,687 |
-|   uu   |   0.001%   |     22,006,895 |
-|   vv   |   0.000%   |      2,622,571 |
-|   ww   |   0.000%   |      7,377,619 |
-|   xx   |   0.003%   |     79,068,246 |
-|   yy   |   0.000%   |      1,993,017 |
-|   zz   |   0.003%   |     75,012,595 |
-
-(scraped from [[[http://norvig.com/mayzner.html][source]]])
-
-#+BEGIN_SRC emacs-lisp
-(key-chord-define-global "jj" 'hydra-main/body)
-#+END_SRC
-
 
 ** Navigation Hydra
 
