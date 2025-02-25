@@ -1,0 +1,19 @@
+* JavaScript
+
+#+BEGIN_SRC emacs-lisp
+(use-package js
+  :mode ("\\.js\\'" . js-ts-mode)
+  :hook ((js-mode . eglot-ensure)
+         (js-ts-mode . eglot-ensure))
+  :config
+  ;; Eglot server configuration
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 '((js-mode js-ts-mode) . ("typescript-language-server" "--stdio"))))
+)
+
+(use-package prettier
+  :hook (js-ts-mode . prettier-mode)
+)
+
+#+END_SRC
