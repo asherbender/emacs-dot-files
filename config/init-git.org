@@ -46,6 +46,7 @@ documentation]]:
 
 #+BEGIN_SRC emacs-lisp
 (use-package transient
+  :ensure t
   :defer t
   :config
 
@@ -72,18 +73,19 @@ documentation]]:
 ** Magit
 
 #+BEGIN_SRC emacs-lisp
-  (use-package magit
-    :defer t
-    :config
-    (progn
+(use-package magit
+  :ensure t
+  :defer t
+  :config
+  (progn
 
-      ;; Maximum length of summary line.
-      (setq git-commit-summary-max-length 50)
+    ;; Maximum length of summary line.
+    (setq git-commit-summary-max-length 50)
 
-      ;; Wrap text to 72 characters.
-      (setq git-commit-fill-column 72)
-    )
+    ;; Wrap text to 72 characters.
+    (setq git-commit-fill-column 72)
   )
+)
 #+END_SRC
 
 
@@ -93,6 +95,7 @@ Highlight uncommitted changes on the side of the window.
 
 #+BEGIN_SRC emacs-lisp
 (use-package diff-hl
+  :ensure t
   :defer t
   :config
   (progn
