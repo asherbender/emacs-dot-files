@@ -1,0 +1,14 @@
+* Emacs Lisp
+
+#+BEGIN_SRC emacs-lisp
+(use-package package-lint
+  :ensure t
+  :commands (package-lint-current-buffer)
+)
+
+(use-package package-lint-flymake
+  :ensure t
+  :after flymake
+  :hook (emacs-lisp-mode . package-lint-flymake-setup)
+)
+#+END_SRC

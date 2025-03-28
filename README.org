@@ -94,6 +94,7 @@ The main aims and features of this configuration are:
   (load-org-config "init-git.org")
   (load-org-config "init-ediff.org")
   (load-org-config "init-python.org")
+  (load-org-config "init-elisp.org")
   (load-org-config "init-javascript.org")
   (load-org-config "init-docker.org")
   (load-org-config "init-yaml.org")
