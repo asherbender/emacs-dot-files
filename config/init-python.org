@@ -31,5 +31,9 @@
 
     (setq flycheck-highlighting-mode 'lines)
     (setq flycheck-indication-mode 'left-fringe)
+
+    ;; Ensure Tree-sitter knows how to map `python-ts-mode` to the `python`
+    ;; grammar.
+    (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
 )
 #+END_SRC
