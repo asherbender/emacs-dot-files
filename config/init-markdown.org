@@ -6,6 +6,56 @@ information.
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
     :ensure t
-    :magic "\\.md\\'"
+    :mode (("\\.md\\'" . gfm-mode))
+    :custom
+
+    ;; Determines if atx header style will be asymmetric. Set to a non-nil value
+    ;; to use asymmetric header styling, placing header markup only at the
+    ;; beginning of the line.
+    ;;
+    ;; Asymmetric headers only have header markup at the beginning of the line:
+    ;;
+    ;;     # A Level 1 Header
+    ;;     ## A Level 2 Header
+    ;;
+    ;; Symmetric headers have header markup at the beginning AND end of the line:
+    ;;
+    ;;     # A Level 1 Header #
+    ;;     ## A Level 2 Header ##
+    ;;
+    (markdown-asymmetric-header t)
+
+    ;; String inserted before unordered list items.
+    (markdown-unordered-list-item-prefix "- ")
+
+    ;; Depth of indentation for markdown lists.
+    (markdown-list-indent-width 4)
+
+    ;; When non-nil, change wiki link face according to existence of target
+    ;; files. This is expensive because it requires checking for the file each
+    ;; time the buffer changes or the user switches windows. It is disabled by
+    ;; default because it may cause lag when typing on slower machines.
+    (markdown-wiki-link-fontify-missing t)
+
+    ;; Position where new reference definitions are inserted in the document.
+    ;; Choices:
+    ;;
+    ;;     end:         At the end of the document
+    ;;     immediately: Immediately after the current block
+    ;;     subtree:     At the end of the subtree
+    ;;     header:      Before next header
+    ;;
+    (markdown-reference-location 'end)
+
+    ;; Use fenced code blocks ("`") as the default style.
+    (markdown-code-block-style 'fenced)
+
+    ;; When non-nil, fontify code in code blocks using the native major mode.
+    ;; This only works for fenced code blocks where the language is specified
+    ;; where we can automatically determine the appropriate mode to use.
+    (markdown-fontify-code-blocks-natively t)
+
+    ;; Number of space characters to insert after a code fence.
+    (markdown-spaces-after-code-fence 0)
   )
 #+END_SRC
